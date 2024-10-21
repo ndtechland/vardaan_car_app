@@ -1,7 +1,7 @@
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get/get.dart';
 
-import '../module/otp_page.dart';
+import '../module/user/otp_page.dart';
 
 class PhoneLoginController extends GetxController {
   var isLoading = false.obs;

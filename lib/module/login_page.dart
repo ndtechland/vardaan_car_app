@@ -3,7 +3,7 @@ import 'package:get/get.dart';
 
 import '../theme_color/theme_color.dart';
 import '../utils/constant_text.dart';
-import 'otp_page.dart';
+import 'user/otp_page.dart';
 
 class LoginPage extends StatelessWidget {
   final TextEditingController phoneController = TextEditingController();

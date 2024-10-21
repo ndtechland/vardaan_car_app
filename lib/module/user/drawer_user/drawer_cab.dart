@@ -6,11 +6,12 @@ import 'package:get/get_core/src/get_main.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:url_launcher/url_launcher.dart';
-import 'package:vardaancar/module/language_update_drower_innerpage.dart';
+import 'package:vardaancar/module/user/language_update_drower_innerpage.dart';
 
-import '../../theme_color/theme_color.dart';
+import '../../../theme_color/theme_color.dart';
+import '../../change_password.dart';
+import '../../contact_support_page.dart';
 import '../booking_trip_user.dart';
-import '../contact_support_page.dart';
 import '../feedback_screen.dart';
 import '../get_profile_page.dart';
 import '../update_profile_user.dart';
@@ -98,7 +99,8 @@ class CabDrawer extends StatelessWidget {
               dense: true,
               // visualDensity: VisualDensity(horizontal: 0, vertical: -4),
               title: Text(
-                'Trip',
+                //                                    'Your Driver:'.tr,
+                'Trip'.tr,
                 style: TextStyle(fontSize: 12, fontWeight: FontWeight.w600),
               ),
               // tileColor: Get.currentRoute == '/AllProducts'
@@ -140,7 +142,7 @@ class CabDrawer extends StatelessWidget {
               dense: true,
               // visualDensity: VisualDensity(horizontal: 0, vertical: -1),
               title: Text(
-                'User Profile',
+                'User Profile'.tr,
                 style: TextStyle(fontSize: 12, fontWeight: FontWeight.w600),
               ),
               tileColor:
@@ -176,7 +178,7 @@ class CabDrawer extends StatelessWidget {
               dense: true,
               // visualDensity: VisualDensity(horizontal: 0, vertical: -1),
               title: Text(
-                'Update Profile',
+                'Update Profile'.tr,
                 //'Gift Boxes',
                 style: TextStyle(fontSize: 12, fontWeight: FontWeight.w600),
               ),
@@ -242,7 +244,7 @@ class CabDrawer extends StatelessWidget {
               dense: true,
               //visualDensity: VisualDensity(horizontal: 0, vertical: -1),
               title: Text(
-                'Change Language',
+                'Change Language'.tr,
                 style: TextStyle(fontSize: 12, fontWeight: FontWeight.w600),
               ),
               tileColor: Get.currentRoute == '/DriverPayoutHistory'
@@ -252,6 +254,37 @@ class CabDrawer extends StatelessWidget {
                 ///
                 Get.back();
                 Get.to(() => LanguageUpdatePagess());
+
+                ///
+              },
+              //
+            ),
+            ListTile(
+              //horizontalTitleGap: 2.h,
+              leading: Icon(
+                Icons.password,
+                color: Colors.black,
+                size: 16,
+              ),
+              trailing: Icon(
+                Icons.arrow_forward_ios_sharp,
+                size: 11,
+                color: Colors.black,
+              ),
+              contentPadding: EdgeInsets.symmetric(vertical: 0, horizontal: 10),
+              dense: true,
+              //visualDensity: VisualDensity(horizontal: 0, vertical: -1),
+              title: Text(
+                'Change Password'.tr,
+                style: TextStyle(fontSize: 12, fontWeight: FontWeight.w600),
+              ),
+              tileColor: Get.currentRoute == '/DriverPayoutHistory'
+                  ? Colors.grey[300]
+                  : null,
+              onTap: () async {
+                ///
+                Get.back();
+                Get.to(() => ForgotPassword());
 
                 ///
               },
@@ -274,7 +307,7 @@ class CabDrawer extends StatelessWidget {
               dense: true,
               //visualDensity: VisualDensity(horizontal: 0, vertical: -1),
               title: Text(
-                'Feedback',
+                'Feedback'.tr,
                 style: TextStyle(fontSize: 12, fontWeight: FontWeight.w600),
               ),
               tileColor: Get.currentRoute == '/DriverPayoutHistory'
@@ -373,7 +406,7 @@ class CabDrawer extends StatelessWidget {
               dense: true,
               //visualDensity: VisualDensity(horizontal: 0, vertical: -1),
               title: Text(
-                'Support',
+                'Support'.tr,
                 style: TextStyle(fontSize: 12, fontWeight: FontWeight.w600),
               ),
               tileColor: Get.currentRoute == '/PersonalProfile'
@@ -409,7 +442,7 @@ class CabDrawer extends StatelessWidget {
               dense: true,
               //visualDensity: VisualDensity(horizontal: 0, vertical: -1),
               title: Text(
-                'About Us',
+                'About Us'.tr,
                 style: TextStyle(fontSize: 12, fontWeight: FontWeight.w600),
               ),
               tileColor: Get.currentRoute == '/UserAboutUsView'
@@ -449,7 +482,7 @@ class CabDrawer extends StatelessWidget {
               dense: true,
               //visualDensity: VisualDensity(horizontal: 0, vertical: -1),
               title: Text(
-                'Privacy Policy',
+                'Privacy Policy'.tr,
                 style: TextStyle(fontSize: 12, fontWeight: FontWeight.w600),
               ),
               tileColor: Get.currentRoute == '/PersonalProfile'
@@ -487,7 +520,7 @@ class CabDrawer extends StatelessWidget {
               dense: true,
               visualDensity: VisualDensity(horizontal: 0, vertical: -2),
               title: Text(
-                'Delete Account',
+                'Delete Account'.tr,
                 style: TextStyle(fontSize: 12, fontWeight: FontWeight.w600),
                 //fontWeight: FontWeight.w600,
                 //color: Colors.black,
@@ -528,7 +561,7 @@ class CabDrawer extends StatelessWidget {
               dense: true,
               //visualDensity: VisualDensity(horizontal: 0, vertical: -1),
               title: Text(
-                'Logout',
+                'Logout'.tr,
                 style: TextStyle(fontSize: 12, fontWeight: FontWeight.w600),
               ),
               tileColor:
@@ -542,7 +575,6 @@ class CabDrawer extends StatelessWidget {
                     .then((value) => value.clear());
                 //Get.back();
                 //prefs.remove('email');
-
                 //Get.to(() => LoginPage());
                 /// Get.offNamed('/LoginPage');
               },
@@ -563,7 +595,7 @@ class CabDrawer extends StatelessWidget {
             padding: EdgeInsets.symmetric(horizontal: 20, vertical: 10),
             textStyle: TextStyle(fontSize: 10, fontWeight: FontWeight.bold)),
         child: Text(
-          "Confirm",
+          "Confirm".tr,
           style: GoogleFonts.roboto(fontSize: 12, color: AppColors.th1wht2),
         ));
   }
@@ -578,7 +610,7 @@ class CabDrawer extends StatelessWidget {
             padding: EdgeInsets.symmetric(horizontal: 20, vertical: 10),
             textStyle: TextStyle(fontSize: 10, fontWeight: FontWeight.bold)),
         child: Text(
-          "Cancel",
+          "Cancel".tr,
           style: GoogleFonts.roboto(fontSize: 12, color: AppColors.th1wht2),
         ));
   }

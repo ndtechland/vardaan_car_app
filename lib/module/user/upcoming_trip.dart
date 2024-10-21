@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 
-import '../contantss/textfield_constant/text_2d.dart';
-import '../contantss/texts/3d_texts.dart';
-import '../theme_color/theme_color.dart';
+import '../../contantss/textfield_constant/text_2d.dart';
+import '../../contantss/texts/3d_texts.dart';
+import '../../theme_color/theme_color.dart';
 
-class LiveBooking extends StatelessWidget {
-  const LiveBooking({Key? key}) : super(key: key);
+class UpcomingBooking extends StatelessWidget {
+  const UpcomingBooking({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -26,7 +26,7 @@ class LiveBooking extends StatelessWidget {
     return Scaffold(
       backgroundColor: AppColors.th1whtbackgrd,
       body: ListView.builder(
-        itemCount: 1,
+        itemCount: 5,
         itemBuilder: (BuildContext context, int index) {
           // Ensure the index is within bounds of tileColors list
           int colorIndex = index % tileColors.length;
@@ -48,7 +48,7 @@ class LiveBooking extends StatelessWidget {
                   border: Border.all(color: AppColors.g1),
                 ),
                 child: Padding(
-                  padding: const EdgeInsets.all(8.0),
+                  padding: const EdgeInsets.all(4.0),
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceAround,
                     crossAxisAlignment: CrossAxisAlignment.center,
@@ -60,46 +60,38 @@ class LiveBooking extends StatelessWidget {
                           ThreeDtext(
                             text: 'Facility :',
                             fontColor: Colors.black,
-                            fontSize: size.height * 0.019,
-                            fontWeight: FontWeight.w600,
-                          ),
-
-                          ThreeDtext(
-                            text: 'OTP :',
-                            fontColor: Colors.black,
-                            fontSize: size.height * 0.019,
-                            fontWeight: FontWeight.w600,
-                          ),
-                          ThreeDtext(
-                            text: 'Driver Id :',
-                            fontColor: Colors.black,
-                            fontSize: size.height * 0.019,
-                            fontWeight: FontWeight.w600,
+                            fontSize: size.height * 0.017,
+                            fontWeight: FontWeight.w500,
                           ),
                           ThreeDtext(
                             text: 'Cab Id :',
                             fontColor: Colors.black,
-                            fontSize: size.height * 0.019,
-                            fontWeight: FontWeight.w600,
+                            fontSize: size.height * 0.017,
+                            fontWeight: FontWeight.w500,
                           ),
                           ThreeDtext(
                             text: 'Cab Name :',
                             fontColor: Colors.black,
-                            fontSize: size.height * 0.019,
-                            fontWeight: FontWeight.w600,
+                            fontSize: size.height * 0.017,
+                            fontWeight: FontWeight.w500,
                           ),
-
+                          ThreeDtext(
+                            text: 'Pickup Date :',
+                            fontColor: Colors.black,
+                            fontSize: size.height * 0.017,
+                            fontWeight: FontWeight.w500,
+                          ),
                           ThreeDtext(
                             text: 'Pickup Time :',
                             fontColor: Colors.black,
-                            fontSize: size.height * 0.019,
-                            fontWeight: FontWeight.w600,
+                            fontSize: size.height * 0.017,
+                            fontWeight: FontWeight.w500,
                           ),
                           ThreeDtext(
                             text: 'Pickup Location :',
                             fontColor: Colors.black,
-                            fontSize: size.height * 0.019,
-                            fontWeight: FontWeight.w600,
+                            fontSize: size.height * 0.017,
+                            fontWeight: FontWeight.w500,
                           ),
 
                           //ThreeDtext2
@@ -116,27 +108,8 @@ class LiveBooking extends StatelessWidget {
                             child: ThreeDtext2(
                               text: "Vardaan Driver",
                               fontColor: AppColors.greyColor,
-                              fontSize: size.height * 0.018,
-                              fontWeight: FontWeight.w600,
-                            ),
-                          ),
-                          Padding(
-                            padding: const EdgeInsets.all(1.0),
-                            child: ThreeDtext2(
-                              text: "12345",
-                              fontColor: MyTheme.logored,
-                              fontSize: size.height * 0.018,
-                              fontWeight: FontWeight.w600,
-                            ),
-                          ),
-
-                          Padding(
-                            padding: const EdgeInsets.all(1.0),
-                            child: ThreeDtext2(
-                              text: "1345WESQ",
-                              fontColor: AppColors.greyColor,
-                              fontSize: size.height * 0.018,
-                              fontWeight: FontWeight.w600,
+                              fontSize: size.height * 0.015,
+                              fontWeight: FontWeight.w500,
                             ),
                           ),
                           Padding(
@@ -144,8 +117,8 @@ class LiveBooking extends StatelessWidget {
                             child: ThreeDtext2(
                               text: "1234SED",
                               fontColor: AppColors.greyColor,
-                              fontSize: size.height * 0.018,
-                              fontWeight: FontWeight.w600,
+                              fontSize: size.height * 0.015,
+                              fontWeight: FontWeight.w500,
                             ),
                           ),
 
@@ -154,18 +127,26 @@ class LiveBooking extends StatelessWidget {
                             child: ThreeDtext2(
                               text: "Maruti Swift",
                               fontColor: AppColors.greyColor,
-                              fontSize: size.height * 0.018,
-                              fontWeight: FontWeight.w600,
+                              fontSize: size.height * 0.015,
+                              fontWeight: FontWeight.w500,
                             ),
                           ),
-
+                          Padding(
+                            padding: const EdgeInsets.all(1.0),
+                            child: ThreeDtext2(
+                              text: "25/12/2024",
+                              fontColor: AppColors.greyColor,
+                              fontSize: size.height * 0.015,
+                              fontWeight: FontWeight.w500,
+                            ),
+                          ),
                           Padding(
                             padding: const EdgeInsets.all(1.0),
                             child: ThreeDtext2(
                               text: "12:30 P.M.",
                               fontColor: AppColors.greyColor,
-                              fontSize: size.height * 0.018,
-                              fontWeight: FontWeight.w600,
+                              fontSize: size.height * 0.015,
+                              fontWeight: FontWeight.w500,
                             ),
                           ),
                           Padding(
@@ -178,8 +159,8 @@ class LiveBooking extends StatelessWidget {
                                 child: ThreeDtext2(
                                   text: "C53, Block C, Sector 2, Noida       ",
                                   fontColor: AppColors.greyColor,
-                                  fontSize: size.height * 0.018,
-                                  fontWeight: FontWeight.w600,
+                                  fontSize: size.height * 0.015,
+                                  fontWeight: FontWeight.w500,
                                 ),
                               ),
                             ),

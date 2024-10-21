@@ -13,9 +13,12 @@ PreferredSizeWidget myAppBar({
   VoidCallback? onUserPressed,
   bool? centerTitle,
   double? titleFontSize, // Added font size parameter
+  Color? backgroundColor, // Optional background color
 }) {
   return AppBar(
-    backgroundColor: MyTheme.themecolor,
+    backgroundColor: backgroundColor ??
+        MyTheme
+            .themecolor, // Use optional background color or default to MyTheme.themecolor
     title: Text(
       title,
       style: GoogleFonts.roboto(

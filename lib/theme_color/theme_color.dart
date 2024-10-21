@@ -20,11 +20,22 @@ class MyTheme {
   static Color t1Iconcolor = Color(0xffEEEEEE);
   static Color ambapptextfield = Color(0xffa6a6a6);
   static Color ambapptextfield2 = Color(0xffefebf1);
-
   static Color t22Iconcolor = Color(0xff3E64FF);
   static Color drivrtextfield = Color(0xffFFEBEB);
-
   static Color drivrbackgrnd = Color(0xff77aaff);
+
+  static Color orng1 = Color(0xffffa500);
+  static Color orng2 = Color(0xffe56717);
+  static Color orng3 = Color(0xffe18B6B);
+  static Color orng4 = Color(0xfff5deb3);
+  static Color orng5 = Color(0xffff7f50);
+  static Color orng6 = Color(0xffffc594);
+  static Color orng7 = Color(0xfff88158);
+  static Color orng8 = Color(0xfff87217);
+
+  static Color aquaa1 = Color(0xffafdcec);
+
+  //oxffb4cfec
 
   //B2FCFF
 

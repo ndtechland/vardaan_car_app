@@ -1,10 +1,10 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:vardaancar/module/upcoming_trip.dart';
+import 'package:vardaancar/module/user/upcoming_trip.dart';
 
-import '../contantss/appbar/appbar_custom.dart';
-import '../theme_color/theme_color.dart';
+import '../../contantss/appbar/appbar_custom.dart';
+import '../../theme_color/theme_color.dart';
 import 'history_trip.dart';
 import 'live_booking.dart';
 

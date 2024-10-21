@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 
-import '../theme_color/theme_color.dart';
+import '../../theme_color/theme_color.dart';
 
 class ProfilePages extends StatelessWidget {
   const ProfilePages({Key? key}) : super(key: key);

@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 
-import '../contantss/textfield_constant/text_2d.dart';
-import '../contantss/texts/3d_texts.dart';
-import '../theme_color/theme_color.dart';
+import '../../contantss/textfield_constant/text_2d.dart';
+import '../../contantss/texts/3d_texts.dart';
+import '../../theme_color/theme_color.dart';
 
-class UpcomingScheduledBooking extends StatelessWidget {
-  const UpcomingScheduledBooking({Key? key}) : super(key: key);
+class ScheduledLiveBooking extends StatelessWidget {
+  const ScheduledLiveBooking({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -26,7 +26,7 @@ class UpcomingScheduledBooking extends StatelessWidget {
     return Scaffold(
       backgroundColor: AppColors.th1whtbackgrd,
       body: ListView.builder(
-        itemCount: 5,
+        itemCount: 1,
         itemBuilder: (BuildContext context, int index) {
           // Ensure the index is within bounds of tileColors list
           int colorIndex = index % tileColors.length;
@@ -43,19 +43,23 @@ class UpcomingScheduledBooking extends StatelessWidget {
                 // height: size.height * 0.09,
                 width: size.width,
                 decoration: BoxDecoration(
-                  color: AppColors.th1wht2,
-                  image: DecorationImage(
-                      image: NetworkImage(
-                          "https://images.unsplash.com/photo-1608664330225-b4caded73781?q=80&w=2673&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
-                          //"https://images.unsplash.com/photo-1703868673325-64d7d7afa618?q=80&w=2576&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
-                          // "https://images.unsplash.com/photo-1513735429658-5b2072a1cee6?q=80&w=2532&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
-                          ),
-                      fit: BoxFit.fill),
-                  borderRadius: BorderRadius.circular(5),
-                  border: Border.all(color: AppColors.g1),
-                ),
+                    color: AppColors.th1wht2,
+                    borderRadius: BorderRadius.circular(5),
+                    border: Border.all(color: AppColors.g1),
+                    image: DecorationImage(
+                        image: NetworkImage(
+                            //
+                            "https://images.unsplash.com/photo-1501884428012-aa321a256730?q=80&w=2674&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+                            // "https://images.unsplash.com/photo-1502021680532-838cfc650323?q=80&w=2671&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+                            // "https://images.unsplash.com/photo-1661115400281-5f2920812765?w=800&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1yZWxhdGVkfDQ2fHx8ZW58MHx8fHx8"
+                            // "https://images.unsplash.com/photo-1449182325215-d517de72c42d?w=800&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1yZWxhdGVkfDQ1fHx8ZW58MHx8fHx8"
+                            // "https://images.unsplash.com/photo-1515674744565-0d7112cd179a?q=80&w=2574&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+                            // "https://images.unsplash.com/photo-1539639087565-41c59f40f3d7?q=80&w=2670&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+                            //
+                            ),
+                        fit: BoxFit.fill)),
                 child: Padding(
-                  padding: const EdgeInsets.all(4.0),
+                  padding: const EdgeInsets.all(8.0),
                   child: Column(
                     children: [
                       Row(
@@ -68,39 +72,47 @@ class UpcomingScheduledBooking extends StatelessWidget {
                             children: [
                               ThreeDtext(
                                 text: 'Facility :',
-                                fontColor: Colors.black,
-                                fontSize: size.height * 0.017,
-                                fontWeight: FontWeight.w500,
+                                fontColor: Colors.white,
+                                fontSize: size.height * 0.019,
+                                fontWeight: FontWeight.w600,
+                              ),
+
+                              ThreeDtext(
+                                text: 'OTP :',
+                                fontColor: Colors.white,
+                                fontSize: size.height * 0.019,
+                                fontWeight: FontWeight.w600,
+                              ),
+                              ThreeDtext(
+                                text: 'Driver Id :',
+                                fontColor: Colors.white,
+                                fontSize: size.height * 0.019,
+                                fontWeight: FontWeight.w600,
                               ),
                               ThreeDtext(
                                 text: 'Cab Id :',
-                                fontColor: Colors.black,
-                                fontSize: size.height * 0.017,
-                                fontWeight: FontWeight.w500,
+                                fontColor: Colors.white,
+                                fontSize: size.height * 0.019,
+                                fontWeight: FontWeight.w600,
                               ),
                               ThreeDtext(
                                 text: 'Cab Name :',
-                                fontColor: Colors.black,
-                                fontSize: size.height * 0.017,
-                                fontWeight: FontWeight.w500,
+                                fontColor: Colors.white,
+                                fontSize: size.height * 0.019,
+                                fontWeight: FontWeight.w600,
                               ),
-                              ThreeDtext(
-                                text: 'Pickup Date :',
-                                fontColor: Colors.black,
-                                fontSize: size.height * 0.017,
-                                fontWeight: FontWeight.w500,
-                              ),
+
                               ThreeDtext(
                                 text: 'Pickup Time :',
-                                fontColor: Colors.black,
-                                fontSize: size.height * 0.017,
-                                fontWeight: FontWeight.w500,
+                                fontColor: Colors.white,
+                                fontSize: size.height * 0.019,
+                                fontWeight: FontWeight.w600,
                               ),
                               ThreeDtext(
                                 text: 'Pickup Location :',
-                                fontColor: Colors.black,
-                                fontSize: size.height * 0.017,
-                                fontWeight: FontWeight.w500,
+                                fontColor: Colors.white,
+                                fontSize: size.height * 0.019,
+                                fontWeight: FontWeight.w600,
                               ),
 
                               //ThreeDtext2
@@ -116,18 +128,37 @@ class UpcomingScheduledBooking extends StatelessWidget {
                                 padding: const EdgeInsets.all(1.0),
                                 child: ThreeDtext2(
                                   text: "Vardaan Driver",
-                                  fontColor: AppColors.a5,
-                                  fontSize: size.height * 0.015,
-                                  fontWeight: FontWeight.w500,
+                                  fontColor: Colors.red.shade100,
+                                  fontSize: size.height * 0.018,
+                                  fontWeight: FontWeight.w600,
+                                ),
+                              ),
+                              Padding(
+                                padding: const EdgeInsets.all(1.0),
+                                child: ThreeDtext2(
+                                  text: "12345",
+                                  fontColor: MyTheme.logored,
+                                  fontSize: size.height * 0.018,
+                                  fontWeight: FontWeight.w600,
+                                ),
+                              ),
+
+                              Padding(
+                                padding: const EdgeInsets.all(1.0),
+                                child: ThreeDtext2(
+                                  text: "1345WESQ",
+                                  fontColor: Colors.red.shade100,
+                                  fontSize: size.height * 0.018,
+                                  fontWeight: FontWeight.w600,
                                 ),
                               ),
                               Padding(
                                 padding: const EdgeInsets.all(1.0),
                                 child: ThreeDtext2(
                                   text: "1234SED",
-                                  fontColor: AppColors.a5,
-                                  fontSize: size.height * 0.015,
-                                  fontWeight: FontWeight.w500,
+                                  fontColor: Colors.red.shade100,
+                                  fontSize: size.height * 0.018,
+                                  fontWeight: FontWeight.w600,
                                 ),
                               ),
 
@@ -135,27 +166,19 @@ class UpcomingScheduledBooking extends StatelessWidget {
                                 padding: const EdgeInsets.all(1.0),
                                 child: ThreeDtext2(
                                   text: "Maruti Swift",
-                                  fontColor: AppColors.a5,
-                                  fontSize: size.height * 0.015,
-                                  fontWeight: FontWeight.w500,
+                                  fontColor: Colors.red.shade100,
+                                  fontSize: size.height * 0.018,
+                                  fontWeight: FontWeight.w600,
                                 ),
                               ),
-                              Padding(
-                                padding: const EdgeInsets.all(1.0),
-                                child: ThreeDtext2(
-                                  text: "25/12/2024",
-                                  fontColor: AppColors.a5,
-                                  fontSize: size.height * 0.015,
-                                  fontWeight: FontWeight.w500,
-                                ),
-                              ),
+
                               Padding(
                                 padding: const EdgeInsets.all(1.0),
                                 child: ThreeDtext2(
                                   text: "12:30 P.M.",
-                                  fontColor: AppColors.a5,
-                                  fontSize: size.height * 0.015,
-                                  fontWeight: FontWeight.w500,
+                                  fontColor: Colors.red.shade100,
+                                  fontSize: size.height * 0.018,
+                                  fontWeight: FontWeight.w600,
                                 ),
                               ),
                               Padding(
@@ -168,9 +191,9 @@ class UpcomingScheduledBooking extends StatelessWidget {
                                     child: ThreeDtext2(
                                       text:
                                           "C53, Block C, Sector 2, Noida       ",
-                                      fontColor: AppColors.a5,
-                                      fontSize: size.height * 0.015,
-                                      fontWeight: FontWeight.w500,
+                                      fontColor: Colors.red.shade100,
+                                      fontSize: size.height * 0.018,
+                                      fontWeight: FontWeight.w600,
                                     ),
                                   ),
                                 ),
@@ -187,28 +210,18 @@ class UpcomingScheduledBooking extends StatelessWidget {
                             Container(
                               height: size.height * 0.04,
                               width: size.width * 0.2,
-                              decoration: BoxDecoration(
-                                  color: MyTheme.themecolor,
-                                  borderRadius: BorderRadius.circular(20),
-                                  border: Border.all(
-                                      color: Colors.yellow.shade900, width: 2)),
-                              child: Center(
-                                  child: Text(
-                                "Week Off",
-                                style: TextStyle(color: Colors.white),
-                              )),
                             ),
                             Container(
                               height: size.height * 0.04,
                               width: size.width * 0.2,
                               decoration: BoxDecoration(
                                   borderRadius: BorderRadius.circular(20),
-                                  color: MyTheme.greyColor,
+                                  color: AppColors.g1,
                                   border: Border.all(
                                       color: Colors.red.shade900, width: 2)),
                               child: Center(
                                   child: Text(
-                                "Leave",
+                                "Confirm",
                                 style: TextStyle(color: Colors.white),
                               )),
                             ),
@@ -222,7 +235,7 @@ class UpcomingScheduledBooking extends StatelessWidget {
                                       color: Colors.yellow.shade900, width: 2)),
                               child: Center(
                                   child: Text(
-                                "Cancel",
+                                "No Show",
                                 style: TextStyle(color: Colors.white),
                               )),
                             ),
@@ -235,7 +248,6 @@ class UpcomingScheduledBooking extends StatelessWidget {
               ),
             ),
           );
-
           //   ListTile(
           //   title: Text(items[index]),
           //   tileColor: tileColor, // Assign color to ListTile

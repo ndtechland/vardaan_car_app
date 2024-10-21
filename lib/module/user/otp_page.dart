@@ -5,9 +5,9 @@ import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
 import 'package:get/get_state_manager/src/rx_flutter/rx_obx_widget.dart';
 
-import '../controller/otp_controller.dart';
-import '../theme_color/theme_color.dart';
-import '../utils/constant_text.dart';
+import '../../controller/otp_controller.dart';
+import '../../theme_color/theme_color.dart';
+import '../../utils/constant_text.dart';
 
 class OtpPage extends StatelessWidget {
   final OtpController controller = Get.put(OtpController());

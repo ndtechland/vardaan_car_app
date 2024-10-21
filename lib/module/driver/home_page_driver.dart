@@ -11,16 +11,10 @@ import 'package:get/get_navigation/src/snackbar/snackbar.dart';
 import 'package:get/get_utils/src/extensions/internacionalization.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:url_launcher/url_launcher.dart';
-import 'package:vardaancar/module/scheduled_booking.dart';
+import 'package:vardaancar/module/driver/drower_driver.dart';
 
-import '../contantss/buttons/horizontal_circular_button.dart';
-import '../contantss/texts/3d_texts.dart';
-import '../theme_color/theme_color.dart';
-import 'book_trip.dart';
-import 'contact_support_page.dart';
-import 'drawer/drawer_cab.dart';
-import 'get_profile_page.dart';
-import 'map_tracking_page.dart';
+import '../../contantss/texts/3d_texts.dart';
+import '../../theme_color/theme_color.dart';
 import 'notification_page.dart';
 
 class Testimonial {
@@ -52,36 +46,55 @@ List<String> Services1 = [
 ];
 
 List<String> Services2 = [
-  'Track Your Cab',
-  'Book Cab',
-  'Scheduled Booking',
+  'Track User',
+  'Ongoing',
+  'Scheduled',
+];
+
+List<String> Services3 = [
+  'Report',
+  'History',
+  'Review',
+  //'Consumer Grievance',
 ];
 
 List<IconData> iconList1 = [
-  Icons.person,
-  Icons.help,
-  Icons.emergency,
+  Icons.data_usage_rounded,
+  Icons.contact_phone,
+  Icons.support_outlined,
   //Icons.report_problem,
   // Icons.settings,
 ];
 
 List<IconData> iconList2 = [
-  Icons.track_changes,
-  Icons.policy_sharp,
-  Icons.punch_clock_outlined
+  Icons.gps_fixed_outlined,
+  Icons.catching_pokemon_rounded,
+  Icons.safety_check_sharp
+  //punch_clock_outlined
+  //repeat_sharp,
+  // Icons.settings,
+];
+List<IconData> iconList3 = [
+  Icons.list_alt,
+  Icons.history,
+  Icons.feedback_rounded
   //repeat_sharp,
   // Icons.settings,
 ];
 
 List<String> imageList = [
-  'https://images.unsplash.com/photo-1600320254374-ce2d293c324e?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3DD',
-  'https://plus.unsplash.com/premium_photo-1661637975458-5359c6ff9ada?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
-  'https://plus.unsplash.com/premium_photo-1661306636048-5dfa19532575?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
-  'https://plus.unsplash.com/premium_photo-1661384269050-e5886bf33f6a?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
-  'https://plus.unsplash.com/premium_photo-1661277663422-26a6fe569350?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D'
+  'https://plus.unsplash.com/premium_photo-1661714065634-e6430d1f2ff7?q=80&w=2670&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
+  'https://plus.unsplash.com/premium_photo-1661265896883-7c7fb253f611?q=80&w=2672&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
+  'https://plus.unsplash.com/premium_photo-1683140697708-bbbea490f52d?q=80&w=2670&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
+  'https://plus.unsplash.com/premium_photo-1682091481266-07851df944a9?q=80&w=2670&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
+  // 'https://images.unsplash.com/photo-1600320254374-ce2d293c324e?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3DD',
+  // 'https://plus.unsplash.com/premium_photo-1661637975458-5359c6ff9ada?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
+  //'https://plus.unsplash.com/premium_photo-1661306636048-5dfa19532575?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
+  //'https://plus.unsplash.com/premium_photo-1661384269050-e5886bf33f6a?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
+  //'https://plus.unsplash.com/premium_photo-1661277663422-26a6fe569350?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D'
 ];
 
-class HomePage extends StatelessWidget {
+class HomePageDriver extends StatelessWidget {
   final List<Testimonial> testimonials = [
     Testimonial(
         customerName: 'Kumar Prince',
@@ -118,7 +131,7 @@ class HomePage extends StatelessWidget {
         rating: 3,
         imageUrl: 'https://via.placeholder.com/50'),
   ];
-  HomePage({Key? key}) : super(key: key);
+  HomePageDriver({Key? key}) : super(key: key);
 
   GlobalKey<ScaffoldState> _key = new GlobalKey();
 
@@ -208,19 +221,19 @@ class HomePage extends StatelessWidget {
             },
             child: Icon(
               Icons.menu,
-              color: AppColors.a15,
+              color: MyTheme.orng7,
             )),
 
         ///
         title: ThreeDtext(
-          text: 'Vardaan Car'.tr,
-          fontColor: AppColors.a15,
+          text: 'Vardaan Driver'.tr,
+          fontColor: MyTheme.orng7,
           //textmaroon505,
           fontSize: size.height * 0.030,
           fontWeight: FontWeight.w700,
-          color: AppColors.black,
+          color: MyTheme.orng7,
           letterSpacing: 1,
-          shadowColor: AppColors.white,
+          shadowColor: MyTheme.orng7,
           shadowBlurRadius: 3.0,
         )
         // Container(
@@ -234,11 +247,11 @@ class HomePage extends StatelessWidget {
         actions: [
           GestureDetector(
             onTap: () {
-              Get.to(notification_pagess());
+              Get.to(driver_notification());
             },
             child: Icon(
               Icons.notifications,
-              color: AppColors.a15,
+              color: MyTheme.orng7,
               size: size.width * 0.08,
             ),
           ),
@@ -309,7 +322,7 @@ class HomePage extends StatelessWidget {
         //Text("Suvidha"),
       ),
 
-      drawer: CabDrawer(),
+      drawer: CabDriverDrawer(),
 
       body: SafeArea(
         child: SingleChildScrollView(
@@ -338,7 +351,7 @@ class HomePage extends StatelessWidget {
                       child: Container(
                         height: size.height * 0.10,
                         decoration: BoxDecoration(
-                          color: AppColors.textmaroon505,
+                          color: AppColors.black,
                           //a13,
                           borderRadius: BorderRadius.circular(10),
                         ),
@@ -354,86 +367,86 @@ class HomePage extends StatelessWidget {
               SizedBox(
                 height: size.height * 0.01,
               ),
-              InkWell(
-                onTap: () {
-                  ///Get.to(NewConnectionPage1());
-                },
-                child: Padding(
-                  padding: EdgeInsets.symmetric(horizontal: size.width * 0.0),
-                  child: Container(
-                    height: size.height * 0.055,
-                    width: size.width,
-                    decoration: BoxDecoration(
-                      //color: Colors.white,
-                      borderRadius: BorderRadius.circular(5),
-                      // border: Border.all(color: Colors.black, width: 2),
-                    ),
-                    child: Padding(
-                      padding: EdgeInsets.all(0.0),
-                      child: Container(
-                        height: size.height * 0.055,
-                        width: size.width,
-                        decoration: BoxDecoration(
-                          color: MyTheme.linehome,
-                          borderRadius: BorderRadius.circular(5),
-                        ),
-                        child: Padding(
-                          padding: EdgeInsets.symmetric(
-                              horizontal: size.width * 0.02),
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            crossAxisAlignment: CrossAxisAlignment.center,
-                            children: [
-                              Row(
-                                children: [
-                                  Text(
-                                    'Your Driver:'.tr,
-                                    style: GoogleFonts.nunitoSans(
-                                      fontSize: size.width * 0.035,
-                                      letterSpacing: 0.2,
-                                      color: MyTheme.themecolor,
-                                      fontWeight: FontWeight.w700,
-                                    ),
-                                  ),
-                                  Text(
-                                    ' Rakesh Singh',
-                                    style: GoogleFonts.nunitoSans(
-                                      fontSize: size.width * 0.038,
-                                      letterSpacing: 0.2,
-                                      color: MyTheme.logored,
-                                      fontWeight: FontWeight.w800,
-                                    ),
-                                  ),
-                                ],
-                              ),
-                              Padding(
-                                padding: EdgeInsets.symmetric(
-                                    horizontal: size.width * 0.01),
-                                child: HorizontalCircularButton(
-                                  height: size.height * 0.037,
-                                  width: size.width * 0.22,
-                                  borderRadius: 7,
-                                  fontSize: size.width * 0.037,
-                                  text: "OTP:1234",
-
-                                  onPressed: () {
-                                    // if (_formKey.currentState!.validate()) {
-                                    //   // If all fields are valid, toggle selection and navigate
-                                    //   selectionController.toggleSelection(0);
-                                    //Get.to(LoadChangeIncDec());
-                                    // }
-                                  },
-                                  //isSelected: selectionController.selectedIndices.contains(0),
-                                ),
-                              ),
-                            ],
-                          ),
-                        ),
-                      ),
-                    ),
-                  ),
-                ),
-              ),
+              // InkWell(
+              //   onTap: () {
+              //     ///Get.to(NewConnectionPage1());
+              //   },
+              //   child: Padding(
+              //     padding: EdgeInsets.symmetric(horizontal: size.width * 0.0),
+              //     child: Container(
+              //       height: size.height * 0.055,
+              //       width: size.width,
+              //       decoration: BoxDecoration(
+              //         //color: Colors.white,
+              //         borderRadius: BorderRadius.circular(5),
+              //         // border: Border.all(color: Colors.black, width: 2),
+              //       ),
+              //       child: Padding(
+              //         padding: EdgeInsets.all(0.0),
+              //         child: Container(
+              //           height: size.height * 0.055,
+              //           width: size.width,
+              //           decoration: BoxDecoration(
+              //             color: MyTheme.linehome,
+              //             borderRadius: BorderRadius.circular(5),
+              //           ),
+              //           child: Padding(
+              //             padding: EdgeInsets.symmetric(
+              //                 horizontal: size.width * 0.02),
+              //             child: Row(
+              //               mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              //               crossAxisAlignment: CrossAxisAlignment.center,
+              //               children: [
+              //                 Row(
+              //                   children: [
+              //                     Text(
+              //                       'Your Driver:'.tr,
+              //                       style: GoogleFonts.nunitoSans(
+              //                         fontSize: size.width * 0.035,
+              //                         letterSpacing: 0.2,
+              //                         color: MyTheme.themecolor,
+              //                         fontWeight: FontWeight.w700,
+              //                       ),
+              //                     ),
+              //                     Text(
+              //                       ' Rakesh Singh',
+              //                       style: GoogleFonts.nunitoSans(
+              //                         fontSize: size.width * 0.038,
+              //                         letterSpacing: 0.2,
+              //                         color: MyTheme.logored,
+              //                         fontWeight: FontWeight.w800,
+              //                       ),
+              //                     ),
+              //                   ],
+              //                 ),
+              //                 Padding(
+              //                   padding: EdgeInsets.symmetric(
+              //                       horizontal: size.width * 0.01),
+              //                   child: HorizontalCircularButton(
+              //                     height: size.height * 0.037,
+              //                     width: size.width * 0.22,
+              //                     borderRadius: 7,
+              //                     fontSize: size.width * 0.037,
+              //                     text: "OTP:1234",
+              //
+              //                     onPressed: () {
+              //                       // if (_formKey.currentState!.validate()) {
+              //                       //   // If all fields are valid, toggle selection and navigate
+              //                       //   selectionController.toggleSelection(0);
+              //                       //Get.to(LoadChangeIncDec());
+              //                       // }
+              //                     },
+              //                     //isSelected: selectionController.selectedIndices.contains(0),
+              //                   ),
+              //                 ),
+              //               ],
+              //             ),
+              //           ),
+              //         ),
+              //       ),
+              //     ),
+              //   ),
+              // ),
               SizedBox(
                 height: size.height * 0.015,
               ),
@@ -458,7 +471,7 @@ class HomePage extends StatelessWidget {
                           ///Get.to(() => IndustryHighTension());
 
                           if (index == 0) {
-                            Get.to(ProfilePages());
+                            ///Get.to(ProfilePages());
                             // await FlutterPhoneDirectCaller.callNumber(
                             //     micccallnumber);
                             //
@@ -470,7 +483,7 @@ class HomePage extends StatelessWidget {
                           } else if (index == 1) {
                             // await FlutterPhoneDirectCaller.callNumber(
                             // customercare);
-                            Get.to(() => support_page());
+                            // Get.to(() => support_page());
                           } else if (index == 2) {
                             /// _launchWhatsApp();
                             //Get.to(() => IndustryHighTension());
@@ -488,20 +501,20 @@ class HomePage extends StatelessWidget {
                           child: Padding(
                             padding: EdgeInsets.all(1.0),
                             child: PhysicalModel(
-                              //elevation: 3,
-                              shadowColor: MyTheme.signUpButtonColor,
-                              color: Colors.grey.shade300,
+                              elevation: 1,
+                              shadowColor: Colors.black,
+                              color: MyTheme.orng7,
                               borderRadius: BorderRadius.circular(17),
                               child: Padding(
                                 padding: EdgeInsets.all(5.0),
                                 child: Material(
-                                  elevation: 10,
+                                  elevation: 2,
                                   borderRadius: BorderRadius.circular(17),
                                   child: Container(
                                     height: size.height * 0.09,
                                     width: size.width * 0.18,
                                     decoration: BoxDecoration(
-                                      color: MyTheme.themecolor,
+                                      color: MyTheme.orng7,
                                       //textmaroon505,
                                       //shape: BoxShape.circle
                                       borderRadius: BorderRadius.circular(17),
@@ -510,7 +523,7 @@ class HomePage extends StatelessWidget {
                                       child: Icon(
                                         iconList1[index],
                                         size: size.height * 0.04,
-                                        color: Colors.white,
+                                        color: MyTheme.ThemeColors,
                                       ),
                                     ),
                                   ),
@@ -667,7 +680,7 @@ class HomePage extends StatelessWidget {
                   height: size.height * 0.043,
                   width: size.width,
                   decoration: BoxDecoration(
-                    color: MyTheme.linehome,
+                    color: MyTheme.whitecolor,
                     borderRadius: BorderRadius.circular(5),
                   ),
                   child: Padding(
@@ -717,7 +730,9 @@ class HomePage extends StatelessWidget {
                             //
 
                             if (index == 0) {
-                              Get.to(() => MapTracking());
+                              // Get.to(() => MapTracking());
+
+                              ///tod:........
 
                               // await FlutterPhoneDirectCaller.callNumber(
                               //     micccallnumber);
@@ -730,10 +745,10 @@ class HomePage extends StatelessWidget {
                             } else if (index == 1) {
                               // await FlutterPhoneDirectCaller.callNumber(
                               // customercare);
-                              Get.to(() => TripFormPage());
+                              // Get.to(() => TripFormPage());
                             } else if (index == 2) {
                               ////_launchWhatsApp();
-                              Get.to(() => ScheduleBookingTabbar());
+                              // Get.to(() => ScheduleBookingTabbar());
                             } else if (index == 3) {
                               //_launchUrl();
 
@@ -748,8 +763,9 @@ class HomePage extends StatelessWidget {
                               padding: EdgeInsets.all(1.0),
                               child: PhysicalModel(
                                 //elevation: 3,
-                                shadowColor: MyTheme.signUpButtonColor,
-                                color: Colors.grey.shade300,
+                                elevation: 1,
+                                shadowColor: Colors.black,
+                                color: MyTheme.orng7,
                                 borderRadius: BorderRadius.circular(17),
                                 child: Padding(
                                   padding: EdgeInsets.all(5.0),
@@ -760,7 +776,7 @@ class HomePage extends StatelessWidget {
                                       height: size.height * 0.09,
                                       width: size.width * 0.18,
                                       decoration: BoxDecoration(
-                                        color: MyTheme.themecolor,
+                                        color: MyTheme.orng7,
                                         //textmaroon505,
                                         //shape: BoxShape.circle
                                         borderRadius: BorderRadius.circular(17),
@@ -769,7 +785,7 @@ class HomePage extends StatelessWidget {
                                         child: Icon(
                                           iconList2[index],
                                           size: size.height * 0.04,
-                                          color: Colors.white,
+                                          color: MyTheme.themecolor,
                                         ),
                                       ),
                                     ),
@@ -816,7 +832,7 @@ class HomePage extends StatelessWidget {
                   height: size.height * 0.043,
                   width: size.width,
                   decoration: BoxDecoration(
-                    color: MyTheme.linehome,
+                    color: MyTheme.whitecolor,
                     borderRadius: BorderRadius.circular(5),
                   ),
                   child: Padding(
@@ -826,7 +842,7 @@ class HomePage extends StatelessWidget {
                     child: Align(
                       alignment: Alignment.centerLeft,
                       child: Text(
-                        'Our Testimonial'.tr,
+                        'Others'.tr,
                         style: GoogleFonts.nunitoSans(
                             fontSize: size.height * 0.019,
                             color: MyTheme.themecolor,
@@ -838,99 +854,113 @@ class HomePage extends StatelessWidget {
               ),
 
               SizedBox(
-                height: size.height * 0.01,
+                height: size.height * 0.03,
               ),
 
-              Container(
-                height: size.height * 0.145,
-                width: size.width,
-                decoration: BoxDecoration(
-                    color: MyTheme.whitecolor,
-                    borderRadius: BorderRadius.only(
-                        topLeft: Radius.circular(10),
-                        bottomLeft: Radius.circular(10))
-                    //BorderRadius.circular(10),
+              GridView.builder(
+                physics: NeverScrollableScrollPhysics(),
+                shrinkWrap: true,
+                itemCount: Services1.length, // Number of items in the grid
+                gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                    crossAxisCount: 3, // Number of columns
+                    crossAxisSpacing: 5, // Spacing between columns
+                    mainAxisSpacing: 4,
+                    mainAxisExtent: size.height * 0.177 // Spacing between rows
                     ),
+                itemBuilder: (context, index) {
+                  return Column(
+                    children: [
+                      InkWell(
+                        onTap: () async {
+                          //
+                          ///Get.to(() => IndustryHighTension());
 
-                //color: AppColors.th1wht3,
+                          if (index == 0) {
+                            //Get.to(ProfilePages());
+                            // await FlutterPhoneDirectCaller.callNumber(
+                            //     micccallnumber);
+                            //
+                            // makePhoneCall(
+                            //     "123"); // Replace with the desired phone number
+                            //Get.to(SelectPahseLineRange());
 
-                // color: AppColors.newgray,
-                child: ListView.builder(
-                  itemCount: testimonials.length,
-                  scrollDirection: Axis.horizontal,
-                  itemBuilder: (context, index) {
-                    final testimonial = testimonials[index];
-                    return Card(
-                      margin: const EdgeInsets.symmetric(
-                          vertical: 5, horizontal: 5),
-                      child: Padding(
-                        padding: const EdgeInsets.all(7.0),
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            SizedBox(
-                              height: size.height * 0.14,
-                              width: size.width * 0.16,
-                              child: CircleAvatar(
-                                radius: 30,
-                                backgroundImage:
-                                    NetworkImage(testimonial.imageUrl),
-                              ),
-                            ),
-                            SizedBox(
-                              height: size.width * 0.05,
-                            ),
-                            Padding(
-                              padding: const EdgeInsets.all(8.0),
-                              child: SizedBox(
-                                height: size.height * 0.14,
-                                width: size.width * 0.85,
-                                child: Column(
-                                  mainAxisAlignment: MainAxisAlignment.center,
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: [
-                                    Text(
-                                      testimonial.customerName,
-                                      style: GoogleFonts.nunitoSans(
-                                        fontSize: size.height * 0.023,
-                                        fontWeight: FontWeight.bold,
-                                        color: AppColors.black,
+                            ///Get.to(() => FranchisesProfilePage());
+                          } else if (index == 1) {
+                            // await FlutterPhoneDirectCaller.callNumber(
+                            // customercare);
+                            // Get.to(() => support_page());
+                          } else if (index == 2) {
+                            /// _launchWhatsApp();
+                            //Get.to(() => IndustryHighTension());
+
+                          } else if (index == 3) {
+                            //_launchUrl();
+
+                            //Get.to(WebViewwebsitess(url: "$_url"));
+
+                            //Get.to(() => IndustryHighTension());
+
+                          }
+                        },
+                        child: Center(
+                          child: Padding(
+                            padding: EdgeInsets.all(1.0),
+                            child: PhysicalModel(
+                              elevation: 1,
+                              shadowColor: Colors.black,
+                              color: MyTheme.orng7,
+                              borderRadius: BorderRadius.circular(17),
+                              child: Padding(
+                                padding: EdgeInsets.all(5.0),
+                                child: Material(
+                                  elevation: 2,
+                                  borderRadius: BorderRadius.circular(17),
+                                  child: Container(
+                                    height: size.height * 0.09,
+                                    width: size.width * 0.18,
+                                    decoration: BoxDecoration(
+                                      color: MyTheme.orng7,
+                                      //textmaroon505,
+                                      //shape: BoxShape.circle
+                                      borderRadius: BorderRadius.circular(17),
+                                    ),
+                                    child: Center(
+                                      child: Icon(
+                                        iconList3[index],
+                                        size: size.height * 0.04,
+                                        color: MyTheme.ThemeColors,
                                       ),
                                     ),
-                                    SizedBox(
-                                      height: size.height * 0.028,
-                                      width: size.width * 0.85,
-                                      child: Text(
-                                        testimonial.description,
-                                        style: GoogleFonts.nunitoSans(
-                                          fontSize: size.height * 0.020,
-                                          fontWeight: FontWeight.w500,
-                                          color: AppColors.greyColor,
-                                        ),
-                                      ),
-                                    ),
-                                    SizedBox(height: 0.1),
-                                    Row(
-                                      children: List.generate(5, (starIndex) {
-                                        return Icon(
-                                          starIndex < testimonial.rating
-                                              ? Icons.star
-                                              : Icons.star_border,
-                                          color: Colors.amber,
-                                        );
-                                      }),
-                                    ),
-                                  ],
+                                  ),
                                 ),
                               ),
                             ),
-                          ],
+                          ),
                         ),
                       ),
-                    );
-                  },
-                ),
+                      SizedBox(
+                        height: size.height * 0.02,
+                      ),
+                      SizedBox(
+                        height: size.height * 0.05,
+                        //width: size.width * 0.145,
+                        child: Center(
+                          child: Align(
+                            alignment: Alignment.topCenter,
+                            child: Text(
+                              "${Services3[index]}".tr,
+                              style: GoogleFonts.nunitoSans(
+                                fontSize: size.height * 0.016,
+                                fontWeight: FontWeight.bold,
+                                color: AppColors.black,
+                              ),
+                            ),
+                          ),
+                        ),
+                      )
+                    ],
+                  );
+                },
               ),
               SizedBox(
                 height: size.height * 0.0,

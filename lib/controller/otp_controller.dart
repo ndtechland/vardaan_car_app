@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-import '../module/language_screen.dart';
+import '../module/user/language_screen.dart';
 
 class OtpController extends GetxController {
   var otpControllers = List.generate(4, (index) => TextEditingController());

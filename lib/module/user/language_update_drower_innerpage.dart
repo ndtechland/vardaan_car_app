@@ -1,15 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:get/get_core/src/get_main.dart';
-import 'package:get/get_utils/src/extensions/internacionalization.dart';
 import 'package:google_fonts/google_fonts.dart';
 
-import '../controller/language_controller.dart';
-import '../theme_color/theme_color.dart';
+import '../../controller/language_controller.dart';
+import '../../theme_color/theme_color.dart';
 import 'home_page.dart';
 
-class LanguagePagess extends StatelessWidget {
-  LanguagePagess({Key? key}) : super(key: key);
+class LanguageUpdatePagess extends StatelessWidget {
+  LanguageUpdatePagess({Key? key}) : super(key: key);
+
   final LanguageController languageController = Get.put(LanguageController());
 
   @override
@@ -18,47 +17,88 @@ class LanguagePagess extends StatelessWidget {
 
     return SafeArea(
       child: Scaffold(
+        appBar: AppBar(
+          title: Text(
+            "Change Language",
+            style: GoogleFonts.poppins(
+              fontWeight: FontWeight.w600,
+              fontSize: size.width * 0.05,
+              color: Colors.white,
+            ),
+          ),
+          centerTitle: true,
+          backgroundColor: MyTheme.themecolor,
+          actions: [
+            Padding(
+              padding:
+                  const EdgeInsets.symmetric(vertical: 10.0, horizontal: 10),
+              child: Align(
+                alignment: Alignment.centerRight,
+                child: InkWell(
+                  onTap: () {
+                    // Navigate to HomePage
+                    Get.to(HomePage());
+                  },
+                  child: Container(
+                    height: size.height * 0.05,
+                    width: size.width * 0.16,
+                    decoration: BoxDecoration(
+                      gradient: LinearGradient(
+                        colors: [MyTheme.logored, MyTheme.whitecolor],
+                        begin: Alignment.topLeft,
+                        end: Alignment.bottomRight,
+                      ),
+                      borderRadius: BorderRadius.circular(10),
+                      boxShadow: [
+                        BoxShadow(
+                          color: Colors.black26,
+                          blurRadius: 8,
+                          offset: Offset(2, 4),
+                        ),
+                      ],
+                    ),
+                    child: Center(
+                      child: Text(
+                        "SAVE",
+                        style: GoogleFonts.roboto(
+                          fontWeight: FontWeight.w700,
+                          fontSize: size.width * 0.035,
+                          color: Colors.black,
+                        ),
+                      ),
+                    ),
+                  ),
+                ),
+              ),
+            ),
+          ],
+        ),
         body: Stack(
           children: [
-            // Background Image
             Container(
               height: size.height,
               width: size.width,
               decoration: const BoxDecoration(
                 image: DecorationImage(
                   image: NetworkImage(
-                    'https://images.unsplash.com/photo-1670979304099-63a993774c90?q=80&w=2187&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D'
-                    //'https://images.unsplash.com/photo-1692037352067-289584aaf445?q=80&w=2127&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D'
-                    // "https://images.unsplash.com/photo-1529310399831-ed472b81d589?q=80&w=2574&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
-                    ,
+                    'https://images.unsplash.com/photo-1670979304099-63a993774c90?q=80&w=2187&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
                   ),
                   fit: BoxFit.fill,
-                  colorFilter: ColorFilter.mode(
-                      Colors.black45, BlendMode.darken), // Dim the image
+                  colorFilter:
+                      ColorFilter.mode(Colors.black45, BlendMode.darken),
                 ),
               ),
             ),
-            // Content
             Center(
               child: Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 16.0),
+                padding: EdgeInsets.symmetric(horizontal: 16.0),
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.start,
                   children: [
-                    SizedBox(height: 30),
-                    // Header Text
-                    SizedBox(height: 40),
-                    // Header Text
-                    // Container(
-                    //   decoration: BoxDecoration(
-                    //     color: Colors.black,
-                    //   ),
-                    // ),
+                    const SizedBox(height: 40),
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceAround,
                       children: [
-                        const SizedBox(width: 10),
-
                         Expanded(
                           child: FittedBox(
                             fit: BoxFit.scaleDown,
@@ -66,15 +106,13 @@ class LanguagePagess extends StatelessWidget {
                               'YourLanguages'.tr,
                               style: GoogleFonts.alegreya(
                                 fontWeight: FontWeight.w600,
-                                fontSize: size.height *
-                                    0.023, // Keeps the base font size responsive
+                                fontSize: size.height * 0.023,
                                 color: Colors.white,
                                 backgroundColor: Colors.black12,
                               ),
                             ),
                           ),
                         ),
-                        //const SizedBox(width: 5),
                         Expanded(
                           child: FittedBox(
                             fit: BoxFit.scaleDown,
@@ -82,8 +120,7 @@ class LanguagePagess extends StatelessWidget {
                               'language'.tr,
                               style: GoogleFonts.alegreya(
                                 fontWeight: FontWeight.w800,
-                                fontSize: size.height *
-                                    0.03, // Keeps the base font size responsive
+                                fontSize: size.height * 0.03,
                                 color: Colors.redAccent,
                                 backgroundColor: Colors.black54,
                               ),
@@ -92,9 +129,7 @@ class LanguagePagess extends StatelessWidget {
                         ),
                       ],
                     ),
-
-                    SizedBox(height: 20),
-                    // Grid of Language Buttons
+                    const SizedBox(height: 20),
                     Expanded(
                       child: GridView.builder(
                         padding: const EdgeInsets.symmetric(vertical: 20),
@@ -150,47 +185,6 @@ class LanguagePagess extends StatelessWidget {
                         },
                       ),
                     ),
-                    // Save Button
-                    Padding(
-                      padding: const EdgeInsets.symmetric(vertical: 16.0),
-                      child: Align(
-                        alignment: Alignment.centerRight,
-                        child: InkWell(
-                          onTap: () {
-                            Get.to(HomePage());
-                          },
-                          child: Container(
-                            height: size.height * 0.06,
-                            width: size.width * 0.4,
-                            decoration: BoxDecoration(
-                              gradient: LinearGradient(
-                                colors: [MyTheme.themecolor, MyTheme.logored],
-                                begin: Alignment.topLeft,
-                                end: Alignment.bottomRight,
-                              ),
-                              borderRadius: BorderRadius.circular(10),
-                              boxShadow: [
-                                BoxShadow(
-                                  color: Colors.black26,
-                                  blurRadius: 8,
-                                  offset: Offset(2, 4),
-                                ),
-                              ],
-                            ),
-                            child: Center(
-                              child: Text(
-                                "SAVE",
-                                style: GoogleFonts.poppins(
-                                  fontWeight: FontWeight.bold,
-                                  fontSize: size.width * 0.045,
-                                  color: Colors.white,
-                                ),
-                              ),
-                            ),
-                          ),
-                        ),
-                      ),
-                    ),
                   ],
                 ),
               ),
@@ -206,12 +200,12 @@ class LanguagePagess extends StatelessWidget {
 final List<Map<String, String>> _languages = [
   {'locale': 'en', 'label': 'English'},
   {'locale': 'hi', 'label': 'हिन्दी'},
-  {'locale': 'ml', 'label': 'മലയാളം'}, //malyalam
-  {'locale': 'kn', 'label': 'ಕನ್ನಡ'}, //kannada
-  {'locale': 'te', 'label': 'తెలుగు'}, //telugu
-  {'locale': 'mr', 'label': 'मराठी'}, //marathi
-  {'locale': 'ta', 'label': 'தமிழ்'}, //tamil
-  {'locale': 'or', 'label': 'ଓଡ଼ିଆ'}, //odiya
-  {'locale': 'gu', 'label': 'ગુજરાતી'}, // Gujarati added
-  {'locale': 'pa', 'label': 'ਪੰਜਾਬੀ'}, //punjabi
+  {'locale': 'ml', 'label': 'മലയാളം'}, // Malayalam
+  {'locale': 'kn', 'label': 'ಕನ್ನಡ'}, // Kannada
+  {'locale': 'te', 'label': 'తెలుగు'}, // Telugu
+  {'locale': 'mr', 'label': 'मराठी'}, // Marathi
+  {'locale': 'ta', 'label': 'தமிழ்'}, // Tamil
+  {'locale': 'or', 'label': 'ଓଡ଼ିଆ'}, // Odia
+  {'locale': 'gu', 'label': 'ગુજરાતી'}, // Gujarati
+  {'locale': 'pa', 'label': 'ਪੰਜਾਬੀ'}, // Punjabi
 ];

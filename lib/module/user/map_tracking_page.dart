@@ -16,7 +16,7 @@ class _MapTrackingState extends State<MapTracking> {
   @override
   void initState() {
     super.initState();
-    // Show the modal bottom sheet when the screen is first built
+    //todo: Show the modal bottom sheet when the screen is first built
     WidgetsBinding.instance.addPostFrameCallback((_) {
       _showBottomSheet();
     });
@@ -226,7 +226,8 @@ class _MapTrackingState extends State<MapTracking> {
                 position: LatLng(28.5847, 77.3159), // User's location
                 infoWindow: InfoWindow(title: 'User Location'),
                 icon: BitmapDescriptor.defaultMarkerWithHue(
-                    BitmapDescriptor.hueGreen), // Green marker for user
+                    BitmapDescriptor.hueGreen),
+// Green marker for user
               ),
               Marker(
                 markerId: MarkerId('driverMarker'),

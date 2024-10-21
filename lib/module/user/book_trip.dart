@@ -2,10 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 
-import '../../theme_color/theme_color.dart';
-import '../contantss/appbar/appbar_custom.dart';
-import '../contantss/buttons/horizontal_buttom.dart';
-import '../controller/book_trip_controller.dart';
+import '../../../theme_color/theme_color.dart';
+import '../../contantss/appbar/appbar_custom.dart';
+import '../../contantss/buttons/horizontal_buttom.dart';
+import '../../controller/book_trip_controller.dart';
 
 class TripFormPage extends StatelessWidget {
   final TripFormController tripformcontroller = Get.put(TripFormController());

@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 
-import '../contantss/textfield_constant/text_2d.dart';
-import '../contantss/texts/3d_texts.dart';
-import '../theme_color/theme_color.dart';
+import '../../contantss/textfield_constant/text_2d.dart';
+import '../../contantss/texts/3d_texts.dart';
+import '../../theme_color/theme_color.dart';
 
 class BookingHistory extends StatelessWidget {
   const BookingHistory({Key? key}) : super(key: key);

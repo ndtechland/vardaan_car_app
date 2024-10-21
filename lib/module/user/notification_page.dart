@@ -4,9 +4,9 @@ import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
 import 'package:google_fonts/google_fonts.dart';
 
-import '../contantss/appbar/appbar_custom.dart';
-import '../controller/custom_switch_controller.dart';
-import '../theme_color/theme_color.dart';
+import '../../contantss/appbar/appbar_custom.dart';
+import '../../controller/custom_switch_controller.dart';
+import '../../theme_color/theme_color.dart';
 
 class notification_pagess extends StatelessWidget {
   final CustomSwitchController controller = Get.put(CustomSwitchController());
@@ -16,7 +16,7 @@ class notification_pagess extends StatelessWidget {
     return Scaffold(
       backgroundColor: AppColors.th1whtbackgrd,
       appBar: myAppBar(
-        //backgroundColor: AppColors.white,
+        backgroundColor: AppColors.white,
         title: 'Notifications',
         leadingIcon: Icons.arrow_back_ios_outlined,
         centerTitle: true,

@@ -8,7 +8,7 @@ import 'package:get_storage/get_storage.dart';
 
 import 'contantss/texts/language_text_string_change.dart';
 import 'controller/language_controller.dart';
-import 'module/splash_view.dart';
+import 'module/driver/home_page_driver.dart';
 
 Future<void> main() async {
   await GetStorage.init(); // Initialize GetStorage
@@ -68,7 +68,8 @@ class MyApp extends StatelessWidget {
 
             ///GoogleLensLauncher(),
 
-            SplashScreen(),
+            /// SplashScreen(),
+            HomePageDriver(),
       ),
     );
   }

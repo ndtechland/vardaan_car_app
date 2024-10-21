@@ -3,10 +3,10 @@ import 'package:get/get_core/src/get_main.dart';
 import 'package:get/get_navigation/get_navigation.dart';
 import 'package:google_fonts/google_fonts.dart';
 
-import '../contantss/appbar/appbar_custom.dart';
-import '../contantss/buttons/horizontal_circular_button.dart';
-import '../contantss/textfield_constant/textfield_reuse.dart';
-import '../theme_color/theme_color.dart';
+import '../../contantss/appbar/appbar_custom.dart';
+import '../../contantss/buttons/horizontal_circular_button.dart';
+import '../../contantss/textfield_constant/textfield_reuse.dart';
+import '../../theme_color/theme_color.dart';
 
 class FeedbackScreen extends StatelessWidget {
   final GlobalKey<FormState> _formconnectionfedbackKey = GlobalKey<FormState>();

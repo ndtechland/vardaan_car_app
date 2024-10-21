@@ -3,11 +3,11 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:vardaancar/module/scheduled_bookin_upcoming.dart';
-import 'package:vardaancar/module/scheduled_live_booking.dart';
+import 'package:vardaancar/module/user/scheduled_bookin_upcoming.dart';
+import 'package:vardaancar/module/user/scheduled_live_booking.dart';
 
-import '../contantss/appbar/appbar_custom.dart';
-import '../theme_color/theme_color.dart';
+import '../../contantss/appbar/appbar_custom.dart';
+import '../../theme_color/theme_color.dart';
 
 //import '../../constants/reusable_appbar/reusable_appbar.dart';
 
