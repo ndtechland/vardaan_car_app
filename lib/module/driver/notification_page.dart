@@ -17,7 +17,7 @@ class driver_notification extends StatelessWidget {
     return Scaffold(
       backgroundColor: AppColors.th1whtbackgrd,
       appBar: myAppBar(
-        backgroundColor: MyTheme.orng7,
+        backgroundColor: MyTheme.drivericon,
         title: 'Notifications',
         leadingIcon: Icons.arrow_back_ios_outlined,
         centerTitle: true,

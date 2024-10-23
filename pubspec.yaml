@@ -48,6 +48,7 @@ dependencies:
   flutter_inappwebview:
   lite_rolling_switch: ^1.0.0
   google_maps_flutter:
+
   #^2.2.0  # Make sure to use the latest version
 
 

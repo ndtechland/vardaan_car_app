@@ -12,6 +12,7 @@ import 'package:get/get_utils/src/extensions/internacionalization.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:vardaancar/module/driver/drower_driver.dart';
+import 'package:vardaancar/module/driver/support_driver.dart';
 
 import '../../contantss/texts/3d_texts.dart';
 import '../../theme_color/theme_color.dart';
@@ -59,7 +60,8 @@ List<String> Services3 = [
 ];
 
 List<IconData> iconList1 = [
-  Icons.data_usage_rounded,
+  Icons.change_circle_rounded,
+  //data_usage_rounded,
   Icons.contact_phone,
   Icons.support_outlined,
   //Icons.report_problem,
@@ -132,13 +134,9 @@ class HomePageDriver extends StatelessWidget {
         imageUrl: 'https://via.placeholder.com/50'),
   ];
   HomePageDriver({Key? key}) : super(key: key);
-
   GlobalKey<ScaffoldState> _key = new GlobalKey();
-
   String micccallnumber = "7666008833";
-
   String customercare = "1912";
-
   final Uri _url = Uri.parse(
       'http://hargharbijli.bsphcl.co.in/Grievanceportal/default.aspx');
 
@@ -212,7 +210,7 @@ class HomePageDriver extends StatelessWidget {
       appBar: AppBar(
         elevation: 0,
         automaticallyImplyLeading: false,
-        backgroundColor: AppColors.white,
+        backgroundColor: MyTheme.dvrskyblue7,
         centerTitle: true,
         leading: InkWell(
             onTap: () {
@@ -221,19 +219,19 @@ class HomePageDriver extends StatelessWidget {
             },
             child: Icon(
               Icons.menu,
-              color: MyTheme.orng7,
+              color: MyTheme.drivericon,
             )),
 
         ///
         title: ThreeDtext(
           text: 'Vardaan Driver'.tr,
-          fontColor: MyTheme.orng7,
+          fontColor: MyTheme.dvrskyblueshad2,
           //textmaroon505,
           fontSize: size.height * 0.030,
           fontWeight: FontWeight.w700,
-          color: MyTheme.orng7,
+          color: MyTheme.dvrskyblue8,
           letterSpacing: 1,
-          shadowColor: MyTheme.orng7,
+          shadowColor: MyTheme.themecolor,
           shadowBlurRadius: 3.0,
         )
         // Container(
@@ -251,7 +249,7 @@ class HomePageDriver extends StatelessWidget {
             },
             child: Icon(
               Icons.notifications,
-              color: MyTheme.orng7,
+              color: MyTheme.drivericon,
               size: size.width * 0.08,
             ),
           ),
@@ -331,10 +329,10 @@ class HomePageDriver extends StatelessWidget {
             //mainAxisAlignment: MainAxisAlignment.start,
             children: [
               Container(
-                height: size.height * 0.17,
+                height: size.height * 0.19,
                 width: size.width,
                 decoration: BoxDecoration(
-                  color: AppColors.white,
+                  color: MyTheme.dvrskyblue8,
                 ),
                 child: Padding(
                   padding: const EdgeInsets.all(0.0),
@@ -349,10 +347,12 @@ class HomePageDriver extends StatelessWidget {
                     child: Padding(
                       padding: const EdgeInsets.all(2.0),
                       child: Container(
-                        height: size.height * 0.10,
+                        height: size.height * 0.14,
                         decoration: BoxDecoration(
                           color: AppColors.black,
                           //a13,
+                          //
+
                           borderRadius: BorderRadius.circular(10),
                         ),
                         child: Center(
@@ -483,7 +483,7 @@ class HomePageDriver extends StatelessWidget {
                           } else if (index == 1) {
                             // await FlutterPhoneDirectCaller.callNumber(
                             // customercare);
-                            // Get.to(() => support_page());
+                            Get.to(() => ContactUs());
                           } else if (index == 2) {
                             /// _launchWhatsApp();
                             //Get.to(() => IndustryHighTension());
@@ -501,9 +501,9 @@ class HomePageDriver extends StatelessWidget {
                           child: Padding(
                             padding: EdgeInsets.all(1.0),
                             child: PhysicalModel(
-                              elevation: 1,
-                              shadowColor: Colors.black,
-                              color: MyTheme.orng7,
+                              elevation: 5,
+                              shadowColor: MyTheme.dvrskyblueshad1,
+                              color: MyTheme.drivertheme,
                               borderRadius: BorderRadius.circular(17),
                               child: Padding(
                                 padding: EdgeInsets.all(5.0),
@@ -514,7 +514,7 @@ class HomePageDriver extends StatelessWidget {
                                     height: size.height * 0.09,
                                     width: size.width * 0.18,
                                     decoration: BoxDecoration(
-                                      color: MyTheme.orng7,
+                                      color: MyTheme.drivertheme,
                                       //textmaroon505,
                                       //shape: BoxShape.circle
                                       borderRadius: BorderRadius.circular(17),
@@ -522,7 +522,7 @@ class HomePageDriver extends StatelessWidget {
                                     child: Center(
                                       child: Icon(
                                         iconList1[index],
-                                        size: size.height * 0.04,
+                                        size: size.height * 0.036,
                                         color: MyTheme.ThemeColors,
                                       ),
                                     ),
@@ -680,7 +680,7 @@ class HomePageDriver extends StatelessWidget {
                   height: size.height * 0.043,
                   width: size.width,
                   decoration: BoxDecoration(
-                    color: MyTheme.whitecolor,
+                    color: MyTheme.linedriverdivider,
                     borderRadius: BorderRadius.circular(5),
                   ),
                   child: Padding(
@@ -763,9 +763,9 @@ class HomePageDriver extends StatelessWidget {
                               padding: EdgeInsets.all(1.0),
                               child: PhysicalModel(
                                 //elevation: 3,
-                                elevation: 1,
-                                shadowColor: Colors.black,
-                                color: MyTheme.orng7,
+                                elevation: 5,
+                                shadowColor: MyTheme.dvrskyblueshad1,
+                                color: MyTheme.drivertheme,
                                 borderRadius: BorderRadius.circular(17),
                                 child: Padding(
                                   padding: EdgeInsets.all(5.0),
@@ -776,7 +776,7 @@ class HomePageDriver extends StatelessWidget {
                                       height: size.height * 0.09,
                                       width: size.width * 0.18,
                                       decoration: BoxDecoration(
-                                        color: MyTheme.orng7,
+                                        color: MyTheme.drivertheme,
                                         //textmaroon505,
                                         //shape: BoxShape.circle
                                         borderRadius: BorderRadius.circular(17),
@@ -784,7 +784,7 @@ class HomePageDriver extends StatelessWidget {
                                       child: Center(
                                         child: Icon(
                                           iconList2[index],
-                                          size: size.height * 0.04,
+                                          size: size.height * 0.036,
                                           color: MyTheme.themecolor,
                                         ),
                                       ),
@@ -832,7 +832,7 @@ class HomePageDriver extends StatelessWidget {
                   height: size.height * 0.043,
                   width: size.width,
                   decoration: BoxDecoration(
-                    color: MyTheme.whitecolor,
+                    color: MyTheme.linedriverdivider,
                     borderRadius: BorderRadius.circular(5),
                   ),
                   child: Padding(
@@ -906,9 +906,9 @@ class HomePageDriver extends StatelessWidget {
                           child: Padding(
                             padding: EdgeInsets.all(1.0),
                             child: PhysicalModel(
-                              elevation: 1,
-                              shadowColor: Colors.black,
-                              color: MyTheme.orng7,
+                              elevation: 5,
+                              shadowColor: MyTheme.dvrskyblueshad1,
+                              color: MyTheme.drivertheme,
                               borderRadius: BorderRadius.circular(17),
                               child: Padding(
                                 padding: EdgeInsets.all(5.0),
@@ -919,7 +919,7 @@ class HomePageDriver extends StatelessWidget {
                                     height: size.height * 0.09,
                                     width: size.width * 0.18,
                                     decoration: BoxDecoration(
-                                      color: MyTheme.orng7,
+                                      color: MyTheme.drivertheme,
                                       //textmaroon505,
                                       //shape: BoxShape.circle
                                       borderRadius: BorderRadius.circular(17),
@@ -927,7 +927,7 @@ class HomePageDriver extends StatelessWidget {
                                     child: Center(
                                       child: Icon(
                                         iconList3[index],
-                                        size: size.height * 0.04,
+                                        size: size.height * 0.036,
                                         color: MyTheme.ThemeColors,
                                       ),
                                     ),
@@ -1013,7 +1013,7 @@ class Mycrusial extends StatelessWidget {
           Padding(
         padding: EdgeInsets.all(0.0),
         child: Container(
-          height: size.height * 0.20,
+          height: size.height * 0.23,
           width: size.width,
           decoration: BoxDecoration(
             // color: AppColors.th1blue,
@@ -1046,14 +1046,14 @@ class Mycrusial extends StatelessWidget {
                         elevation: 12,
                         borderRadius: BorderRadius.circular(5),
                         child: Container(
-                          height: size.height * 38,
+                          height: size.height * 40,
                           width: size.width,
                           alignment: Alignment.center,
                           decoration: BoxDecoration(
                               color: AppColors.a3,
                               borderRadius: BorderRadius.circular(5),
-                              border:
-                                  Border.all(color: Colors.white, width: 0.5),
+                              border: Border.all(
+                                  color: MyTheme.dvrskyblueshad7, width: 1),
                               image: DecorationImage(
                                   image: NetworkImage('${items?[index]}' ?? ''),
                                   fit: BoxFit.fill,

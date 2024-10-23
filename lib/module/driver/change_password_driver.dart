@@ -2,11 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:vardaancar/module/user/home_page.dart';
 
-import '../contantss/appbar/appbar_custom.dart';
-import '../theme_color/theme_color.dart';
-import '../utils/constant_text.dart';
+import '../../contantss/appbar/appbar_custom.dart';
+import '../../theme_color/theme_color.dart';
+import '../../utils/constant_text.dart';
 
-class ForgotPassword extends StatelessWidget {
+class ChangePasswordDriver extends StatelessWidget {
   final TextEditingController oldpassword = TextEditingController();
   final TextEditingController newpassword = TextEditingController();
 
@@ -19,7 +19,7 @@ class ForgotPassword extends StatelessWidget {
     return Scaffold(
       backgroundColor: AppColors.white,
       appBar: myAppBar(
-        //backgroundColor: AppColors.white,
+        backgroundColor: MyTheme.drivericon,
         title: 'Change Password',
         leadingIcon: Icons.arrow_back_ios_outlined,
         centerTitle: true,
@@ -274,7 +274,7 @@ class ForgotPassword extends StatelessWidget {
                               },
                               child: Text('UPDATE'),
                               style: ElevatedButton.styleFrom(
-                                primary: MyTheme.themecolor,
+                                primary: MyTheme.drivericon,
                                 padding: EdgeInsets.symmetric(vertical: 15),
                                 shape: RoundedRectangleBorder(
                                   borderRadius: BorderRadius.circular(30.0),

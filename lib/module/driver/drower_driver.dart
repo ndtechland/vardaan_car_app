@@ -6,8 +6,12 @@ import 'package:get/get_core/src/get_main.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:url_launcher/url_launcher.dart';
+import 'package:vardaancar/module/driver/profile_details_page.dart';
+import 'package:vardaancar/module/driver/update_language_driver.dart';
 
 import '../../theme_color/theme_color.dart';
+import 'change_password_driver.dart';
+import 'edit_driver_profile.dart';
 
 class CabDriverDrawer extends StatelessWidget {
   const CabDriverDrawer({super.key});
@@ -31,7 +35,7 @@ class CabDriverDrawer extends StatelessWidget {
     return SafeArea(
       ///top: false,
       child: Drawer(
-        // backgroundColor: AppColors.th1wht2,
+        // backgroundColor: AppColor.th1wht2,
         child: ListView(
           padding: EdgeInsets.zero,
           children: <Widget>[
@@ -43,7 +47,7 @@ class CabDriverDrawer extends StatelessWidget {
                   children: [
                     CircleAvatar(
                       radius: 40,
-                      backgroundColor: MyTheme.orng7,
+                      backgroundColor: MyTheme.drivericon,
                       child: ClipOval(
                         child: Padding(
                           padding: EdgeInsets.all(1),
@@ -60,21 +64,21 @@ class CabDriverDrawer extends StatelessWidget {
                       style: GoogleFonts.poppins(
                           fontSize: size.height * 0.018,
                           fontWeight: FontWeight.w600,
-                          color: Colors.white),
+                          color: MyTheme.themecolor),
                     ),
                     Text(
                       'ID:34FGGE45232',
                       style: GoogleFonts.poppins(
                           fontSize: size.height * 0.016,
                           fontWeight: FontWeight.w500,
-                          color: Colors.white),
+                          color: MyTheme.themecolor),
                     ),
                     Spacer(),
                   ],
                 ),
               ),
               decoration: BoxDecoration(
-                color: MyTheme.orng7,
+                color: MyTheme.drivericon,
               ),
             ),
 
@@ -152,7 +156,7 @@ class CabDriverDrawer extends StatelessWidget {
 
                 ///......................................
                 // _navController.tabindex(3);
-                ///Get.to(() => ProfilePages());
+                Get.to(() => ProfilePagesDriver());
                 //Get.to(() => BestDeal());
                 // Get.offNamed('/NavBar');
               },
@@ -177,13 +181,13 @@ class CabDriverDrawer extends StatelessWidget {
                 //'Gift Boxes',
                 style: TextStyle(fontSize: 12, fontWeight: FontWeight.w600),
               ),
-              tileColor: Get.currentRoute == '/EditProfilePage'
+              tileColor: Get.currentRoute == '/EditDriverProfilePages'
                   ? Colors.grey[300]
                   : null,
               onTap: () async {
                 Get.back();
 
-                ///Get.to(EditProfilePages());
+                Get.to(EditDriverProfilePages());
 
                 print(Get.currentRoute);
               },
@@ -249,7 +253,7 @@ class CabDriverDrawer extends StatelessWidget {
                 ///
                 Get.back();
 
-                /// Get.to(() => LanguageUpdatePagess());
+                Get.to(() => LanguageDriverUpdate());
 
                 ///
               },
@@ -274,19 +278,18 @@ class CabDriverDrawer extends StatelessWidget {
                 'Change Password'.tr,
                 style: TextStyle(fontSize: 12, fontWeight: FontWeight.w600),
               ),
-              tileColor: Get.currentRoute == '/DriverPayoutHistory'
+              tileColor: Get.currentRoute == '/ChangePasswordDriver'
                   ? Colors.grey[300]
                   : null,
               onTap: () async {
                 ///
                 Get.back();
-                //Get.to(() => ForgotPassword());
+                Get.to(() => ChangePasswordDriver());
 
                 ///
               },
               //
             ),
-
             ListTile(
               //horizontalTitleGap: 2.h,
               leading: Icon(

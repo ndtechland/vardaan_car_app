@@ -9,9 +9,9 @@ import 'package:url_launcher/url_launcher.dart';
 import 'package:vardaancar/module/user/language_update_drower_innerpage.dart';
 
 import '../../../theme_color/theme_color.dart';
-import '../../change_password.dart';
 import '../../contact_support_page.dart';
 import '../booking_trip_user.dart';
+import '../change_password.dart';
 import '../feedback_screen.dart';
 import '../get_profile_page.dart';
 import '../update_profile_user.dart';
@@ -284,7 +284,7 @@ class CabDrawer extends StatelessWidget {
               onTap: () async {
                 ///
                 Get.back();
-                Get.to(() => ForgotPassword());
+                Get.to(() => ChangePasswordUser());
 
                 ///
               },

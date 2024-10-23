@@ -10,8 +10,63 @@ class MyTheme {
   static Color t1containercolor = Color(0xff041562);
   static Color whitecolor = Color(0xffEEEEEE);
   static Color linehome = Color(0xfff6f5ff);
+  // 0xffDFF5DA
+  // );
+  //0xffcaeec2
+  //e5f6df
   static Color greyColor = Color(0xff7a7a7a);
+
+  //  0xff00B224
+  //  );
+  //00FFB3
+
+  //sky blue 33d6ff
+  //green erin 00ff33
+  //bright mint 00ffb3
+
   static Color borderColor = Colors.white54;
+
+  ///vardaan driver cab theme.......
+
+  static Color drivertheme = Color(0xff33d6ff);
+  static Color drivericon = Color(0xff29ABCC);
+  static Color linedriverdivider = Color(0xffD6F7FF
+      //0xff85E6FF
+      //0xfff6f5ff
+      // 0xffDFF5DA
+      );
+
+  ///driver theme...color..tone
+  static Color dvrskybluetone1 = Color(0xff33D6FF);
+  static Color dvrskybluetone2 = Color(0xff3BCDF2);
+  static Color dvrskybluetone3 = Color(0xff42C5E6);
+  static Color dvrskybluetone4 = Color(0xff4ABCD9);
+  static Color dvrskybluetone5 = Color(0xff52B4CC);
+  static Color dvrskybluetone6 = Color(0xff5AABC0);
+
+  ///driver theme...color.
+  static Color dvrskyblue1 = Color(0xff33D6FF);
+  static Color dvrskyblue2 = Color(0xff47DAFF);
+  static Color dvrskyblue3 = Color(0xff85E6FF);
+  static Color dvrskyblue4 = Color(0xff99EBFF);
+  static Color dvrskyblue5 = Color(0xffADEFFF);
+  static Color dvrskyblue6 = Color(0xffC2F3FF);
+  static Color dvrskyblue7 = Color(0xffD6F7FF);
+  static Color dvrskyblue8 = Color(0xffEBFBFF);
+
+  ///driver theme...color.....shade.
+  static Color dvrskyblueshad1 = Color(0xff33D6FF);
+  static Color dvrskyblueshad2 = Color(0xff2EC1E6);
+  static Color dvrskyblueshad3 = Color(0xff29ABCC);
+  static Color dvrskyblueshad4 = Color(0xff2496B3);
+  static Color dvrskyblueshad5 = Color(0xff1F8099);
+  static Color dvrskyblueshad6 = Color(0xff1A6B80);
+  static Color dvrskyblueshad7 = Color(0xff145666);
+  static Color dvrskyblueshad8 = Color(0xff0F404D);
+  static Color dvrskyblueshad9 = Color(0xff0A2B33);
+  static Color dvrskyblueshad10 = Color(0xff05151A);
+
+  //0A2B33
 
   //fdeaff
 
@@ -30,7 +85,13 @@ class MyTheme {
   static Color orng4 = Color(0xfff5deb3);
   static Color orng5 = Color(0xffff7f50);
   static Color orng6 = Color(0xffffc594);
+
+  //static Color orng7 = Color(0xff00ff33);
+  //0xff33d6ff
+  //0xff00ff33
+
   static Color orng7 = Color(0xfff88158);
+
   static Color orng8 = Color(0xfff87217);
 
   static Color aquaa1 = Color(0xffafdcec);
