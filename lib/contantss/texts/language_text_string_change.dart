@@ -43,6 +43,8 @@ class AppTranslations extends Translations {
           'Report': 'Report',
           'History': 'History',
           'Review': 'Review',
+          'User\'s Request': 'User\'s Request',
+          'Vardaan Driver': 'Vardaan Driver',
         },
         'hi_IN': {
           'My Profile': 'मेरी प्रोफाइल',
@@ -81,7 +83,10 @@ class AppTranslations extends Translations {
           'Report': 'रिपोर्ट',
           'History': 'इतिहास',
           'Review': 'समीक्षा',
+          'User\'s Request': 'यूजर की अनुरोध',
+          'Vardaan Driver': 'वरदान ड्राइवर',
         },
+        //marathi
         'mr_IN': {
           'My Profile': 'माझे प्रोफाइल',
           'English': 'मराठी',
@@ -119,7 +124,10 @@ class AppTranslations extends Translations {
           'Report': 'अहवाल',
           'History': 'इतिहास',
           'Review': 'पुनरावलोकन',
+          'User\'s Request': 'वापरकर्ता विनंती',
+          'Vardaan Driver': 'वरदान ड्रायव्हर',
         },
+        //telugu
         'te_IN': {
           'Help': 'సహాయం',
           'Emergency': 'అత్యవసరం',
@@ -157,7 +165,10 @@ class AppTranslations extends Translations {
           'Report': 'నివేదిక',
           'History': 'చరిత్ర',
           'Review': 'సమీక్ష',
+          'User\'s Request': 'వినియోగదారు అభ్యర్థన',
+          'Vardaan Driver': 'వర్దాన్ డ్రైవర్',
         },
+        //tamil
         'ta_IN': {
           'Help': 'உதவி',
           'Emergency': 'அவசரம்',
@@ -195,7 +206,10 @@ class AppTranslations extends Translations {
           'Report': 'அறிக்கை',
           'History': 'வரலாறு',
           'Review': 'விமர்சனம்',
+          'User\'s Request': 'பயனர் கோரிக்கை',
+          'Vardaan Driver': 'வர்தான் டிரைவர்',
         },
+        //kannad
         'kn_IN': {
           'Help': 'ಸಹಾಯ',
           'Emergency': 'ತುರ್ತು',
@@ -233,7 +247,10 @@ class AppTranslations extends Translations {
           'Report': 'ವರದಿ',
           'History': 'ಇತಿಹಾಸ',
           'Review': 'ಪುನರಾವಲೋಕನ',
+          'User\'s Request': 'ಬಳಕೆದಾರರ ವಿನಂತಿ',
+          'Vardaan Driver': 'ವರ್ದಾನ್ ಚಾಲಕ',
         },
+        //odiya
         'or_IN': {
           'Help': 'ସାହାଯ୍ୟ',
           'Emergency': 'ଜରୁରୀ',
@@ -271,6 +288,8 @@ class AppTranslations extends Translations {
           'Report': 'ରିପୋର୍ଟ',
           'History': 'ଇତିହାସ',
           'Review': 'ସମୀକ୍ଷା',
+          'User\'s Request': 'ବ୍ୟବହାରକାରୀ ଅନୁରୋଧ',
+          'Vardaan Driver': 'ବର୍ଦାନ୍ ଡ୍ରାଇଭର',
         },
         'ra_IN': {
           'My Profile': 'म्हारी प्रोफाइल',
@@ -309,6 +328,8 @@ class AppTranslations extends Translations {
           'Report': 'रिपोर्ट',
           'History': 'इतिहास',
           'Review': 'समीक्षा',
+          'User\'s Request': 'यूजर की अनुरोध',
+          'Vardaan Driver': 'वरदान ड्राइवर',
         },
         'gu_IN': {
           'My Profile': 'મારો પ્રોફાઇલ',
@@ -346,7 +367,10 @@ class AppTranslations extends Translations {
           'Report': 'અહેવાલ',
           'History': 'ઇતિહાસ',
           'Review': 'સમીક્ષા',
+          'User\'s Request': 'વપરાશકર્તા વિનંતી',
+          'Vardaan Driver': 'વર્ધાન ડ્રાઈવર',
         },
+        //malyalam
         'ml_IN': {
           'My Profile': 'എന്റെ പ്രൊഫൈല്',
           'English': 'ഇംഗ്ലീഷ്',
@@ -380,6 +404,8 @@ class AppTranslations extends Translations {
           'Report': 'റിപ്പോർട്ട്',
           'History': 'ചരിത്രം',
           'Review': 'സമീക്ഷ',
+          'User\'s Request': 'ഉപയോക്താവിന്റെ അഭ്യർത്ഥന',
+          'Vardaan Driver': 'വർദാൻ ഡ്രൈവർ',
         },
         'pa_IN': {
           'My Profile': 'ਮੇਰਾ ਪ੍ਰੋਫਾਈਲ',
@@ -414,6 +440,8 @@ class AppTranslations extends Translations {
           'Report': 'ਰਿਪੋਰਟ',
           'History': 'ਇਤਿਹਾਸ',
           'Review': 'ਸਮੀਖਿਆ',
+          'User\'s Request': 'ਉਪਭੋਗਤਾ ਦੀ ਬੇਨਤੀ',
+          'Vardaan Driver': 'ਵਰਦਾਨ ਡਰਾਈਵਰ',
         },
       };
 }

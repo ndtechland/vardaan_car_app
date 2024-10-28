@@ -10,13 +10,21 @@ import 'package:get/get_navigation/src/extension_navigation.dart';
 import 'package:get/get_navigation/src/snackbar/snackbar.dart';
 import 'package:get/get_utils/src/extensions/internacionalization.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:lite_rolling_switch/lite_rolling_switch.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:vardaancar/module/driver/drower_driver.dart';
+import 'package:vardaancar/module/driver/profile_details_page.dart';
+import 'package:vardaancar/module/driver/report_payments.dart';
+import 'package:vardaancar/module/driver/requested_user_list.dart';
+import 'package:vardaancar/module/driver/review_rating_list.dart';
+import 'package:vardaancar/module/driver/scheduled_booking_cab.dart';
 import 'package:vardaancar/module/driver/support_driver.dart';
+import 'package:vardaancar/module/driver/track_user_list.dart';
 
 import '../../contantss/texts/3d_texts.dart';
+import '../../controller/driver_controller/home_controller.dart';
 import '../../theme_color/theme_color.dart';
-import 'notification_page.dart';
+import 'Booking_history_driver.dart';
 
 class Testimonial {
   final String customerName;
@@ -47,8 +55,8 @@ List<String> Services1 = [
 ];
 
 List<String> Services2 = [
+  'User\'s Request',
   'Track User',
-  'Ongoing',
   'Scheduled',
 ];
 
@@ -60,17 +68,19 @@ List<String> Services3 = [
 ];
 
 List<IconData> iconList1 = [
-  Icons.change_circle_rounded,
+  Icons.manage_accounts_rounded,
+  //change_circle_rounded,
   //data_usage_rounded,
-  Icons.contact_phone,
-  Icons.support_outlined,
+  Icons.question_mark_sharp,
+  //contact_phone,
+  Icons.warning_rounded,
   //Icons.report_problem,
   // Icons.settings,
 ];
 
 List<IconData> iconList2 = [
-  Icons.gps_fixed_outlined,
   Icons.catching_pokemon_rounded,
+  Icons.gps_fixed_outlined,
   Icons.safety_check_sharp
   //punch_clock_outlined
   //repeat_sharp,
@@ -97,6 +107,8 @@ List<String> imageList = [
 ];
 
 class HomePageDriver extends StatelessWidget {
+  final HomeController _homeController = Get.put(HomeController());
+
   final List<Testimonial> testimonials = [
     Testimonial(
         customerName: 'Kumar Prince',
@@ -137,8 +149,7 @@ class HomePageDriver extends StatelessWidget {
   GlobalKey<ScaffoldState> _key = new GlobalKey();
   String micccallnumber = "7666008833";
   String customercare = "1912";
-  final Uri _url = Uri.parse(
-      'http://hargharbijli.bsphcl.co.in/Grievanceportal/default.aspx');
+  final Uri _url = Uri.parse('https://vardaancab.com');
 
   //http://hargharbijli.bsphcl.co.in/Grievanceportal/default.aspx
   ///whats app launcher for mobile.....
@@ -198,6 +209,158 @@ class HomePageDriver extends StatelessWidget {
     }
   }
 
+  // Function to show emergency confirmation dialog
+  void _showEmergencyDialog(BuildContext context) {
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          backgroundColor: MyTheme.dvrskyblue6,
+          //Colors.red[50], // Light red background for emergency
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(15.0), // Rounded corners
+          ),
+          title: Row(
+            children: [
+              Icon(
+                Icons.warning_amber_rounded,
+                color: Colors.red, // Warning icon for emergency
+              ),
+              SizedBox(width: 4),
+              Text(
+                'Emergency Confirmation',
+                style: TextStyle(
+                  fontSize: 17,
+                  color: Colors.red,
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
+            ],
+          ),
+          content: Text(
+            'Are you sure you want to make an emergency call to 9877889923?',
+            style: TextStyle(
+              fontSize: 16,
+              color: Colors.black,
+              fontWeight: FontWeight.w500,
+            ),
+          ),
+          actions: <Widget>[
+            TextButton(
+              style: TextButton.styleFrom(
+                foregroundColor: Colors.grey[700],
+              ),
+              child: Text(
+                'Cancel',
+                style: TextStyle(fontSize: 16),
+              ),
+              onPressed: () {
+                Navigator.of(context).pop();
+              },
+            ),
+            ElevatedButton(
+              style: ElevatedButton.styleFrom(
+                backgroundColor: Colors.red, // Emergency color
+              ),
+              child: Text(
+                'Yes, Call Now',
+                style: TextStyle(
+                  color: Colors.white,
+                  fontSize: 16,
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
+              onPressed: () {
+                Navigator.of(context).pop();
+                _launchURL('tel:9911879555');
+              },
+            ),
+          ],
+        );
+      },
+    );
+  }
+
+  void _showPowerDialog(BuildContext context) {
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          backgroundColor: MyTheme.dvrskyblue7,
+          //Colors.red[50], // Light red background for emergency
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(15.0), // Rounded corners
+          ),
+          title: Row(
+            children: [
+              Icon(
+                Icons.online_prediction_outlined,
+                color: Colors.red, // Warning icon for emergency
+              ),
+              SizedBox(width: 4),
+              Text(
+                'Change Your Status',
+                style: TextStyle(
+                  fontSize: 17,
+                  color: Colors.red,
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
+            ],
+          ),
+          content: Text(
+            'Are you sure you want to Power Off/On?',
+            style: TextStyle(
+              fontSize: 16,
+              color: Colors.black,
+              fontWeight: FontWeight.w500,
+            ),
+          ),
+          actions: <Widget>[
+            TextButton(
+              style: TextButton.styleFrom(
+                foregroundColor: Colors.grey[700],
+              ),
+              child: Text(
+                'Cancel',
+                style: TextStyle(fontSize: 16),
+              ),
+              onPressed: () {
+                Navigator.of(context).pop();
+              },
+            ),
+            ElevatedButton(
+              style: ElevatedButton.styleFrom(
+                backgroundColor: Colors.red, // Emergency color
+              ),
+              child: Text(
+                'Yes',
+                style: TextStyle(
+                  color: Colors.white,
+                  fontSize: 16,
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
+              onPressed: () {
+                Navigator.of(context).pop();
+                // _launchURL('tel:9911879555');
+              },
+            ),
+          ],
+        );
+      },
+    );
+  }
+
+  // Function to launch URL
+  Future<void> _launchURL(String url) async {
+    if (await canLaunch(url)) {
+      await launch(url);
+    } else {
+      throw 'Could not launch $url';
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
@@ -227,7 +390,7 @@ class HomePageDriver extends StatelessWidget {
           text: 'Vardaan Driver'.tr,
           fontColor: MyTheme.dvrskyblueshad2,
           //textmaroon505,
-          fontSize: size.height * 0.030,
+          fontSize: size.height * 0.028,
           fontWeight: FontWeight.w700,
           color: MyTheme.dvrskyblue8,
           letterSpacing: 1,
@@ -243,16 +406,132 @@ class HomePageDriver extends StatelessWidget {
         // ),
         ,
         actions: [
-          GestureDetector(
-            onTap: () {
-              Get.to(driver_notification());
-            },
-            child: Icon(
-              Icons.notifications,
-              color: MyTheme.drivericon,
-              size: size.width * 0.08,
+          Padding(
+            padding: const EdgeInsets.only(left: 10, top: 10, bottom: 10),
+            child: LiteRollingSwitch(
+              value: false,
+              width: 50,
+
+              //textOn: 'ON',
+              //textOff: 'OFF',
+              colorOn: AppColors.g35,
+              colorOff: AppColors.th1org,
+              iconOn: Icons.lightbulb_outline,
+              iconOff: Icons.power_settings_new,
+              textSize: size.height * 0.02,
+              textOffColor: Colors.black,
+              textOnColor: Colors.white,
+              animationDuration: const Duration(milliseconds: 100),
+              onChanged: (bool state) {
+                print('turned ${(state) ? '' : ''}');
+              },
+              onDoubleTap: () {},
+              onSwipe: () {},
+              onTap: () {
+                _showPowerDialog(context);
+              },
             ),
           ),
+
+          // GestureDetector(
+          //   onTap: () {
+          //     Get.to(driver_notification());
+          //   },
+          //   child: Icon(
+          //     Icons.notifications,
+          //     color: MyTheme.drivericon,
+          //     size: size.width * 0.08,
+          //   ),
+          // ),
+          // SizedBox(width: size.width * 0.04),
+
+          /// Toggle Button using GetX Controller
+          // Obx(() => InkWell(
+          //       onTap: () {
+          //         _homeController.toggleSwitch();
+          //       },
+          //       child: Row(
+          //         //mainAxisAlignment: MainAxisAlignment.start,
+          //         children: [
+          //           // Text(
+          //           //   _homeController.isToggled.value ? 'On' : 'Off',
+          //           //   style: TextStyle(
+          //           //     color: MyTheme.drivericon,
+          //           //     fontSize: size.width * 0.05,
+          //           //   ),
+          //           // ),
+          //           SizedBox(
+          //             width: size.width * 0.03,
+          //             child: Padding(
+          //               padding: EdgeInsets.only(
+          //                   right: size.width * 0.015,
+          //                   top: size.height * 0.01,
+          //                   bottom: size.height * 0.01),
+          //               child: PhysicalModel(
+          //                 color: Colors.green,
+          //                 borderRadius: BorderRadius.circular(50),
+          //                 shadowColor: Colors.black,
+          //                 elevation: 3,
+          //                 child: Container(
+          //                   height: size.height * 0.07,
+          //                   //width: size.width * 0.33,
+          //                   decoration: BoxDecoration(
+          //                     color: AppColors.a1,
+          //                     borderRadius: BorderRadius.circular(50),
+          //                   ),
+          //                   child: Padding(
+          //                     padding: EdgeInsets.symmetric(
+          //                         horizontal: size.width * 0.01,
+          //                         vertical: size.height * 0.005),
+          //                     child:
+          //                     LiteRollingSwitch(
+          //                       value: false,
+          //                       width: 110,
+          //                       textOn: 'ON',
+          //                       textOff: 'OFF',
+          //                       colorOn: AppColors.g35,
+          //                       colorOff: AppColors.th1org,
+          //                       iconOn: Icons.lightbulb_outline,
+          //                       iconOff: Icons.power_settings_new,
+          //                       textSize: size.height * 0.02,
+          //                       textOffColor: Colors.black,
+          //                       textOnColor: Colors.white,
+          //                       animationDuration:
+          //                       const Duration(milliseconds: 100),
+          //                       onChanged: (bool state) {
+          //                         print('turned ${(state) ? 'on' : 'off'}');
+          //                       },
+          //                       onDoubleTap: () {},
+          //                       onSwipe: () {},
+          //                       onTap: () {},
+          //                     ),
+          //                   ),
+          //                 ),
+          //               ),
+          //             ),
+          //             // Switch(
+          //             //   value: _homeController.isToggled.value,
+          //             //   onChanged: (value) {
+          //             //     _homeController.toggleSwitch();
+          //             //   },
+          //             //   activeColor: Colors.green.shade600,
+          //             //   inactiveThumbColor: MyTheme.logored,
+          //             //   inactiveTrackColor: MyTheme.logored.withOpacity(0.3),
+          //             // ),
+          //           ),
+          //         ],
+          //       ),
+          //     )),
+          // GestureDetector(
+          //   onTap: () {
+          //     Get.to(driver_notification());
+          //   },
+          //   child: Icon(
+          //     Icons.notifications,
+          //     color: MyTheme.drivericon,
+          //     size: size.width * 0.08,
+          //   ),
+          // ),
           SizedBox(
             width: size.width * 0.04,
           ),
@@ -471,7 +750,7 @@ class HomePageDriver extends StatelessWidget {
                           ///Get.to(() => IndustryHighTension());
 
                           if (index == 0) {
-                            ///Get.to(ProfilePages());
+                            Get.to(() => ProfilePagesDriver());
                             // await FlutterPhoneDirectCaller.callNumber(
                             //     micccallnumber);
                             //
@@ -485,6 +764,9 @@ class HomePageDriver extends StatelessWidget {
                             // customercare);
                             Get.to(() => ContactUs());
                           } else if (index == 2) {
+                            _showEmergencyDialog(
+                                context); // Show emergency confirmation dialog
+
                             /// _launchWhatsApp();
                             //Get.to(() => IndustryHighTension());
 
@@ -730,7 +1012,8 @@ class HomePageDriver extends StatelessWidget {
                             //
 
                             if (index == 0) {
-                              // Get.to(() => MapTracking());
+                              //ReqestUserList
+                              Get.to(() => ReqestUserList());
 
                               ///tod:........
 
@@ -745,16 +1028,16 @@ class HomePageDriver extends StatelessWidget {
                             } else if (index == 1) {
                               // await FlutterPhoneDirectCaller.callNumber(
                               // customercare);
-                              // Get.to(() => TripFormPage());
+                              Get.to(() => TrackUserList());
                             } else if (index == 2) {
+                              Get.to(() => ScheduledBookingUser());
+
                               ////_launchWhatsApp();
                               // Get.to(() => ScheduleBookingTabbar());
                             } else if (index == 3) {
                               //_launchUrl();
 
                               //Get.to(WebViewwebsitess(url: "$_url"));
-
-                              //Get.to(() => IndustryHighTension());
 
                             }
                           },
@@ -876,6 +1159,8 @@ class HomePageDriver extends StatelessWidget {
                           ///Get.to(() => IndustryHighTension());
 
                           if (index == 0) {
+                            Get.to(() => ReportPayment());
+
                             //Get.to(ProfilePages());
                             // await FlutterPhoneDirectCaller.callNumber(
                             //     micccallnumber);
@@ -888,11 +1173,12 @@ class HomePageDriver extends StatelessWidget {
                           } else if (index == 1) {
                             // await FlutterPhoneDirectCaller.callNumber(
                             // customercare);
-                            // Get.to(() => support_page());
+                            Get.to(() => HistoryBookingTabbarDriver());
                           } else if (index == 2) {
-                            /// _launchWhatsApp();
-                            //Get.to(() => IndustryHighTension());
+                            Get.to(() => ReviewRatingList());
 
+                            //ReviewRatingList
+                            /// _launchWhatsApp();
                           } else if (index == 3) {
                             //_launchUrl();
 

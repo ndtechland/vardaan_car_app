@@ -310,7 +310,7 @@ class EditDriverProfilePages extends StatelessWidget {
                   child: CustomTextField(
                     obscureText: false,
                     textColor: MyTheme.themecolor,
-                    fieldColor: MyTheme.drivertheme,
+                    fieldColor: MyTheme.dvrskyblue6,
                     hintText: 'Enter username',
                     keyboardType: TextInputType.text,
                     prefixIcon: Row(
@@ -353,7 +353,7 @@ class EditDriverProfilePages extends StatelessWidget {
                   child: CustomTextField(
                     obscureText: false,
                     textColor: MyTheme.themecolor,
-                    fieldColor: MyTheme.drivertheme,
+                    fieldColor: MyTheme.dvrskyblue6,
                     hintText: 'Enter Email',
                     keyboardType: TextInputType.text,
                     prefixIcon: Row(
@@ -394,7 +394,7 @@ class EditDriverProfilePages extends StatelessWidget {
                   child: CustomTextField(
                     obscureText: false,
                     textColor: MyTheme.themecolor,
-                    fieldColor: MyTheme.drivertheme,
+                    fieldColor: MyTheme.dvrskyblue6,
                     hintText: 'Enter Phone',
                     keyboardType: TextInputType.text,
                     prefixIcon: Row(
@@ -435,7 +435,7 @@ class EditDriverProfilePages extends StatelessWidget {
                   child: CustomTextField(
                     obscureText: false,
                     textColor: MyTheme.themecolor,
-                    fieldColor: MyTheme.drivertheme,
+                    fieldColor: MyTheme.dvrskyblue6,
                     hintText: 'Enter PinCode',
                     keyboardType: TextInputType.text,
                     // validator: (value) {
@@ -499,7 +499,7 @@ class EditDriverProfilePages extends StatelessWidget {
                   child: CustomTextField(
                     obscureText: false,
                     textColor: MyTheme.themecolor,
-                    fieldColor: MyTheme.drivertheme,
+                    fieldColor: MyTheme.dvrskyblue6,
                     hintText: 'Enter Your Address',
                     keyboardType: TextInputType.text,
                     // validator: (value) {
@@ -564,7 +564,7 @@ class EditDriverProfilePages extends StatelessWidget {
                   child: CustomTextField(
                     obscureText: false,
                     textColor: MyTheme.themecolor,
-                    fieldColor: MyTheme.drivertheme,
+                    fieldColor: MyTheme.dvrskyblue6,
                     hintText: 'Enter Emergency Contact No.',
                     keyboardType: TextInputType.text,
                     prefixIcon: Row(

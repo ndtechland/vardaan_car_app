@@ -7,11 +7,13 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:vardaancar/module/driver/profile_details_page.dart';
+import 'package:vardaancar/module/driver/support_driver.dart';
 import 'package:vardaancar/module/driver/update_language_driver.dart';
 
 import '../../theme_color/theme_color.dart';
 import 'change_password_driver.dart';
 import 'edit_driver_profile.dart';
+import 'feedback_driver.dart';
 
 class CabDriverDrawer extends StatelessWidget {
   const CabDriverDrawer({super.key});
@@ -50,10 +52,10 @@ class CabDriverDrawer extends StatelessWidget {
                       backgroundColor: MyTheme.drivericon,
                       child: ClipOval(
                         child: Padding(
-                          padding: EdgeInsets.all(1),
+                          padding: EdgeInsets.all(0),
                           child: Image.asset(
                             'assets/images/play_store_512.png',
-                            fit: BoxFit.cover,
+                            fit: BoxFit.fill,
                           ),
                         ),
                       ),
@@ -315,7 +317,7 @@ class CabDriverDrawer extends StatelessWidget {
               onTap: () async {
                 Get.back();
 
-                //Get.to(() => FeedbackScreen());
+                Get.to(() => FeedbackDriver());
               },
               //
             ),
@@ -419,7 +421,7 @@ class CabDriverDrawer extends StatelessWidget {
                 //  _getProfileController.addressidApi();
                 // _getProfileController.update();
                 ///........................................................................................
-                ///Get.to(() => support_page());
+                Get.to(() => ContactUs());
                 // Get.offNamed('/PersonalProfile');
               },
             ),

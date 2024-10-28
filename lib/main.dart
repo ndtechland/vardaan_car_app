@@ -68,7 +68,8 @@ class MyApp extends StatelessWidget {
 
             ///GoogleLensLauncher(),
 
-            /// SplashScreen(),
+            //SplashScreen(),
+
             HomePageDriver(),
       ),
     );

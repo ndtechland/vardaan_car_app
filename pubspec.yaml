@@ -47,24 +47,14 @@ dependencies:
   file_picker: ^5.3.1
   flutter_inappwebview:
   lite_rolling_switch: ^1.0.0
-  google_maps_flutter:
-
-  #^2.2.0  # Make sure to use the latest version
-
+  #google_maps_flutter:
+  google_maps_flutter: ^2.0.0  # Use the latest version if possible
 
 
 
-
-
+  #^2.2.0  # Make sure to use the latest versionj
   #translator: ^0.1.7
   # Check for the latest version
-
-
-
-
-
-
-
   # The following adds the Cupertino Icons font to your application.
   # Use with the CupertinoIcons class for iOS style icons.
   cupertino_icons: ^1.0.2
@@ -73,7 +63,6 @@ dependencies:
 dev_dependencies:
   flutter_test:
     sdk: flutter
-
   # The "flutter_lints" package below contains a set of recommended lints to
   # encourage good coding practices. The lint set provided by the package is
   # activated in the `analysis_options.yaml` file located at the root of your

@@ -101,7 +101,6 @@ class LiveBooking extends StatelessWidget {
                             fontSize: size.height * 0.019,
                             fontWeight: FontWeight.w600,
                           ),
-
                           //ThreeDtext2
                         ],
                       ),

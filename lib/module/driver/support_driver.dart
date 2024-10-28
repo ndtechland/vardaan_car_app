@@ -65,18 +65,60 @@ class ContactUs extends StatelessWidget {
       context: context,
       builder: (BuildContext context) {
         return AlertDialog(
-          title: Text('Emergency Confirmation'),
+          backgroundColor: Colors.red[50], // Light red background for emergency
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(15.0), // Rounded corners
+          ),
+          title: Row(
+            children: [
+              Icon(
+                Icons.warning_amber_rounded,
+                color: Colors.red, // Warning icon for emergency
+              ),
+              SizedBox(width: 4),
+              Text(
+                'Emergency Confirmation',
+                style: TextStyle(
+                  fontSize: 17,
+                  color: Colors.red,
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
+            ],
+          ),
           content: Text(
-              'Are you sure you want to make an emergency call to 9877889923?'),
+            'Are you sure you want to make an emergency call to 9877889923?',
+            style: TextStyle(
+              fontSize: 16,
+              color: Colors.black,
+              fontWeight: FontWeight.w500,
+            ),
+          ),
           actions: <Widget>[
             TextButton(
-              child: Text('Cancel'),
+              style: TextButton.styleFrom(
+                foregroundColor: Colors.grey[700],
+              ),
+              child: Text(
+                'Cancel',
+                style: TextStyle(fontSize: 16),
+              ),
               onPressed: () {
                 Navigator.of(context).pop();
               },
             ),
-            TextButton(
-              child: Text('Yes'),
+            ElevatedButton(
+              style: ElevatedButton.styleFrom(
+                backgroundColor: Colors.red, // Emergency color
+              ),
+              child: Text(
+                'Yes, Call Now',
+                style: TextStyle(
+                  color: Colors.white,
+                  fontSize: 16,
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
               onPressed: () {
                 Navigator.of(context).pop();
                 _launchURL('tel:9911879555');
