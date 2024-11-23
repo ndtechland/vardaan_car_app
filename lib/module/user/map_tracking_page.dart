@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
+import 'package:url_launcher/url_launcher.dart';
 import 'package:vardaancar/theme_color/theme_color.dart';
 
 class MapTracking extends StatefulWidget {
@@ -77,34 +79,45 @@ class _MapTrackingState extends State<MapTracking> {
                             ),
                           ),
                           Spacer(),
-                          Container(
-                              decoration: BoxDecoration(
-                                  color: MyTheme.themecolor,
-                                  shape: BoxShape.circle
-                                  // Color for Call Driver row
-                                  ),
-                              child: Padding(
-                                padding: const EdgeInsets.all(8.0),
-                                child: Icon(
-                                  Icons.call,
-                                  color: Colors.white,
-                                ),
-                              )),
-                          SizedBox(width: 16),
-                          Container(
-                              decoration: BoxDecoration(
-                                  color: MyTheme.logored, shape: BoxShape.circle
-                                  // Color for Call Driver row
-                                  ),
-                              child: Padding(
-                                padding: const EdgeInsets.all(8.0),
-                                child: Center(
+                          InkWell(
+                            onTap: () {
+                              _showusercallDialog();
+                            },
+                            child: Container(
+                                decoration: BoxDecoration(
+                                    color: MyTheme.themecolor,
+                                    shape: BoxShape.circle
+                                    // Color for Call Driver row
+                                    ),
+                                child: Padding(
+                                  padding: const EdgeInsets.all(8.0),
                                   child: Icon(
-                                    Icons.warning,
+                                    Icons.call,
                                     color: Colors.white,
                                   ),
-                                ),
-                              )),
+                                )),
+                          ),
+                          SizedBox(width: 16),
+                          InkWell(
+                            onTap: () {
+                              _showemergencyDialog();
+                            },
+                            child: Container(
+                                decoration: BoxDecoration(
+                                    color: MyTheme.logored,
+                                    shape: BoxShape.circle
+                                    // Color for Call Driver row
+                                    ),
+                                child: Padding(
+                                  padding: const EdgeInsets.all(8.0),
+                                  child: Center(
+                                    child: Icon(
+                                      Icons.warning,
+                                      color: Colors.white,
+                                    ),
+                                  ),
+                                )),
+                          ),
                         ],
                       ),
                     ],
@@ -154,7 +167,8 @@ class _MapTrackingState extends State<MapTracking> {
                             // Implement reject functionality
                           },
                           style: ElevatedButton.styleFrom(
-                              primary: MyTheme.logored // Accept button color
+                              backgroundColor:
+                                  MyTheme.logored // Accept button color
                               ), // Reject button color
                           child: Text('Reject'),
                         ),
@@ -166,7 +180,7 @@ class _MapTrackingState extends State<MapTracking> {
                             // Implement accept functionality
                           },
                           style: ElevatedButton.styleFrom(
-                              primary:
+                              backgroundColor:
                                   MyTheme.themecolor), // Accept button color
                           child: Text('Accept'),
                         ),
@@ -269,6 +283,17 @@ class _MapTrackingState extends State<MapTracking> {
               ),
             },
           ),
+          Positioned(
+            top: 16,
+            right: 16,
+            child: FloatingActionButton(
+              backgroundColor: Colors.red,
+              child: const Icon(Icons.sos),
+              onPressed: () {
+                _showSosDialog(context);
+              },
+            ),
+          ),
           Padding(
             padding: const EdgeInsets.all(1.0),
             child: Align(
@@ -283,11 +308,10 @@ class _MapTrackingState extends State<MapTracking> {
                 child: ElevatedButton(
                   style: ElevatedButton.styleFrom(
                     backgroundColor: MyTheme.themecolor,
+
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(20),
-                    ),
-                    primary: MyTheme
-                        .themecolor, // Makes button background transparent
+                    ), // Makes button background transparent
                     shadowColor: Colors.black, // Removes shadow
                     padding:
                         EdgeInsets.symmetric(vertical: 1.0, horizontal: 24.0),
@@ -309,6 +333,8 @@ class _MapTrackingState extends State<MapTracking> {
       ),
     );
   }
+
+  ///todo dailog.....
 
   Widget _buildDriverDetailRow(String label, String value) {
     return Row(
@@ -363,6 +389,156 @@ class _MapTrackingState extends State<MapTracking> {
           ),
         ),
       ],
+    );
+  }
+
+  void _showSosDialog(BuildContext context) {
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: Text('Emergency SOS'),
+          content: Text('Are you sure you want to send an SOS signal?'),
+          actions: [
+            TextButton(
+              child: Text('Cancel'),
+              onPressed: () {
+                Navigator.of(context).pop();
+              },
+            ),
+            ElevatedButton(
+              onPressed: () {
+                // Handle pickup action here
+                Get.back();
+                // controller.goToPickup();
+              },
+              style: ElevatedButton.styleFrom(
+                backgroundColor: Colors.red, // Set the button color
+              ),
+              child: Text('Send SOS'),
+            ),
+            // TextButton(
+            //   child: Text('Send SOS'),
+            //   onPressed: () {
+            //     // Handle SOS action
+            //     Navigator.of(context).pop();
+            //   },
+            // ),
+          ],
+        );
+      },
+    );
+  }
+
+  void _showemergencyDialog() {
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(15),
+          ),
+          title: Text(
+            'Emergency Call !',
+            style: GoogleFonts.roboto(
+              fontSize: MediaQuery.of(context).size.height * 0.025,
+              fontWeight: FontWeight.bold,
+              color: MyTheme.themecolor,
+            ),
+          ),
+          content: Text(
+            'Do you want to call emergency number 9911879555?',
+            style: GoogleFonts.roboto(
+              fontSize: MediaQuery.of(context).size.height * 0.018,
+              color: MyTheme.greyColor,
+            ),
+          ),
+          actions: <Widget>[
+            TextButton(
+              onPressed: () {
+                Navigator.of(context).pop();
+              },
+              child: Text(
+                'Cancel',
+                style: TextStyle(color: MyTheme.logored),
+              ),
+            ),
+            ElevatedButton(
+              onPressed: () async {
+                const phoneNumber = 'tel:9911879555';
+                if (await canLaunch(phoneNumber)) {
+                  await launch(phoneNumber);
+                } else {
+                  throw 'Could not launch $phoneNumber';
+                }
+              },
+              style: ElevatedButton.styleFrom(
+                backgroundColor: Colors.red,
+              ),
+              child: Text(
+                'Call',
+                style: TextStyle(color: Colors.white),
+              ),
+            ),
+          ],
+        );
+      },
+    );
+  }
+
+  void _showusercallDialog() {
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(15),
+          ),
+          title: Text(
+            'Want  to Call !',
+            style: GoogleFonts.roboto(
+              fontSize: MediaQuery.of(context).size.height * 0.025,
+              fontWeight: FontWeight.bold,
+              color: MyTheme.themecolor,
+            ),
+          ),
+          content: Text(
+            'Do you want to call driver the number is number 9911879555?',
+            style: GoogleFonts.roboto(
+              fontSize: MediaQuery.of(context).size.height * 0.018,
+              color: MyTheme.greyColor,
+            ),
+          ),
+          actions: <Widget>[
+            TextButton(
+              onPressed: () {
+                Navigator.of(context).pop();
+              },
+              child: Text(
+                'Cancel',
+                style: TextStyle(color: MyTheme.logored),
+              ),
+            ),
+            ElevatedButton(
+              onPressed: () async {
+                const phoneNumber = 'tel:9911879555';
+                if (await canLaunch(phoneNumber)) {
+                  await launch(phoneNumber);
+                } else {
+                  throw 'Could not launch $phoneNumber';
+                }
+              },
+              style: ElevatedButton.styleFrom(
+                backgroundColor: Colors.red,
+              ),
+              child: Text(
+                'Call',
+                style: TextStyle(color: Colors.white),
+              ),
+            ),
+          ],
+        );
+      },
     );
   }
 }

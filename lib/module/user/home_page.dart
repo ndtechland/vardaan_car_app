@@ -1,23 +1,19 @@
 import 'dart:io';
 
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:flutter_carousel_slider/carousel_slider.dart';
 import 'package:get/get.dart';
-import 'package:get/get_core/src/get_main.dart';
-import 'package:get/get_navigation/src/extension_navigation.dart';
-import 'package:get/get_navigation/src/snackbar/snackbar.dart';
-import 'package:get/get_utils/src/extensions/internacionalization.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:vardaancar/module/user/scheduled_booking.dart';
 
 import '../../contantss/buttons/horizontal_circular_button.dart';
+import '../../contantss/fixed_text_for_api.dart';
 import '../../contantss/texts/3d_texts.dart';
+import '../../controller/driver_controller/diver_banner_get_controller.dart';
 import '../../theme_color/theme_color.dart';
-import '../contact_support_page.dart';
 import 'book_trip.dart';
+import 'contact_support_user.dart';
 import 'drawer_user/drawer_cab.dart';
 import 'get_profile_page.dart';
 import 'map_tracking_page.dart';
@@ -89,6 +85,8 @@ class HomePage extends StatelessWidget {
         rating: 5,
         imageUrl:
             'https://images.unsplash.com/photo-1640951613773-54706e06851d?q=80&w=2080&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D'
+
+        ///todo:......
         // 'https://via.placeholder.com/50'
         ), // Sample placeholder image URL
     Testimonial(
@@ -185,6 +183,86 @@ class HomePage extends StatelessWidget {
     if (!await launchUrl(_url)) {
       throw 'Could not launch $_url';
     }
+  }
+
+  // Function to launch URL
+  Future<void> _launchURL(String url) async {
+    if (await canLaunch(url)) {
+      await launch(url);
+    } else {
+      throw 'Could not launch $url';
+    }
+  }
+
+  // Function to show emergency confirmation dialog
+  void _showEmergencyDialog(BuildContext context) {
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          backgroundColor: Colors.red[50], // Light red background for emergency
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(15.0), // Rounded corners
+          ),
+          title: Row(
+            children: [
+              Icon(
+                Icons.warning_amber_rounded,
+                color: Colors.red, // Warning icon for emergency
+              ),
+              SizedBox(width: 4),
+              Text(
+                'Emergency Confirmation',
+                style: TextStyle(
+                  fontSize: 17,
+                  color: Colors.red,
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
+            ],
+          ),
+          content: Text(
+            'Are you sure you want to make an emergency call to 9877889923?',
+            style: TextStyle(
+              fontSize: 16,
+              color: Colors.black,
+              fontWeight: FontWeight.w500,
+            ),
+          ),
+          actions: <Widget>[
+            TextButton(
+              style: TextButton.styleFrom(
+                foregroundColor: Colors.grey[700],
+              ),
+              child: Text(
+                'Cancel',
+                style: TextStyle(fontSize: 16),
+              ),
+              onPressed: () {
+                Navigator.of(context).pop();
+              },
+            ),
+            ElevatedButton(
+              style: ElevatedButton.styleFrom(
+                backgroundColor: Colors.red, // Emergency color
+              ),
+              child: Text(
+                'Yes, Call Now',
+                style: TextStyle(
+                  color: Colors.white,
+                  fontSize: 16,
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
+              onPressed: () {
+                Navigator.of(context).pop();
+                _launchURL('tel:9911879555');
+              },
+            ),
+          ],
+        );
+      },
+    );
   }
 
   @override
@@ -470,18 +548,20 @@ class HomePage extends StatelessWidget {
                           } else if (index == 1) {
                             // await FlutterPhoneDirectCaller.callNumber(
                             // customercare);
-                            Get.to(() => support_page());
+                            //ContactUsUser
+                            Get.to(() => ContactUsUser());
+
+                            ///Get.to(() => support_page());
                           } else if (index == 2) {
                             /// _launchWhatsApp();
+                            _showEmergencyDialog(context);
                             //Get.to(() => IndustryHighTension());
-
                           } else if (index == 3) {
                             //_launchUrl();
 
                             //Get.to(WebViewwebsitess(url: "$_url"));
 
                             //Get.to(() => IndustryHighTension());
-
                           }
                         },
                         child: Center(
@@ -742,7 +822,6 @@ class HomePage extends StatelessWidget {
                               //Get.to(WebViewwebsitess(url: "$_url"));
 
                               //Get.to(() => IndustryHighTension());
-
                             }
                           },
                           child: Center(
@@ -913,16 +992,16 @@ class HomePage extends StatelessWidget {
                                       ),
                                     ),
                                     SizedBox(height: 0.1),
-                                    Row(
-                                      children: List.generate(5, (starIndex) {
-                                        return Icon(
-                                          starIndex < testimonial.rating
-                                              ? Icons.star
-                                              : Icons.star_border,
-                                          color: Colors.amber,
-                                        );
-                                      }),
-                                    ),
+                                    // Row(
+                                    //   children: List.generate(5, (starIndex) {
+                                    //     return Icon(
+                                    //       starIndex < testimonial.rating
+                                    //           ? Icons.star
+                                    //           : Icons.star_border,
+                                    //       color: Colors.amber,
+                                    //     );
+                                    //   }),
+                                    // ),
                                   ],
                                 ),
                               ),
@@ -955,6 +1034,7 @@ class Mycrusial extends StatelessWidget {
   Mycrusial({Key? key}) : super(key: key);
   //UserHomepageController _userHomepageController =
   // Get.put(UserHomepageController());
+  final BannerController _controller = Get.put(BannerController());
 
   final List<Color> colors = [
     Colors.red,
@@ -969,94 +1049,98 @@ class Mycrusial extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    var imgpath = 'https://new.signatureresorts.in/Images/';
+    //var imgpath = 'https://new.signatureresorts.in/Images/';
     Size size = MediaQuery.of(context).size;
     return Scaffold(
-      //backgroundColor: Colors.redAccent,
-      body:
-          // Obx(
-          //       () => (_userHomepageController.isLoading.value)
-          //       ? Center(child: CircularProgressIndicator())
-          //       : _userHomepageController.getuserbannerlist?.banner == null
-          //       ? Center(
-          //     child: Text('No data'),
-          //   )
-          //       :
-          Padding(
-        padding: EdgeInsets.all(0.0),
-        child: Container(
-          height: size.height * 0.20,
-          width: size.width,
-          decoration: BoxDecoration(
-            // color: AppColors.th1blue,
-            //textmaroon505,
-            //a12,
-            borderRadius: BorderRadius.circular(10),
-          ),
-          child: Center(
-            child: Material(
-              // color: MyTheme.ThemeColors,
-              borderRadius: BorderRadius.circular(10),
-              elevation: 0,
-              child: Container(
-                decoration: BoxDecoration(
-                  //color: AppColors.textmaroon505,
-                  //.a15,
-                  borderRadius: BorderRadius.circular(5),
-                ),
-                child: CarouselSlider.builder(
-                  key: _sliderKey,
-                  unlimitedMode: true,
-                  autoSliderTransitionTime: Duration(milliseconds: 500),
-                  slideBuilder: (index) {
-                    final items = imageList;
-                    // _userHomepageController
-                    // .getuserbannerlist?.banner;
-                    return Padding(
-                      padding: const EdgeInsets.symmetric(horizontal: 1),
+        //backgroundColor: Colors.redAccent,
+        body: Obx(
+      () => (_controller.isLoading.value)
+          ? Center(child: CircularProgressIndicator())
+          : _controller.bannerDriver!.data == null
+              ? Center(
+                  child: Text('No data'),
+                )
+              : Padding(
+                  padding: EdgeInsets.all(0.0),
+                  child: Container(
+                    height: size.height * 0.20,
+                    width: size.width,
+                    decoration: BoxDecoration(
+                      // color: AppColors.th1blue,
+                      //textmaroon505,
+                      //a12,
+                      borderRadius: BorderRadius.circular(10),
+                    ),
+                    child: Center(
                       child: Material(
-                        elevation: 12,
-                        borderRadius: BorderRadius.circular(5),
+                        // color: MyTheme.ThemeColors,
+                        borderRadius: BorderRadius.circular(10),
+                        elevation: 0,
                         child: Container(
-                          height: size.height * 38,
-                          width: size.width,
-                          alignment: Alignment.center,
                           decoration: BoxDecoration(
-                              color: AppColors.a3,
-                              borderRadius: BorderRadius.circular(5),
-                              border:
-                                  Border.all(color: Colors.white, width: 0.5),
-                              image: DecorationImage(
-                                  image: NetworkImage('${items?[index]}' ?? ''),
-                                  fit: BoxFit.fill,
-                                  onError: (error, stackTrace) {
-                                    Text("No Image Found");
-                                    // .log(error, stackTrace);
-                                  })),
+                            //color: AppColors.textmaroon505,
+                            //.a15,
+                            borderRadius: BorderRadius.circular(5),
+                          ),
+                          child: CarouselSlider.builder(
+                            key: _sliderKey,
+                            unlimitedMode: true,
+                            autoSliderTransitionTime:
+                                Duration(milliseconds: 500),
+                            slideBuilder: (index) {
+                              final items =
+                                  //imageList;
+                                  _controller.bannerDriver?.data;
+                              return Padding(
+                                padding:
+                                    const EdgeInsets.symmetric(horizontal: 1),
+                                child: Material(
+                                  elevation: 12,
+                                  borderRadius: BorderRadius.circular(5),
+                                  child: Container(
+                                    height: size.height * 38,
+                                    width: size.width,
+                                    alignment: Alignment.center,
+                                    decoration: BoxDecoration(
+                                        color: AppColors.a3,
+                                        borderRadius: BorderRadius.circular(5),
+                                        border: Border.all(
+                                            color: Colors.white, width: 0.5),
+                                        image: DecorationImage(
+                                            image: NetworkImage(
+                                                "${FixedText.imgebaseurlvardan}${_controller.bannerDriver!.data![index].bannerImage}"
+                                                //'${items?[index]}' ?? ''
+                                                ),
+                                            fit: BoxFit.fill,
+                                            onError: (error, stackTrace) {
+                                              Text("No Image Found");
+                                              // .log(error, stackTrace);
+                                            })),
+                                  ),
+                                ),
+                              );
+                            },
+                            slideTransform: DefaultTransform(),
+                            slideIndicator: CircularSlideIndicator(
+                              indicatorBorderWidth: 1,
+                              indicatorRadius: 3,
+                              itemSpacing: 15,
+                              currentIndicatorColor: Colors.white,
+                              indicatorBackgroundColor: Colors.grey.shade800,
+                              padding: EdgeInsets.only(bottom: 0),
+                            ),
+                            itemCount: _controller.bannerDriver!.data!.length,
+                            //imageList.length,
+                            // _userHomepageController
+                            //     .getuserbannerlist!.banner!.length,
+                            enableAutoSlider: true,
+                          ),
                         ),
                       ),
-                    );
-                  },
-                  slideTransform: DefaultTransform(),
-                  slideIndicator: CircularSlideIndicator(
-                    indicatorBorderWidth: 1,
-                    indicatorRadius: 3,
-                    itemSpacing: 15,
-                    currentIndicatorColor: Colors.white,
-                    indicatorBackgroundColor: Colors.grey.shade800,
-                    padding: EdgeInsets.only(bottom: 0),
+                    ),
                   ),
-                  itemCount: imageList.length,
-                  // _userHomepageController
-                  //     .getuserbannerlist!.banner!.length,
-                  enableAutoSlider: true,
                 ),
-              ),
-            ),
-          ),
-        ),
-      ),
       // )
-    );
+    ));
   }
 }

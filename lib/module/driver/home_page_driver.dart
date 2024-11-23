@@ -1,16 +1,9 @@
 import 'dart:io';
 
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:flutter_carousel_slider/carousel_slider.dart';
 import 'package:get/get.dart';
-import 'package:get/get_core/src/get_main.dart';
-import 'package:get/get_navigation/src/extension_navigation.dart';
-import 'package:get/get_navigation/src/snackbar/snackbar.dart';
-import 'package:get/get_utils/src/extensions/internacionalization.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:lite_rolling_switch/lite_rolling_switch.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:vardaancar/module/driver/drower_driver.dart';
 import 'package:vardaancar/module/driver/profile_details_page.dart';
@@ -21,10 +14,13 @@ import 'package:vardaancar/module/driver/scheduled_booking_cab.dart';
 import 'package:vardaancar/module/driver/support_driver.dart';
 import 'package:vardaancar/module/driver/track_user_list.dart';
 
+import '../../contantss/fixed_text_for_api.dart';
 import '../../contantss/texts/3d_texts.dart';
-import '../../controller/driver_controller/home_controller.dart';
+import '../../controller/driver_controller/diver_banner_get_controller.dart';
+import '../../controller/driver_controller/switch_controller.dart';
 import '../../theme_color/theme_color.dart';
 import 'Booking_history_driver.dart';
+import 'driver_toggle_homepage.dart';
 
 class Testimonial {
   final String customerName;
@@ -107,7 +103,7 @@ List<String> imageList = [
 ];
 
 class HomePageDriver extends StatelessWidget {
-  final HomeController _homeController = Get.put(HomeController());
+  final SwitchController switchController = Get.put(SwitchController());
 
   final List<Testimonial> testimonials = [
     Testimonial(
@@ -209,6 +205,8 @@ class HomePageDriver extends StatelessWidget {
     }
   }
 
+  //
+
   // Function to show emergency confirmation dialog
   void _showEmergencyDialog(BuildContext context) {
     showDialog(
@@ -281,78 +279,8 @@ class HomePageDriver extends StatelessWidget {
     );
   }
 
-  void _showPowerDialog(BuildContext context) {
-    showDialog(
-      context: context,
-      builder: (BuildContext context) {
-        return AlertDialog(
-          backgroundColor: MyTheme.dvrskyblue7,
-          //Colors.red[50], // Light red background for emergency
-          shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(15.0), // Rounded corners
-          ),
-          title: Row(
-            children: [
-              Icon(
-                Icons.online_prediction_outlined,
-                color: Colors.red, // Warning icon for emergency
-              ),
-              SizedBox(width: 4),
-              Text(
-                'Change Your Status',
-                style: TextStyle(
-                  fontSize: 17,
-                  color: Colors.red,
-                  fontWeight: FontWeight.bold,
-                ),
-              ),
-            ],
-          ),
-          content: Text(
-            'Are you sure you want to Power Off/On?',
-            style: TextStyle(
-              fontSize: 16,
-              color: Colors.black,
-              fontWeight: FontWeight.w500,
-            ),
-          ),
-          actions: <Widget>[
-            TextButton(
-              style: TextButton.styleFrom(
-                foregroundColor: Colors.grey[700],
-              ),
-              child: Text(
-                'Cancel',
-                style: TextStyle(fontSize: 16),
-              ),
-              onPressed: () {
-                Navigator.of(context).pop();
-              },
-            ),
-            ElevatedButton(
-              style: ElevatedButton.styleFrom(
-                backgroundColor: Colors.red, // Emergency color
-              ),
-              child: Text(
-                'Yes',
-                style: TextStyle(
-                  color: Colors.white,
-                  fontSize: 16,
-                  fontWeight: FontWeight.bold,
-                ),
-              ),
-              onPressed: () {
-                Navigator.of(context).pop();
-                // _launchURL('tel:9911879555');
-              },
-            ),
-          ],
-        );
-      },
-    );
-  }
+// Dialog Function
 
-  // Function to launch URL
   Future<void> _launchURL(String url) async {
     if (await canLaunch(url)) {
       await launch(url);
@@ -396,206 +324,22 @@ class HomePageDriver extends StatelessWidget {
           letterSpacing: 1,
           shadowColor: MyTheme.themecolor,
           shadowBlurRadius: 3.0,
-        )
+        ),
         // Container(
         //   height: size.height * 0.05,
         //   width: size.width * 0.2,
         //   decoration: BoxDecoration(
         //       image: DecorationImage(
         //           image: AssetImage('lib/assets/video/suvidha33logo.jpeg'))),
-        // ),
-        ,
         actions: [
-          Padding(
-            padding: const EdgeInsets.only(left: 10, top: 10, bottom: 10),
-            child: LiteRollingSwitch(
-              value: false,
-              width: 50,
-
-              //textOn: 'ON',
-              //textOff: 'OFF',
-              colorOn: AppColors.g35,
-              colorOff: AppColors.th1org,
-              iconOn: Icons.lightbulb_outline,
-              iconOff: Icons.power_settings_new,
-              textSize: size.height * 0.02,
-              textOffColor: Colors.black,
-              textOnColor: Colors.white,
-              animationDuration: const Duration(milliseconds: 100),
-              onChanged: (bool state) {
-                print('turned ${(state) ? '' : ''}');
-              },
-              onDoubleTap: () {},
-              onSwipe: () {},
-              onTap: () {
-                _showPowerDialog(context);
-              },
-            ),
-          ),
-
-          // GestureDetector(
-          //   onTap: () {
-          //     Get.to(driver_notification());
-          //   },
-          //   child: Icon(
-          //     Icons.notifications,
-          //     color: MyTheme.drivericon,
-          //     size: size.width * 0.08,
-          //   ),
-          // ),
-          // SizedBox(width: size.width * 0.04),
-
-          /// Toggle Button using GetX Controller
-          // Obx(() => InkWell(
-          //       onTap: () {
-          //         _homeController.toggleSwitch();
-          //       },
-          //       child: Row(
-          //         //mainAxisAlignment: MainAxisAlignment.start,
-          //         children: [
-          //           // Text(
-          //           //   _homeController.isToggled.value ? 'On' : 'Off',
-          //           //   style: TextStyle(
-          //           //     color: MyTheme.drivericon,
-          //           //     fontSize: size.width * 0.05,
-          //           //   ),
-          //           // ),
-          //           SizedBox(
-          //             width: size.width * 0.03,
-          //             child: Padding(
-          //               padding: EdgeInsets.only(
-          //                   right: size.width * 0.015,
-          //                   top: size.height * 0.01,
-          //                   bottom: size.height * 0.01),
-          //               child: PhysicalModel(
-          //                 color: Colors.green,
-          //                 borderRadius: BorderRadius.circular(50),
-          //                 shadowColor: Colors.black,
-          //                 elevation: 3,
-          //                 child: Container(
-          //                   height: size.height * 0.07,
-          //                   //width: size.width * 0.33,
-          //                   decoration: BoxDecoration(
-          //                     color: AppColors.a1,
-          //                     borderRadius: BorderRadius.circular(50),
-          //                   ),
-          //                   child: Padding(
-          //                     padding: EdgeInsets.symmetric(
-          //                         horizontal: size.width * 0.01,
-          //                         vertical: size.height * 0.005),
-          //                     child:
-          //                     LiteRollingSwitch(
-          //                       value: false,
-          //                       width: 110,
-          //                       textOn: 'ON',
-          //                       textOff: 'OFF',
-          //                       colorOn: AppColors.g35,
-          //                       colorOff: AppColors.th1org,
-          //                       iconOn: Icons.lightbulb_outline,
-          //                       iconOff: Icons.power_settings_new,
-          //                       textSize: size.height * 0.02,
-          //                       textOffColor: Colors.black,
-          //                       textOnColor: Colors.white,
-          //                       animationDuration:
-          //                       const Duration(milliseconds: 100),
-          //                       onChanged: (bool state) {
-          //                         print('turned ${(state) ? 'on' : 'off'}');
-          //                       },
-          //                       onDoubleTap: () {},
-          //                       onSwipe: () {},
-          //                       onTap: () {},
-          //                     ),
-          //                   ),
-          //                 ),
-          //               ),
-          //             ),
-          //             // Switch(
-          //             //   value: _homeController.isToggled.value,
-          //             //   onChanged: (value) {
-          //             //     _homeController.toggleSwitch();
-          //             //   },
-          //             //   activeColor: Colors.green.shade600,
-          //             //   inactiveThumbColor: MyTheme.logored,
-          //             //   inactiveTrackColor: MyTheme.logored.withOpacity(0.3),
-          //             // ),
-          //           ),
-          //         ],
-          //       ),
-          //     )),
-          // GestureDetector(
-          //   onTap: () {
-          //     Get.to(driver_notification());
-          //   },
-          //   child: Icon(
-          //     Icons.notifications,
-          //     color: MyTheme.drivericon,
-          //     size: size.width * 0.08,
-          //   ),
-          // ),
-          SizedBox(
-            width: size.width * 0.04,
-          ),
-
-          ///
-          // InkWell(
-          //   onTap: () {
-          //    // Get.to(() => LanguagePagess());
-          //   },
-          //   child: Padding(
-          //     padding: EdgeInsets.symmetric(
-          //       vertical: size.height * 0.017,
-          //     ),
-          //     child: Container(
-          //       height: size.height * 0.04,
-          //       width: size.width * 0.22,
-          //       decoration: BoxDecoration(
-          //           //shape: BoxShape.circle,
-          //           color: AppColors.white,
-          //           borderRadius: BorderRadius.circular(12),
-          //           border: Border.all(color: AppColors.textmaroon505)
-          //
-          //           //image:
-          //           // DecorationImage(
-          //           //     image: AssetImage('lib/assets/video/language23.gif'
-          //           //         //'lib/assets/video/right-arrow.gif'
-          //           //         ),
-          //           //     fit: BoxFit.fill)
-          //           ),
-          //       child: ThreeDtext(
-          //         text: 'English'.tr,
-          //         fontColor: AppColors.textmaroon505,
-          //         fontSize: size.width * 0.04,
-          //         fontWeight: FontWeight.w600,
-          //         color: AppColors.black,
-          //         shadowColor: AppColors.white,
-          //         shadowBlurRadius: 2,
-          //       ),
-          //       // child: Image.asset('lib/assets/images/right-arrow.gif')
-          //     ),
-          //   ),
-          //   // Lottie.network(
-          //   //   //https://lottie.host/b14c01a1-d38b-403e-ad43-c02da3404a19/QaZZTqLEwp.lottie
-          //   //   'https://lottie.host/2adb7b33-4d1c-4977-ae68-9f148d2a036e/dts6uVWOCe.json',
-          //   //   //'https://lottie.host/2adb7b33-4d1c-4977-ae68-9f148d2a036e/dts6uVWOCe.json',
-          //   //   //'https://app.lottiefiles.com/animation/2fbfe658-4d63-4348-8cbf-254f00a89a29?panel=download',
-          //   //   //'https://assets1.lottiefiles.com/private_files/lf30_QLsD8M.json',
-          //   //   height: 400.0,
-          //   //   repeat: true,
-          //   //   reverse: true,
-          //   //   animate: true,
-          //   // ),
-          //   ///
-          //   // Icon(
-          //   //   Icons.translate,
-          //   //   color: Colors.white,
-          //   //   size: size.width * 0.08,
-          //   // ),
-          // ),
-          ///
-          SizedBox(
-            width: size.width * 0.02,
+          DriverToggleButton(
+            isSwitchOn: switchController.isSwitchOn,
+            onConfirm: (bool newState) {
+              switchController.isSwitchOn.value = newState;
+            },
           ),
         ],
+
         //Text("Suvidha"),
       ),
 
@@ -631,7 +375,6 @@ class HomePageDriver extends StatelessWidget {
                           color: AppColors.black,
                           //a13,
                           //
-
                           borderRadius: BorderRadius.circular(10),
                         ),
                         child: Center(
@@ -726,6 +469,7 @@ class HomePageDriver extends StatelessWidget {
               //     ),
               //   ),
               // ),
+
               SizedBox(
                 height: size.height * 0.015,
               ),
@@ -769,14 +513,12 @@ class HomePageDriver extends StatelessWidget {
 
                             /// _launchWhatsApp();
                             //Get.to(() => IndustryHighTension());
-
                           } else if (index == 3) {
                             //_launchUrl();
 
                             //Get.to(WebViewwebsitess(url: "$_url"));
 
                             //Get.to(() => IndustryHighTension());
-
                           }
                         },
                         child: Center(
@@ -1038,7 +780,6 @@ class HomePageDriver extends StatelessWidget {
                               //_launchUrl();
 
                               //Get.to(WebViewwebsitess(url: "$_url"));
-
                             }
                           },
                           child: Center(
@@ -1185,7 +926,6 @@ class HomePageDriver extends StatelessWidget {
                             //Get.to(WebViewwebsitess(url: "$_url"));
 
                             //Get.to(() => IndustryHighTension());
-
                           }
                         },
                         child: Center(
@@ -1266,111 +1006,122 @@ class HomePageDriver extends StatelessWidget {
 
 class Mycrusial extends StatelessWidget {
   final _sliderKey = GlobalKey();
-  Mycrusial({Key? key}) : super(key: key);
-  //UserHomepageController _userHomepageController =
-  // Get.put(UserHomepageController());
+  final BannerController _bannerController = Get.put(BannerController());
 
-  final List<Color> colors = [
-    Colors.red,
-    Colors.orange,
-    Colors.yellow,
-    Colors.green,
-    Colors.blue,
-    Colors.indigo,
-    Colors.purple,
-  ];
-  final bool _isPlaying = true;
+  Mycrusial({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    var imgpath = 'https://new.signatureresorts.in/Images/';
-    Size size = MediaQuery.of(context).size;
+    final Size size = MediaQuery.of(context).size;
+
+    // Fetch banners for the role "Driver"
+    _bannerController.BannersApi();
+
     return Scaffold(
-      //backgroundColor: Colors.redAccent,
-      body:
-          // Obx(
-          //       () => (_userHomepageController.isLoading.value)
-          //       ? Center(child: CircularProgressIndicator())
-          //       : _userHomepageController.getuserbannerlist?.banner == null
-          //       ? Center(
-          //     child: Text('No data'),
-          //   )
-          //       :
-          Padding(
-        padding: EdgeInsets.all(0.0),
-        child: Container(
-          height: size.height * 0.23,
-          width: size.width,
-          decoration: BoxDecoration(
-            // color: AppColors.th1blue,
-            //textmaroon505,
-            //a12,
-            borderRadius: BorderRadius.circular(10),
-          ),
-          child: Center(
-            child: Material(
-              // color: MyTheme.ThemeColors,
+      body: Obx(() {
+        if (_bannerController.isLoading.value) {
+          return Center(child: CircularProgressIndicator());
+        }
+
+        if (_bannerController.bannerDriver!.data!.isEmpty) {
+          return Center(child: Text("No banners available"));
+        }
+
+        return Padding(
+          padding: EdgeInsets.all(0.0),
+          child: Container(
+            height: size.height * 0.23,
+            width: size.width,
+            decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(10),
-              elevation: 0,
-              child: Container(
-                decoration: BoxDecoration(
-                  //color: AppColors.textmaroon505,
-                  //.a15,
-                  borderRadius: BorderRadius.circular(5),
-                ),
-                child: CarouselSlider.builder(
-                  key: _sliderKey,
-                  unlimitedMode: true,
-                  autoSliderTransitionTime: Duration(milliseconds: 500),
-                  slideBuilder: (index) {
-                    final items = imageList;
-                    // _userHomepageController
-                    // .getuserbannerlist?.banner;
-                    return Padding(
-                      padding: const EdgeInsets.symmetric(horizontal: 1),
-                      child: Material(
-                        elevation: 12,
-                        borderRadius: BorderRadius.circular(5),
-                        child: Container(
-                          height: size.height * 40,
-                          width: size.width,
-                          alignment: Alignment.center,
-                          decoration: BoxDecoration(
-                              color: AppColors.a3,
+            ),
+            child: Center(
+              child: Material(
+                borderRadius: BorderRadius.circular(10),
+                elevation: 0,
+                child: Container(
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(5),
+                  ),
+                  child: CarouselSlider.builder(
+                    key: _sliderKey,
+                    unlimitedMode: true,
+                    autoSliderTransitionTime: Duration(milliseconds: 500),
+                    slideBuilder: (index) {
+                      // final imgpath = 'https://new.signatureresorts.in/Images/';
+                      final bannerImage =
+                          "${FixedText.imgebaseurlvardan}${_bannerController.bannerDriver!.data![index].bannerImage}";
+                      return Padding(
+                        padding: const EdgeInsets.symmetric(horizontal: 1),
+                        child: Material(
+                          elevation: 12,
+                          borderRadius: BorderRadius.circular(5),
+                          child: Container(
+                            height: size.height * 0.40,
+                            width: size.width,
+                            alignment: Alignment.center,
+                            decoration: BoxDecoration(
+                              color: Colors.grey.shade300,
                               borderRadius: BorderRadius.circular(5),
                               border: Border.all(
-                                  color: MyTheme.dvrskyblueshad7, width: 1),
+                                  color: Colors.grey.shade500, width: 1),
                               image: DecorationImage(
-                                  image: NetworkImage('${items?[index]}' ?? ''),
-                                  fit: BoxFit.fill,
-                                  onError: (error, stackTrace) {
-                                    Text("No Image Found");
-                                    // .log(error, stackTrace);
-                                  })),
+                                image: NetworkImage(bannerImage),
+                                fit: BoxFit.fill,
+                                onError: (error, stackTrace) {
+                                  print('Image Load Error: $error');
+                                },
+                              ),
+                            ),
+                          ),
                         ),
-                      ),
-                    );
-                  },
-                  slideTransform: DefaultTransform(),
-                  slideIndicator: CircularSlideIndicator(
-                    indicatorBorderWidth: 1,
-                    indicatorRadius: 3,
-                    itemSpacing: 15,
-                    currentIndicatorColor: Colors.white,
-                    indicatorBackgroundColor: Colors.grey.shade800,
-                    padding: EdgeInsets.only(bottom: 0),
+                      );
+                    },
+                    slideTransform: DefaultTransform(),
+                    slideIndicator: CircularSlideIndicator(
+                      indicatorBorderWidth: 1,
+                      indicatorRadius: 3,
+                      itemSpacing: 15,
+                      currentIndicatorColor: Colors.white,
+                      indicatorBackgroundColor: Colors.grey.shade800,
+                      padding: EdgeInsets.only(bottom: 0),
+                    ),
+                    itemCount: _bannerController.bannerDriver!.data!.length,
+                    enableAutoSlider: true,
                   ),
-                  itemCount: imageList.length,
-                  // _userHomepageController
-                  //     .getuserbannerlist!.banner!.length,
-                  enableAutoSlider: true,
                 ),
               ),
             ),
           ),
-        ),
-      ),
-      // )
+        );
+      }),
     );
   }
+}
+
+void _showPowerDialog(BuildContext context, SwitchController controller) {
+  showDialog(
+    context: context,
+    builder: (BuildContext context) {
+      return AlertDialog(
+        title: Text("Confirm"),
+        content: Text("Do you want to enable the switch?"),
+        actions: [
+          TextButton(
+            onPressed: () {
+              Navigator.of(context).pop();
+            },
+            child: Text("No"),
+          ),
+          TextButton(
+            onPressed: () {
+              controller.changeSwitchStateFromDialog();
+              Navigator.of(context).pop();
+            },
+            child: Text("Yes"),
+          ),
+        ],
+      );
+    },
+  );
 }

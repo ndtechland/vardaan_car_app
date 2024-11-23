@@ -2,8 +2,6 @@ import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:get/get_core/src/get_main.dart';
-import 'package:get/get_navigation/get_navigation.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:vardaancar/controller/update_profile_controller.dart';
 
@@ -11,11 +9,13 @@ import '../../contantss/appbar/appbar_custom.dart';
 import '../../contantss/buttons/horizontal_buttom.dart';
 import '../../contantss/handle_image_selection/image_selection.dart';
 import '../../contantss/textfield_constant/textfield_reuse.dart';
+import '../../controller/driver_controller/profile_controller_driver.dart';
 import '../../theme_color/theme_color.dart';
 
 class EditProfilePages extends StatelessWidget {
   final GlobalKey<FormState> _formconnectionKey = GlobalKey<FormState>();
   Update_profile _update_profile = Get.put(Update_profile());
+  ProfileController _profileController = Get.put(ProfileController());
 
   @override
   Widget build(BuildContext context) {

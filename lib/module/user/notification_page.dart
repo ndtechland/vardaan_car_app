@@ -16,7 +16,7 @@ class notification_pagess extends StatelessWidget {
     return Scaffold(
       backgroundColor: AppColors.th1whtbackgrd,
       appBar: myAppBar(
-        backgroundColor: AppColors.white,
+        backgroundColor: MyTheme.themecolor,
         title: 'Notifications',
         leadingIcon: Icons.arrow_back_ios_outlined,
         centerTitle: true,

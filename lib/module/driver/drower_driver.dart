@@ -1,8 +1,5 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
-import 'package:get/get_core/src/get_main.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:url_launcher/url_launcher.dart';
@@ -12,8 +9,8 @@ import 'package:vardaancar/module/driver/update_language_driver.dart';
 
 import '../../theme_color/theme_color.dart';
 import 'change_password_driver.dart';
-import 'edit_driver_profile.dart';
 import 'feedback_driver.dart';
+import 'forget_password.dart';
 
 class CabDriverDrawer extends StatelessWidget {
   const CabDriverDrawer({super.key});
@@ -163,37 +160,37 @@ class CabDriverDrawer extends StatelessWidget {
                 // Get.offNamed('/NavBar');
               },
             ),
-            ListTile(
-              //horizontalTitleGap: 2.h,
-              leading: Icon(
-                Icons.edit,
-                color: Colors.black,
-                size: 16,
-              ),
-              trailing: Icon(
-                Icons.arrow_forward_ios_sharp,
-                size: 11,
-                color: Colors.black,
-              ),
-              contentPadding: EdgeInsets.symmetric(vertical: 0, horizontal: 10),
-              dense: true,
-              // visualDensity: VisualDensity(horizontal: 0, vertical: -1),
-              title: Text(
-                'Update Profile'.tr,
-                //'Gift Boxes',
-                style: TextStyle(fontSize: 12, fontWeight: FontWeight.w600),
-              ),
-              tileColor: Get.currentRoute == '/EditDriverProfilePages'
-                  ? Colors.grey[300]
-                  : null,
-              onTap: () async {
-                Get.back();
-
-                Get.to(EditDriverProfilePages());
-
-                print(Get.currentRoute);
-              },
-            ),
+            // ListTile(
+            //   //horizontalTitleGap: 2.h,
+            //   leading: Icon(
+            //     Icons.edit,
+            //     color: Colors.black,
+            //     size: 16,
+            //   ),
+            //   trailing: Icon(
+            //     Icons.arrow_forward_ios_sharp,
+            //     size: 11,
+            //     color: Colors.black,
+            //   ),
+            //   contentPadding: EdgeInsets.symmetric(vertical: 0, horizontal: 10),
+            //   dense: true,
+            //   // visualDensity: VisualDensity(horizontal: 0, vertical: -1),
+            //   title: Text(
+            //     'Update Profile'.tr,
+            //     //'Gift Boxes',
+            //     style: TextStyle(fontSize: 12, fontWeight: FontWeight.w600),
+            //   ),
+            //   tileColor: Get.currentRoute == '/EditDriverProfilePages'
+            //       ? Colors.grey[300]
+            //       : null,
+            //   onTap: () async {
+            //     Get.back();
+            //
+            //     Get.to(EditDriverProfilePages());
+            //
+            //     print(Get.currentRoute);
+            //   },
+            // ),
 
             ///
             // ListTile(
@@ -430,6 +427,44 @@ class CabDriverDrawer extends StatelessWidget {
             ListTile(
               //horizontalTitleGap: 2.h,
               leading: Icon(
+                Icons.question_mark_sharp,
+                color: Colors.black,
+                size: 16,
+              ),
+              trailing: Icon(
+                Icons.arrow_forward_ios_sharp,
+                size: 11,
+                color: Colors.black,
+              ),
+              contentPadding: EdgeInsets.symmetric(vertical: 0, horizontal: 10),
+              dense: true,
+              //visualDensity: VisualDensity(horizontal: 0, vertical: -1),
+              title: Text(
+                'Forgot Password'.tr,
+                style: TextStyle(fontSize: 12, fontWeight: FontWeight.w600),
+              ),
+              tileColor: Get.currentRoute == '/ForgotPasswordDriver'
+                  ? Colors.grey[300]
+                  : null,
+              onTap: () {
+                print(Get.currentRoute);
+                Get.back();
+
+                ///.................................................28feb....................new
+                //  _getProfileController.addressidApi();
+                // _getProfileController.update();
+                ///........................................................................................
+                Get.to(() => ForgotPasswordDriver());
+                // Get.offNamed('/PersonalProfile');
+              },
+            ),
+
+            //ForgotPasswordDriver
+
+            ///here from profileeee...............................
+            ListTile(
+              //horizontalTitleGap: 2.h,
+              leading: Icon(
                 Icons.business,
                 color: Colors.black,
                 size: 16,
@@ -592,7 +627,7 @@ class CabDriverDrawer extends StatelessWidget {
           Get.back();
         },
         style: ElevatedButton.styleFrom(
-            primary: Colors.red,
+            backgroundColor: Colors.red,
             padding: EdgeInsets.symmetric(horizontal: 20, vertical: 10),
             textStyle: TextStyle(fontSize: 10, fontWeight: FontWeight.bold)),
         child: Text(
@@ -607,7 +642,7 @@ class CabDriverDrawer extends StatelessWidget {
           Get.back();
         },
         style: ElevatedButton.styleFrom(
-            primary: Colors.green,
+            backgroundColor: Colors.green,
             padding: EdgeInsets.symmetric(horizontal: 20, vertical: 10),
             textStyle: TextStyle(fontSize: 10, fontWeight: FontWeight.bold)),
         child: Text(

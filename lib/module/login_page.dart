@@ -1,12 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
+import '../controller/phone_login_controller.dart';
 import '../theme_color/theme_color.dart';
 import '../utils/constant_text.dart';
-import 'user/otp_page.dart';
 
 class LoginPage extends StatelessWidget {
   final TextEditingController phoneController = TextEditingController();
+  final TextEditingController _mobileController = TextEditingController();
+
+  final PhoneLoginController _phoneLoginController =
+      Get.put(PhoneLoginController());
 
   @override
   Widget build(BuildContext context) {
@@ -87,8 +91,9 @@ class LoginPage extends StatelessWidget {
                                       child: Center(
                                         child: Padding(
                                           padding: const EdgeInsets.all(10.0),
-                                          child: TextField(
-                                            controller: phoneController,
+                                          child: TextFormField(
+                                            controller: _mobileController,
+                                            keyboardType: TextInputType.phone,
                                             decoration: InputDecoration(
                                               labelText: 'Phone Number',
                                               labelStyle: TextStyle(
@@ -133,7 +138,7 @@ class LoginPage extends StatelessWidget {
                                                       vertical: 15.0,
                                                       horizontal: 10.0),
                                             ),
-                                            keyboardType: TextInputType.phone,
+                                            //keyboardType: TextInputType.phone,
                                             maxLength: 10,
                                             style: TextStyle(
                                               fontSize: 18,
@@ -149,28 +154,69 @@ class LoginPage extends StatelessWidget {
                               ),
                             ),
                             SizedBox(height: 15),
+                            Obx(() {
+                              return ElevatedButton(
+                                onPressed: _phoneLoginController.isLoading.value
+                                    ? null
+                                    : () {
+                                        String phoneNumber =
+                                            _mobileController.text.trim();
+                                        if (phoneNumber.length == 10 &&
+                                            RegExp(r'^\d+$')
+                                                .hasMatch(phoneNumber)) {
+                                          _phoneLoginController
+                                              .loginphone(phoneNumber);
+                                        } else {
+                                          Get.snackbar(
+                                            'Error',
+                                            'Please enter a valid 10-digit phone number',
+                                            snackPosition: SnackPosition.BOTTOM,
+                                          );
+                                        }
+                                      },
+                                style: ElevatedButton.styleFrom(
+                                  backgroundColor: MyTheme.drivericon,
+                                  padding: EdgeInsets.symmetric(
+                                      vertical: 14, horizontal: 20),
+                                  shape: RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.circular(10),
+                                  ),
+                                  textStyle: TextStyle(
+                                      fontSize: 16,
+                                      fontWeight: FontWeight.bold),
+                                ),
+                                child: _phoneLoginController.isLoading.value
+                                    ? CircularProgressIndicator(
+                                        color: Colors.white,
+                                      )
+                                    : Text(
+                                        "Send OTP",
+                                        style: TextStyle(color: Colors.white),
+                                      ),
+                              );
+                            }),
 
                             // Login Button
-                            ElevatedButton(
-                              onPressed: () {
-                                // Validate phone number
-                                if (phoneController.text.length == 10) {
-                                  // Navigate to OTP Page
-                                  Get.to(() => OtpPage());
-                                } else {
-                                  Get.snackbar('Error',
-                                      'Please enter a valid phone number');
-                                }
-                              },
-                              child: Text('Send OTP'),
-                              style: ElevatedButton.styleFrom(
-                                primary: MyTheme.themecolor,
-                                padding: EdgeInsets.symmetric(vertical: 15),
-                                shape: RoundedRectangleBorder(
-                                  borderRadius: BorderRadius.circular(30.0),
-                                ),
-                              ),
-                            ),
+                            // ElevatedButton(
+                            //   onPressed: () {
+                            //     // Validate phone number
+                            //     if (phoneController.text.length == 10) {
+                            //       // Navigate to OTP Page
+                            //       Get.to(() => OtpPage());
+                            //     } else {
+                            //       Get.snackbar('Error',
+                            //           'Please enter a valid phone number');
+                            //     }
+                            //   },
+                            //   child: Text('Send OTP'),
+                            //   style: ElevatedButton.styleFrom(
+                            //     backgroundColor: MyTheme.themecolor,
+                            //     padding: EdgeInsets.symmetric(vertical: 15),
+                            //     shape: RoundedRectangleBorder(
+                            //       borderRadius: BorderRadius.circular(30.0),
+                            //     ),
+                            //   ),
+                            // ),
                             //SizedBox(height: 10), // Space after the button
                           ],
                         ),

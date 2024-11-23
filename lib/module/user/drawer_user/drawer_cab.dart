@@ -1,8 +1,5 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
-import 'package:get/get_core/src/get_main.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:url_launcher/url_launcher.dart';
@@ -14,7 +11,7 @@ import '../booking_trip_user.dart';
 import '../change_password.dart';
 import '../feedback_screen.dart';
 import '../get_profile_page.dart';
-import '../update_profile_user.dart';
+import '../history_booking_user.dart';
 
 class CabDrawer extends StatelessWidget {
   @override
@@ -125,6 +122,49 @@ class CabDrawer extends StatelessWidget {
               },
             ),
             ListTile(
+              //horizontalTitleGap: 2.h,
+              leading: Icon(
+                Icons.history,
+                color: Colors.black,
+                size: 16,
+              ),
+              trailing: Icon(
+                Icons.arrow_forward_ios_sharp,
+                size: 11,
+                color: Colors.black,
+              ),
+              contentPadding: EdgeInsets.symmetric(vertical: 0, horizontal: 10),
+              dense: true,
+              // visualDensity: VisualDensity(horizontal: 0, vertical: -4),
+              title: Text(
+                //                                    'Your Driver:'.tr,
+                'Trip History'.tr,
+                style: TextStyle(fontSize: 12, fontWeight: FontWeight.w600),
+              ),
+              // tileColor: Get.currentRoute == '/AllProducts'
+              //     ? Colors.grey[300]
+              //     : Colors.transparent,
+              onTap: () async {
+                print(Get.currentRoute);
+                Get.back();
+                await Get.to(HistoryBookingTabbarUser());
+
+                //Get.to(SearchLocationScreen());
+                // _navcontroller.tabIndex(0);
+
+                ///
+                //await Get.to(GoogleSearchPlacesApi());
+
+                ///SearchLocationScreen
+
+                // Get.to(() => BookingAmb());
+                //Get.to(() => AllProducts());
+                //Get.offNamed('/NavBar');
+              },
+            ),
+
+            //HistoryBookingTabbarUser
+            ListTile(
               // horizontalTitleGap: 2.h,
               leading: Icon(
                 Icons.person,
@@ -162,37 +202,39 @@ class CabDrawer extends StatelessWidget {
                 // Get.offNamed('/NavBar');
               },
             ),
-            ListTile(
-              //horizontalTitleGap: 2.h,
-              leading: Icon(
-                Icons.edit,
-                color: Colors.black,
-                size: 16,
-              ),
-              trailing: Icon(
-                Icons.arrow_forward_ios_sharp,
-                size: 11,
-                color: Colors.black,
-              ),
-              contentPadding: EdgeInsets.symmetric(vertical: 0, horizontal: 10),
-              dense: true,
-              // visualDensity: VisualDensity(horizontal: 0, vertical: -1),
-              title: Text(
-                'Update Profile'.tr,
-                //'Gift Boxes',
-                style: TextStyle(fontSize: 12, fontWeight: FontWeight.w600),
-              ),
-              tileColor: Get.currentRoute == '/EditProfilePage'
-                  ? Colors.grey[300]
-                  : null,
-              onTap: () async {
-                Get.back();
 
-                Get.to(EditProfilePages());
-
-                print(Get.currentRoute);
-              },
-            ),
+            ///
+            // ListTile(
+            //   //horizontalTitleGap: 2.h,
+            //   leading: Icon(
+            //     Icons.edit,
+            //     color: Colors.black,
+            //     size: 16,
+            //   ),
+            //   trailing: Icon(
+            //     Icons.arrow_forward_ios_sharp,
+            //     size: 11,
+            //     color: Colors.black,
+            //   ),
+            //   contentPadding: EdgeInsets.symmetric(vertical: 0, horizontal: 10),
+            //   dense: true,
+            //   // visualDensity: VisualDensity(horizontal: 0, vertical: -1),
+            //   title: Text(
+            //     'Update Profile'.tr,
+            //     //'Gift Boxes',
+            //     style: TextStyle(fontSize: 12, fontWeight: FontWeight.w600),
+            //   ),
+            //   tileColor: Get.currentRoute == '/EditProfilePage'
+            //       ? Colors.grey[300]
+            //       : null,
+            //   onTap: () async {
+            //     Get.back();
+            //
+            //     Get.to(EditProfilePages());
+            //
+            //     print(Get.currentRoute);
+            //   },
+            // ),
 
             ///
             // ListTile(
@@ -591,7 +633,7 @@ class CabDrawer extends StatelessWidget {
           Get.back();
         },
         style: ElevatedButton.styleFrom(
-            primary: Colors.red,
+            backgroundColor: Colors.red,
             padding: EdgeInsets.symmetric(horizontal: 20, vertical: 10),
             textStyle: TextStyle(fontSize: 10, fontWeight: FontWeight.bold)),
         child: Text(
@@ -606,7 +648,7 @@ class CabDrawer extends StatelessWidget {
           Get.back();
         },
         style: ElevatedButton.styleFrom(
-            primary: Colors.green,
+            backgroundColor: Colors.green,
             padding: EdgeInsets.symmetric(horizontal: 20, vertical: 10),
             textStyle: TextStyle(fontSize: 10, fontWeight: FontWeight.bold)),
         child: Text(

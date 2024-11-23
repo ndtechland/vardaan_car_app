@@ -274,7 +274,7 @@ class ChangePasswordUser extends StatelessWidget {
                               },
                               child: Text('UPDATE'),
                               style: ElevatedButton.styleFrom(
-                                primary: MyTheme.themecolor,
+                                backgroundColor: MyTheme.themecolor,
                                 padding: EdgeInsets.symmetric(vertical: 15),
                                 shape: RoundedRectangleBorder(
                                   borderRadius: BorderRadius.circular(30.0),

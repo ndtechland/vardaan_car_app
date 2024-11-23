@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:get/get_core/src/get_main.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:url_launcher/url_launcher.dart';
@@ -300,7 +299,7 @@ class _MapTrackingUserState extends State<MapTrackingUser> {
                             // Cancel action
                           },
                           style: ElevatedButton.styleFrom(
-                              primary: MyTheme.logored),
+                              backgroundColor: MyTheme.logored),
                           child: Text('Cancel'),
                         ),
                       ),
@@ -313,7 +312,7 @@ class _MapTrackingUserState extends State<MapTrackingUser> {
                             // Go to Pickup action
                           },
                           style: ElevatedButton.styleFrom(
-                              primary: MyTheme.drivericon),
+                              backgroundColor: MyTheme.drivericon),
                           child: Text('Go to Pickup'),
                         ),
                       ),
@@ -349,7 +348,7 @@ class _MapTrackingUserState extends State<MapTrackingUser> {
                 // controller.goToPickup();
               },
               style: ElevatedButton.styleFrom(
-                primary: Colors.red, // Set the button color
+                backgroundColor: Colors.red, // Set the button color
               ),
               child: Text('Send SOS'),
             ),
@@ -409,7 +408,7 @@ class _MapTrackingUserState extends State<MapTrackingUser> {
                 }
               },
               style: ElevatedButton.styleFrom(
-                primary: Colors.red,
+                backgroundColor: Colors.red,
               ),
               child: Text(
                 'Call',

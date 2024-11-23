@@ -80,7 +80,7 @@ class PickupDialog extends StatelessWidget {
             controller.goToPickup();
           },
           style: ElevatedButton.styleFrom(
-            primary: MyTheme.drivericon,
+            backgroundColor: MyTheme.drivericon,
           ),
           child: Text('START'),
         ),

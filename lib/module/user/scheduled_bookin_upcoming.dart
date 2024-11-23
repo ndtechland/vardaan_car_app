@@ -44,13 +44,13 @@ class UpcomingScheduledBooking extends StatelessWidget {
                 width: size.width,
                 decoration: BoxDecoration(
                   color: AppColors.th1wht2,
-                  image: DecorationImage(
-                      image: NetworkImage(
-                          "https://images.unsplash.com/photo-1608664330225-b4caded73781?q=80&w=2673&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
-                          //"https://images.unsplash.com/photo-1703868673325-64d7d7afa618?q=80&w=2576&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
-                          // "https://images.unsplash.com/photo-1513735429658-5b2072a1cee6?q=80&w=2532&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
-                          ),
-                      fit: BoxFit.fill),
+                  // image: DecorationImage(
+                  //     image: NetworkImage(
+                  //         "https://images.unsplash.com/photo-1608664330225-b4caded73781?q=80&w=2673&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+                  //         //"https://images.unsplash.com/photo-1703868673325-64d7d7afa618?q=80&w=2576&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+                  //         // "https://images.unsplash.com/photo-1513735429658-5b2072a1cee6?q=80&w=2532&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+                  //         ),
+                  //     fit: BoxFit.fill),
                   borderRadius: BorderRadius.circular(5),
                   border: Border.all(color: AppColors.g1),
                 ),

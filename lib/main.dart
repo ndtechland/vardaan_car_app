@@ -3,14 +3,24 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
-import 'package:get/get_navigation/src/root/get_material_app.dart';
 import 'package:get_storage/get_storage.dart';
 
 import 'contantss/texts/language_text_string_change.dart';
 import 'controller/language_controller.dart';
-import 'module/driver/home_page_driver.dart';
+import 'module/splash_view.dart';
+
+// class MyHttpOverrides extends HttpOverrides {
+//   @override
+//   HttpClient createHttpClient(SecurityContext? context) {
+//     return super.createHttpClient(context)
+//       ..badCertificateCallback =
+//           (X509Certificate cert, String host, int port) => true;
+//   }
+// }
 
 Future<void> main() async {
+  HttpOverrides.global = MyHttpOverrides();
+
   await GetStorage.init(); // Initialize GetStorage
 
   SystemChrome.setPreferredOrientations([
@@ -63,14 +73,13 @@ class MyApp extends StatelessWidget {
             //LanguagePagess(),
             ///HomePage()
             // Testtt()
-
             ///Testtt()
-
             ///GoogleLensLauncher(),
+            SplashScreen(),
 
-            //SplashScreen(),
+        ///HomePageDriver(),
 
-            HomePageDriver(),
+        ///HomePageDriver(),
       ),
     );
   }

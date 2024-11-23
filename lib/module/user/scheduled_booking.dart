@@ -112,7 +112,6 @@ class ScheduleBookingTabbar extends StatelessWidget {
                   //   color: Colors.red,
                   //   child: Center(child: Text("Live")),
                   // ),
-
                   ScheduledLiveBooking(),
 
                   ///BarChartSample8(),
