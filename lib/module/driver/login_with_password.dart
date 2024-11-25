@@ -6,6 +6,7 @@ import '../../controller/driver_controller/diver_banner_get_controller.dart';
 import '../../controller/phone_login_controller.dart';
 import '../../theme_color/theme_color.dart';
 import '../../utils/constant_text.dart';
+import 'forget_password.dart';
 
 class LoginWithPassword extends StatelessWidget {
   final TextEditingController _passwordController = TextEditingController();
@@ -128,6 +129,8 @@ class LoginWithPassword extends StatelessWidget {
                                                   //   return 'Please Enter a Valid Email';
                                                   // }
                                                   return null;
+
+                                                  ///
                                                 },
                                                 //focusNode: _userFocusNode, // Assign FocusNode
 
@@ -202,6 +205,27 @@ class LoginWithPassword extends StatelessWidget {
                                 ),
                               ),
                             ),
+                            SizedBox(
+                              height: 10,
+                            ),
+
+                            InkWell(
+                              onTap: () {
+                                Get.to(ForgotPasswordDriver());
+                              },
+                              child: Align(
+                                alignment: Alignment.topRight,
+                                child: Text(
+                                  'Forget Password?',
+                                  style: TextStyle(
+                                    fontWeight: FontWeight.w600,
+                                    fontSize: 15,
+                                    color: Colors.red.shade900,
+                                  ),
+                                ),
+                              ),
+                            ),
+                            //ForgotPasswordDriver
                             SizedBox(height: 15),
                             // Login Button
                             Obx(() {
@@ -212,20 +236,32 @@ class LoginWithPassword extends StatelessWidget {
                                     : () async {
                                         // Fetch banners for a specific role, e.g., "Driver"
                                         await _bannerController.BannersApi();
+                                        Future.delayed(Duration(seconds: 3));
                                         String password =
                                             _passwordController.text.trim();
-                                        if (password.length < 8 &&
-                                            RegExp(r'^\d+$')
-                                                .hasMatch(password)) {
+                                        // if (password.length < 8 &&
+                                        //     RegExp(r'^\d+$')
+                                        //         .hasMatch(password)) {
+                                        //   await _loginpasswordController
+                                        //       .verifyPasswordApi(
+                                        //           mobileNumber, password);
+                                        // } else {
+                                        //   Get.snackbar(
+                                        //     'Error',
+                                        //     'Please enter your password',
+                                        //     snackPosition: SnackPosition.BOTTOM,
+                                        //   );
+                                        // }
+                                        if (password.isEmpty) {
+                                          Get.snackbar(
+                                            'Error',
+                                            'Please enter your password',
+                                            snackPosition: SnackPosition.BOTTOM,
+                                          );
+                                        } else {
                                           await _loginpasswordController
                                               .verifyPasswordApi(
                                                   mobileNumber, password);
-                                        } else {
-                                          Get.snackbar(
-                                            'Error',
-                                            'Password Length minimum 4 number',
-                                            snackPosition: SnackPosition.BOTTOM,
-                                          );
                                         }
                                       },
                                 child: _loginpasswordController.isLoading.value
@@ -234,7 +270,10 @@ class LoginWithPassword extends StatelessWidget {
                                       )
                                     : Text(
                                         'SUBMIT',
-                                        style: TextStyle(color: Colors.white),
+                                        style: TextStyle(
+                                            color: Colors.white,
+                                            fontSize: 16,
+                                            fontWeight: FontWeight.bold),
                                       ),
                                 style: ElevatedButton.styleFrom(
                                   backgroundColor: MyTheme.drivericon,

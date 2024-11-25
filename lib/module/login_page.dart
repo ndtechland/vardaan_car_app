@@ -190,7 +190,7 @@ class LoginPage extends StatelessWidget {
                                         color: Colors.white,
                                       )
                                     : Text(
-                                        "Send OTP",
+                                        "SUBMIT",
                                         style: TextStyle(color: Colors.white),
                                       ),
                               );

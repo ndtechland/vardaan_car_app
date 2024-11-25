@@ -1,4 +1,4 @@
-package com.vdcar.ndtechland.vardaancar
+package com.ndtechland.vdcar
 
 import io.flutter.embedding.android.FlutterActivity
 

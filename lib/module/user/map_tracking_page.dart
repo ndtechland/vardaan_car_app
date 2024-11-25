@@ -40,13 +40,21 @@ class _MapTrackingState extends State<MapTracking> {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 mainAxisAlignment: MainAxisAlignment.start,
                 children: <Widget>[
-                  Center(
-                    child: Container(
-                      height: 8,
-                      width: 50,
-                      decoration: BoxDecoration(
-                        color: Colors.black87,
-                        borderRadius: BorderRadius.circular(4),
+                  InkWell(
+                    onTap: () {
+                      Get.back();
+                    },
+                    onLongPress: () {
+                      Get.back();
+                    },
+                    child: Center(
+                      child: Container(
+                        height: 8,
+                        width: 50,
+                        decoration: BoxDecoration(
+                          color: Colors.black87,
+                          borderRadius: BorderRadius.circular(4),
+                        ),
                       ),
                     ),
                   ),
@@ -170,7 +178,12 @@ class _MapTrackingState extends State<MapTracking> {
                               backgroundColor:
                                   MyTheme.logored // Accept button color
                               ), // Reject button color
-                          child: Text('Reject'),
+                          child: Text(
+                            'Reject',
+                            style: TextStyle(
+                              color: Colors.white,
+                            ),
+                          ),
                         ),
                       ),
                       SizedBox(width: 6),
@@ -182,7 +195,12 @@ class _MapTrackingState extends State<MapTracking> {
                           style: ElevatedButton.styleFrom(
                               backgroundColor:
                                   MyTheme.themecolor), // Accept button color
-                          child: Text('Accept'),
+                          child: Text(
+                            'Accept',
+                            style: TextStyle(
+                              color: Colors.white,
+                            ),
+                          ),
                         ),
                       ),
                     ],
@@ -209,7 +227,7 @@ class _MapTrackingState extends State<MapTracking> {
       appBar: AppBar(
         backgroundColor: MyTheme.themecolor,
         title: const Text(
-          'Track',
+          'Track Driver',
           style: TextStyle(color: Colors.white, fontWeight: FontWeight.w600),
         ),
         centerTitle: true,
@@ -415,7 +433,12 @@ class _MapTrackingState extends State<MapTracking> {
               style: ElevatedButton.styleFrom(
                 backgroundColor: Colors.red, // Set the button color
               ),
-              child: Text('Send SOS'),
+              child: Text(
+                'Send SOS',
+                style: TextStyle(
+                  color: Colors.white,
+                ),
+              ),
             ),
             // TextButton(
             //   child: Text('Send SOS'),
