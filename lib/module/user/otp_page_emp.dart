@@ -6,7 +6,7 @@ import '../../contantss/appbar/appbar_custom.dart';
 import '../../theme_color/theme_color.dart';
 import '../../utils/constant_text.dart';
 
-class OtpPage extends StatelessWidget {
+class OtpPageEmp extends StatelessWidget {
   final PhoneLoginController _loginController = Get.put(PhoneLoginController());
   final List<TextEditingController> otpControllers = [
     TextEditingController(),
@@ -22,7 +22,7 @@ class OtpPage extends StatelessWidget {
   ];
   final String mobileNumber;
 
-  OtpPage({required this.mobileNumber});
+  OtpPageEmp({required this.mobileNumber});
 
   @override
   Widget build(BuildContext context) {

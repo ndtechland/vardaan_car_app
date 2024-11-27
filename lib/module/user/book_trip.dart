@@ -12,6 +12,7 @@ class TripFormPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    ///todo:.......
     Size size = MediaQuery.of(context).size;
     return Scaffold(
       appBar: myAppBar(
@@ -19,6 +20,7 @@ class TripFormPage extends StatelessWidget {
         leadingIcon: Icons.arrow_back_ios_outlined,
         centerTitle: true,
         onLeadingPressed: () {
+          ///.........
           Get.back();
         },
       ),

@@ -49,6 +49,11 @@ dependencies:
   lite_rolling_switch:
   #google_maps_flutter:
   google_maps_flutter: # Use the latest version if possible
+  flutter_foreground_task:
+  flutter_background_service:
+  geolocator:
+
+
 
 
 

@@ -6,6 +6,7 @@ import 'package:vardaancar/api_services/api_services_call.dart';
 
 import '../module/driver/home_page_driver.dart';
 import '../module/driver/login_with_password.dart';
+import '../module/user/create_password_employee.dart';
 import '../module/user/otp_page.dart';
 
 class PhoneLoginController extends GetxController {
@@ -85,8 +86,39 @@ class PhoneLoginController extends GetxController {
       if (response.values == 200) {
         // Handle success (e.g., navigate to the next page)
         Get.snackbar("Success", "OTP verified successfully");
+        // Get.to(CreatePasswordEmployee());
+
+        //CreatePasswordEmployee
 
         Get.to(HomePageDriver());
+        // Add any next steps after successful OTP verification
+      } else {
+        // Get.to(HomePageDriver());
+
+        // Get.snackbar("Error", "Invalid OTP");
+      }
+    } catch (e) {
+      Get.snackbar("Error", "An error occurred: $e");
+    } finally {
+      isLoading.value = false;
+    }
+  }
+
+  ///todo: this is the main thing to verify password for employee...
+
+  Future<void> verifyOtpEmp(String mobile, String otp) async {
+    isLoading.value = true;
+    try {
+      final response = await _apiProvider.verifyOtpOrPassword(
+          mobile, otp); // Assuming you have an API method for OTP verification
+      if (response.values == 200) {
+        // Handle success (e.g., navigate to the next page)
+        Get.snackbar("Success", "OTP verified successfully");
+        Get.to(CreatePasswordEmployee());
+
+        //CreatePasswordEmployee
+
+        //Get.to(HomePageDriver());
         // Add any next steps after successful OTP verification
       } else {
         // Get.to(HomePageDriver());

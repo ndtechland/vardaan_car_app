@@ -804,6 +804,8 @@ class HomePage extends StatelessWidget {
                             if (index == 0) {
                               Get.to(() => MapTracking());
 
+                              ///todo:
+
                               ///tod:........
 
                               // await FlutterPhoneDirectCaller.callNumber(
@@ -817,6 +819,7 @@ class HomePage extends StatelessWidget {
                             } else if (index == 1) {
                               // await FlutterPhoneDirectCaller.callNumber(
                               // customercare);
+                              //
                               Get.to(() => TripFormPage());
                             } else if (index == 2) {
                               ////_launchWhatsApp();

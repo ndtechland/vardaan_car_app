@@ -754,6 +754,148 @@ class ApiProvider {
     }
   }
 
+  ///todo: 12. create password api,,,,for employee.......
+  static Future<http.Response?> CreatePasswordEmployeeApi(
+      BuildContext context, // Added context parameter
+      String CurrentPassword,
+      String NewPassword,
+      String ConfirmPassword) async {
+    // var prefs = GetStorage();
+
+    // Read saved userId
+    //String employeeId = prefs.read("Id").toString();
+    //print('wwwuseridEE:$employeeId');
+
+    // Retrieve the saved ID from SharedPreferences
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    int? userId = prefs.getInt("userId");
+
+    if (userId == null) {
+      throw Exception("User ID is not saved in SharedPreferences.");
+    }
+
+    //employeeId
+
+    var url = "${baseUrl}api/Account/DriverChangePassword";
+    var body = jsonEncode({
+      "Id": "$userId",
+      "OldPassword": CurrentPassword,
+      "Password": NewPassword,
+      "ConfirmPassword": ConfirmPassword,
+    });
+
+    print("loginnnn");
+    print(body);
+
+    try {
+      http.Response r = await http.post(
+        Uri.parse(url),
+        body: body,
+        headers: {
+          "Content-Type": "application/json",
+        },
+      ).timeout(const Duration(seconds: 10));
+
+      print(r.body);
+
+      if (r.statusCode == 200) {
+        var responseData = json.decode(r.body);
+        // var userId = responseData['loginProfile']['id'];
+
+        // Save user ID (assuming 'Id' is part of the response JSON)
+        // prefs.write("Id", userId);
+        //  print('Saved userId: $userId');
+
+        // Show loading dialog
+        showDialog(
+          context: context,
+          barrierDismissible: false,
+          builder: (context) {
+            return Center(
+              child: CircularProgressIndicator(),
+            );
+          },
+        );
+
+        // Simulate a delay for async operations
+        await Future.delayed(Duration(seconds: 1));
+
+        // Clear shared preferences
+        SharedPreferences.getInstance().then((prefs) => prefs.clear());
+
+        // Hide loading dialog
+        Get.back();
+
+        // Navigate to Login Page
+        ///Get.offAll(() => Login());
+
+        // Show success toast
+        Fluttertoast.showToast(
+          msg: "Password changed successfully!",
+          backgroundColor: Colors.green,
+          textColor: Colors.white,
+          toastLength: Toast.LENGTH_LONG,
+          gravity: ToastGravity.CENTER,
+        );
+      } else if (r.statusCode == 401) {
+        Fluttertoast.showToast(
+          msg: "Unauthorized access. Status code: ${r.statusCode}",
+          backgroundColor: Colors.red,
+          textColor: Colors.white,
+          toastLength: Toast.LENGTH_LONG,
+          gravity: ToastGravity.BOTTOM,
+        );
+
+        Get.snackbar('Error', r.body);
+      } else {
+        Fluttertoast.showToast(
+          msg: "Failed to change password. Status code: ${r.statusCode}",
+          backgroundColor: Colors.red,
+          textColor: Colors.white,
+          toastLength: Toast.LENGTH_LONG,
+          gravity: ToastGravity.BOTTOM,
+        );
+
+        Get.snackbar('Error', r.body);
+      }
+
+      return r;
+    } on TimeoutException catch (_) {
+      Fluttertoast.showToast(
+        msg: "Network connection slow or disconnected",
+        backgroundColor: Colors.red,
+        textColor: Colors.white,
+        toastLength: Toast.LENGTH_LONG,
+        gravity: ToastGravity.BOTTOM,
+      );
+
+      return null;
+    } on SocketException catch (_) {
+      Fluttertoast.showToast(
+        msg:
+            "Network error: Unable to resolve host. Please check your internet connection.",
+        backgroundColor: Colors.red,
+        textColor: Colors.white,
+        toastLength: Toast.LENGTH_LONG,
+        gravity: ToastGravity.BOTTOM,
+      );
+
+      return null;
+    } catch (error) {
+      print('Network error: $error');
+
+      Fluttertoast.showToast(
+        msg: "Network error: $error",
+        backgroundColor: Colors.red,
+        textColor: Colors.white,
+        toastLength: Toast.LENGTH_LONG,
+        gravity: ToastGravity.BOTTOM,
+      );
+
+      return null;
+    }
+  }
+
   // Future<BannerResponse?> fetchBanners(String role) async {
   //   //api/Common/GetBanner?role=Driver
   //   // Retrieve the saved ID from SharedPreferences
