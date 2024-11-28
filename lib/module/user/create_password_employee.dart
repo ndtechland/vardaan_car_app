@@ -7,7 +7,7 @@ import '../../theme_color/theme_color.dart';
 import '../../utils/constant_text.dart';
 
 class CreatePasswordEmployee extends StatelessWidget {
-  final TextEditingController oldpassword = TextEditingController();
+  //final TextEditingController oldpassword = TextEditingController();
   final TextEditingController newpassword = TextEditingController();
 
   final CreatepasswordEmployeeController _createpassdriverController =
@@ -22,8 +22,8 @@ class CreatePasswordEmployee extends StatelessWidget {
     return Scaffold(
       backgroundColor: AppColors.white,
       appBar: myAppBar(
-        backgroundColor: MyTheme.drivericon,
-        title: 'Change Password',
+        backgroundColor: MyTheme.themecolor,
+        title: 'Create Password',
         leadingIcon: Icons.arrow_back_ios_outlined,
         centerTitle: true,
         onLeadingPressed: () {
@@ -98,7 +98,7 @@ class CreatePasswordEmployee extends StatelessWidget {
                                     children: [
                                       // 3D Title and Subtitle
                                       ThreeDTitle(
-                                        title: 'Change Password?',
+                                        title: 'Create Your Password?',
                                         subtitle: '',
                                       ),
                                       SizedBox(
@@ -107,9 +107,9 @@ class CreatePasswordEmployee extends StatelessWidget {
                                       // Phone Number Input
                                       Container(
                                         height: isPortrait
-                                            ? screenHeight * 0.37
+                                            ? screenHeight * 0.25
                                             : screenHeight *
-                                                0.57, // Adjust for landscape
+                                                0.45, // Adjust for landscape
                                         decoration: BoxDecoration(
                                           borderRadius:
                                               BorderRadius.circular(10),
@@ -141,102 +141,102 @@ class CreatePasswordEmployee extends StatelessWidget {
                                                             10.0),
                                                     child: Column(
                                                       children: [
-                                                        TextFormField(
-                                                          controller:
-                                                              _createpassdriverController
-                                                                  .passwordController1,
-                                                          validator: (value) {
-                                                            if (value == null ||
-                                                                value.isEmpty) {
-                                                              return 'Please enter your Old password';
-                                                            }
-                                                            return null;
-                                                          },
-                                                          //focusNode: _userFocusNode, // Assign FocusNode
-
-                                                          decoration:
-                                                              InputDecoration(
-                                                            labelText:
-                                                                'Old Password',
-                                                            labelStyle:
-                                                                TextStyle(
-                                                              color: MyTheme
-                                                                  .themecolor,
-                                                              fontWeight:
-                                                                  FontWeight
-                                                                      .w400,
-                                                            ),
-                                                            border:
-                                                                OutlineInputBorder(
-                                                              borderRadius:
-                                                                  BorderRadius
-                                                                      .circular(
-                                                                          10),
-                                                              borderSide: BorderSide(
-                                                                  color: Colors
-                                                                      .blueAccent,
-                                                                  width: 2),
-                                                            ),
-                                                            focusedBorder:
-                                                                OutlineInputBorder(
-                                                              borderRadius:
-                                                                  BorderRadius
-                                                                      .circular(
-                                                                          10),
-                                                              borderSide:
-                                                                  BorderSide(
-                                                                      color: Colors
-                                                                          .black,
-                                                                      width: 2),
-                                                            ),
-                                                            enabledBorder:
-                                                                OutlineInputBorder(
-                                                              borderRadius:
-                                                                  BorderRadius
-                                                                      .circular(
-                                                                          10),
-                                                              borderSide:
-                                                                  BorderSide(
-                                                                      color: Colors
-                                                                          .grey,
-                                                                      width: 1),
-                                                            ),
-                                                            prefixIcon: Padding(
-                                                              padding:
-                                                                  const EdgeInsets
-                                                                      .all(
-                                                                      12.0),
-                                                              child: Icon(
-                                                                Icons.password,
-                                                                color: MyTheme
-                                                                    .ThemeColors,
-                                                              ),
-                                                            ),
-                                                            hintText:
-                                                                'Enter Old Password',
-                                                            hintStyle: TextStyle(
-                                                                color: Colors
-                                                                    .grey
-                                                                    .shade500),
-                                                            contentPadding:
-                                                                EdgeInsets.symmetric(
-                                                                    vertical:
-                                                                        15.0,
-                                                                    horizontal:
-                                                                        10.0),
-                                                          ),
-                                                          keyboardType:
-                                                              TextInputType
-                                                                  .name,
-                                                          // maxLength: 8,
-                                                          style: TextStyle(
-                                                            fontSize: 18,
-                                                            fontWeight:
-                                                                FontWeight.w500,
-                                                          ),
-                                                          cursorColor:
-                                                              Colors.blueAccent,
-                                                        ),
+                                                        // TextFormField(
+                                                        //   controller:
+                                                        //       _createpassdriverController
+                                                        //           .passwordController1,
+                                                        //   validator: (value) {
+                                                        //     if (value == null ||
+                                                        //         value.isEmpty) {
+                                                        //       return 'Please enter your Old password';
+                                                        //     }
+                                                        //     return null;
+                                                        //   },
+                                                        //   //focusNode: _userFocusNode, // Assign FocusNode
+                                                        //
+                                                        //   decoration:
+                                                        //       InputDecoration(
+                                                        //     labelText:
+                                                        //         'Old Password',
+                                                        //     labelStyle:
+                                                        //         TextStyle(
+                                                        //       color: MyTheme
+                                                        //           .themecolor,
+                                                        //       fontWeight:
+                                                        //           FontWeight
+                                                        //               .w400,
+                                                        //     ),
+                                                        //     border:
+                                                        //         OutlineInputBorder(
+                                                        //       borderRadius:
+                                                        //           BorderRadius
+                                                        //               .circular(
+                                                        //                   10),
+                                                        //       borderSide: BorderSide(
+                                                        //           color: Colors
+                                                        //               .blueAccent,
+                                                        //           width: 2),
+                                                        //     ),
+                                                        //     focusedBorder:
+                                                        //         OutlineInputBorder(
+                                                        //       borderRadius:
+                                                        //           BorderRadius
+                                                        //               .circular(
+                                                        //                   10),
+                                                        //       borderSide:
+                                                        //           BorderSide(
+                                                        //               color: Colors
+                                                        //                   .black,
+                                                        //               width: 2),
+                                                        //     ),
+                                                        //     enabledBorder:
+                                                        //         OutlineInputBorder(
+                                                        //       borderRadius:
+                                                        //           BorderRadius
+                                                        //               .circular(
+                                                        //                   10),
+                                                        //       borderSide:
+                                                        //           BorderSide(
+                                                        //               color: Colors
+                                                        //                   .grey,
+                                                        //               width: 1),
+                                                        //     ),
+                                                        //     prefixIcon: Padding(
+                                                        //       padding:
+                                                        //           const EdgeInsets
+                                                        //               .all(
+                                                        //               12.0),
+                                                        //       child: Icon(
+                                                        //         Icons.password,
+                                                        //         color: MyTheme
+                                                        //             .ThemeColors,
+                                                        //       ),
+                                                        //     ),
+                                                        //     hintText:
+                                                        //         'Enter Old Password',
+                                                        //     hintStyle: TextStyle(
+                                                        //         color: Colors
+                                                        //             .grey
+                                                        //             .shade500),
+                                                        //     contentPadding:
+                                                        //         EdgeInsets.symmetric(
+                                                        //             vertical:
+                                                        //                 15.0,
+                                                        //             horizontal:
+                                                        //                 10.0),
+                                                        //   ),
+                                                        //   keyboardType:
+                                                        //       TextInputType
+                                                        //           .name,
+                                                        //   // maxLength: 8,
+                                                        //   style: TextStyle(
+                                                        //     fontSize: 18,
+                                                        //     fontWeight:
+                                                        //         FontWeight.w500,
+                                                        //   ),
+                                                        //   cursorColor:
+                                                        //       Colors.blueAccent,
+                                                        // ),
                                                         Spacer(),
                                                         TextFormField(
                                                           controller:
@@ -252,7 +252,7 @@ class CreatePasswordEmployee extends StatelessWidget {
                                                           decoration:
                                                               InputDecoration(
                                                             labelText:
-                                                                'New Password',
+                                                                'Enter Password',
                                                             labelStyle:
                                                                 TextStyle(
                                                               color: MyTheme
@@ -308,7 +308,7 @@ class CreatePasswordEmployee extends StatelessWidget {
                                                               ),
                                                             ),
                                                             hintText:
-                                                                'Enter New Password',
+                                                                'Enter Your Password',
                                                             hintStyle: TextStyle(
                                                                 color: Colors
                                                                     .grey
@@ -353,7 +353,7 @@ class CreatePasswordEmployee extends StatelessWidget {
                                                           decoration:
                                                               InputDecoration(
                                                             labelText:
-                                                                'Confirm New Password',
+                                                                'Confirm Password',
                                                             labelStyle:
                                                                 TextStyle(
                                                               color: MyTheme
@@ -433,6 +433,7 @@ class CreatePasswordEmployee extends StatelessWidget {
                                                           cursorColor:
                                                               Colors.blueAccent,
                                                         ),
+                                                        Spacer(),
                                                       ],
                                                     ),
                                                   ),
@@ -461,13 +462,19 @@ class CreatePasswordEmployee extends StatelessWidget {
                                             // Navigate to OTP Page
                                             ///Get.to(() => HomePageDriver());
                                           } else {
-                                            Get.snackbar('Error',
-                                                'Password minimum 4 character');
+                                            Get.snackbar(
+                                                'Error', 'Password error');
                                           }
                                         },
-                                        child: Text('UPDATE'),
+                                        child: Text(
+                                          'SUBMIT',
+                                          style: TextStyle(
+                                              color: Colors.white,
+                                              fontSize: 17,
+                                              fontWeight: FontWeight.bold),
+                                        ),
                                         style: ElevatedButton.styleFrom(
-                                          backgroundColor: MyTheme.drivericon,
+                                          backgroundColor: MyTheme.themecolor,
                                           padding: EdgeInsets.symmetric(
                                               vertical: 15),
                                           shape: RoundedRectangleBorder(

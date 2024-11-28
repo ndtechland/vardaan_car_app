@@ -10,9 +10,9 @@ BannerDriver bannerDriverFromJson(String str) =>
 String bannerDriverToJson(BannerDriver data) => json.encode(data.toJson());
 
 class BannerDriver {
-  num? statusCode;
+  int? statusCode;
   String? message;
-  List<DataBanner>? data;
+  List<Datum>? data;
 
   BannerDriver({
     this.statusCode,
@@ -25,8 +25,7 @@ class BannerDriver {
         message: json["Message"],
         data: json["data"] == null
             ? []
-            : List<DataBanner>.from(
-                json["data"]!.map((x) => DataBanner.fromJson(x))),
+            : List<Datum>.from(json["data"]!.map((x) => Datum.fromJson(x))),
       );
 
   Map<String, dynamic> toJson() => {
@@ -38,20 +37,20 @@ class BannerDriver {
       };
 }
 
-class DataBanner {
-  num? id;
+class Datum {
+  int? id;
   String? bannerImage;
   String? role;
   DateTime? createdDate;
 
-  DataBanner({
+  Datum({
     this.id,
     this.bannerImage,
     this.role,
     this.createdDate,
   });
 
-  factory DataBanner.fromJson(Map<String, dynamic> json) => DataBanner(
+  factory Datum.fromJson(Map<String, dynamic> json) => Datum(
         id: json["Id"],
         bannerImage: json["BannerImage"],
         role: json["Role"],

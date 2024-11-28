@@ -33,7 +33,7 @@ class OtpPage extends StatelessWidget {
         MediaQuery.of(context).orientation == Orientation.portrait;
     return Scaffold(
       appBar: myAppBar(
-        backgroundColor: MyTheme.drivericon,
+        backgroundColor: MyTheme.themecolor,
         title: 'Verify OTP',
         leadingIcon: Icons.arrow_back_ios_outlined,
         centerTitle: true,
@@ -237,7 +237,7 @@ class OtpPage extends StatelessWidget {
                                             controller.text.trim())
                                         .join();
                                     if (otp.length == 4) {
-                                      _loginController.verifyOtpEmp(
+                                      _loginController.verifyOtp(
                                           mobileNumber, otp);
                                     } else {
                                       Get.snackbar('Error',
@@ -245,7 +245,7 @@ class OtpPage extends StatelessWidget {
                                     }
                                   },
                             style: ElevatedButton.styleFrom(
-                              backgroundColor: MyTheme.drivericon,
+                              backgroundColor: MyTheme.themecolor,
                               padding: EdgeInsets.symmetric(
                                   vertical: 14, horizontal: 29),
                               shape: RoundedRectangleBorder(

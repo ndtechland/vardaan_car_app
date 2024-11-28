@@ -13,17 +13,15 @@ String profileModelDriverGetToJson(ProfileModelDriverGet data) =>
 class ProfileModelDriverGet {
   bool? succeeded;
   int? statusCode;
-  dynamic status;
   String? message;
-  dynamic error;
+  String? role;
   Data? data;
 
   ProfileModelDriverGet({
     this.succeeded,
     this.statusCode,
-    this.status,
     this.message,
-    this.error,
+    this.role,
     this.data,
   });
 
@@ -31,18 +29,16 @@ class ProfileModelDriverGet {
       ProfileModelDriverGet(
         succeeded: json["Succeeded"],
         statusCode: json["StatusCode"],
-        status: json["Status"],
         message: json["Message"],
-        error: json["Error"],
+        role: json["Role"],
         data: json["Data"] == null ? null : Data.fromJson(json["Data"]),
       );
 
   Map<String, dynamic> toJson() => {
         "Succeeded": succeeded,
         "StatusCode": statusCode,
-        "Status": status,
         "Message": message,
-        "Error": error,
+        "Role": role,
         "Data": data?.toJson(),
       };
 }
@@ -55,10 +51,11 @@ class Data {
   String? dlImage;
   String? driverImage;
   String? mobileNumber;
-  dynamic address;
+  String? address;
   String? alternateNo1;
   String? email;
   dynamic pincode;
+  dynamic driverImageBase64;
 
   Data({
     this.id,
@@ -72,6 +69,7 @@ class Data {
     this.alternateNo1,
     this.email,
     this.pincode,
+    this.driverImageBase64,
   });
 
   factory Data.fromJson(Map<String, dynamic> json) => Data(
@@ -88,6 +86,7 @@ class Data {
         alternateNo1: json["AlternateNo1"],
         email: json["Email"],
         pincode: json["Pincode"],
+        driverImageBase64: json["DriverImageBase64"],
       );
 
   Map<String, dynamic> toJson() => {
@@ -102,5 +101,6 @@ class Data {
         "AlternateNo1": alternateNo1,
         "Email": email,
         "Pincode": pincode,
+        "DriverImageBase64": driverImageBase64,
       };
 }

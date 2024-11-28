@@ -5,8 +5,10 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:vardaancar/module/user/language_update_drower_innerpage.dart';
 
+import '../../../controller/phone_login_controller.dart';
 import '../../../theme_color/theme_color.dart';
 import '../../contact_support_page.dart';
+import '../../login_page.dart';
 import '../booking_trip_user.dart';
 import '../change_password.dart';
 import '../feedback_screen.dart';
@@ -17,6 +19,9 @@ class CabDrawer extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
+
+    final PhoneLoginController _loginController =
+        Get.put(PhoneLoginController());
 
     final Uri _urlabout = Uri.parse('https://vardaanrentacar.com/about-us/');
     final Uri _urlprivecy =
@@ -609,16 +614,38 @@ class CabDrawer extends StatelessWidget {
               tileColor:
                   Get.currentRoute == '/LoginPage' ? Colors.grey[300] : null,
               onTap: () async {
-                print(Get.currentRoute);
+                // Show loading dialog
+                showDialog(
+                  context: context,
+                  barrierDismissible: false,
+                  builder: (context) {
+                    return Center(
+                      child: CircularProgressIndicator(),
+                    );
+                  },
+                );
 
-                await Future.delayed(Duration(seconds: 2));
+                _loginController.onInit();
+
+                await Future.delayed(Duration(seconds: 1));
 
                 await SharedPreferences.getInstance()
-                    .then((value) => value.clear());
+                    .then((prefs) => prefs.clear());
+
+                // Hide loading dialog
                 //Get.back();
-                //prefs.remove('email');
-                //Get.to(() => LoginPage());
-                /// Get.offNamed('/LoginPage');
+
+                // Navigate to login screen
+                Get.offAll(() => LoginPage());
+
+                // Show success snackbar
+                // Get.snackbar(
+                //   'Success',
+                //   'Successfully logged out',
+                //   snackPosition: SnackPosition.TOP,
+                //   backgroundColor: Colors.green,
+                //   duration: snackBarDuration, // Set the duration
+                // );
               },
             ),
           ],

@@ -5,24 +5,29 @@ import 'package:get/get.dart';
 
 import '../../api_services/api_services_call.dart';
 import '../../module/user/home_page.dart';
+import '../driver_controller/profile_controller_driver.dart';
+import 'employee_get_profile_controller.dart';
 
 class CreatepasswordEmployeeController extends GetxController {
   final GlobalKey<FormState> createpassworddriverFormKey =
       GlobalKey<FormState>();
 
-  final TextEditingController passwordController1 = TextEditingController();
+  ProfileController _driverprofileController = Get.put(ProfileController());
+  EmployeeGetProfileController _employeegetprofile =
+      Get.put(EmployeeGetProfileController());
+
+  // final TextEditingController passwordController1 = TextEditingController();
   final TextEditingController passwordController2 = TextEditingController();
   final TextEditingController passwordController3 = TextEditingController();
 
   final RxBool isLoading = false.obs;
 
-  Future<void> changepasswordEmployeeApi(BuildContext context) async {
+  Future<void> createpasswordEmployeeApi(BuildContext context) async {
     try {
       isLoading.value = false;
-
       final response = await ApiProvider.CreatePasswordEmployeeApi(
         context, // Pass the context
-        passwordController1.text,
+        ///passwordController1.text,
         passwordController2.text,
         passwordController3.text,
       );
@@ -30,8 +35,13 @@ class CreatepasswordEmployeeController extends GetxController {
       if (response?.statusCode == 200) {
         // Navigate to Home Page
         ///Get.to(HomePageDriver());
+        // ProfileController _driverprofileController = Get.put(ProfileController());
+        // EmployeeGetProfileController _employeegetprofile =
+        // Get.put(EmployeeGetProfileController());
+        await _driverprofileController.driverprofileApi();
+        await _employeegetprofile.employeeprofileApi();
 
-        Get.to(() => HomePage());
+        await Get.to(() => HomePage());
 
         //Get.off(() => Home());
       } else {
@@ -69,7 +79,7 @@ class CreatepasswordEmployeeController extends GetxController {
   void checkCreatePasswordchange(BuildContext context) {
     if (createpassworddriverFormKey.currentState!.validate()) {
       createpassworddriverFormKey.currentState!.save();
-      changepasswordEmployeeApi(context); // Pass the context
+      createpasswordEmployeeApi(context); // Pass the context
     }
   }
 }

@@ -16,6 +16,7 @@ import '../models/driver_model/GetProfileModel.dart';
 import '../models/driver_model/driver_banner.dart';
 import '../models/employee_model/employee_grt_profile_model.dart';
 import '../module/driver/home_page_driver.dart';
+import '../module/user/create_password_employee.dart';
 import '../module/user/home_page.dart';
 
 var prefs = GetStorage();
@@ -97,9 +98,15 @@ class ApiProvider {
 
         // Navigate to the respective home page
         if (role.toLowerCase() == "driver") {
-          Get.to(() => HomePageDriver());
+          await Future.delayed(Duration(seconds: 2));
+          await Get.to(() => HomePageDriver());
         } else {
-          Get.to(() => HomePage());
+          //await Future.delayed(Duration(seconds: 2));
+
+          //CreatePasswordEmployee
+          Get.to(() => CreatePasswordEmployee());
+
+          //Get.to(() => HomePage());
         }
 
         // Print the response body after 200 status code
@@ -726,16 +733,16 @@ class ApiProvider {
 
   ///todo:11. banner api,.......driver...
   /// Fetch banners based on the role
-  static Future<dynamic> fetchBanners() async {
+  static Future<dynamic> fetchBannersdriver(String role) async {
     try {
-      // Retrieve the saved ID from SharedPreferences
+      //Retrieve the saved ID from SharedPreferences
       SharedPreferences prefs = await SharedPreferences.getInstance();
-      String? role = prefs.getString("role");
+      String? role1 = prefs.getString("role");
 
-      print("rolebanner${role}");
+      print("rolebanner${role1}");
 
       // Use the dynamic ID in the API URL
-      var url = "${baseUrl}api/Common/GetBanner?role=$role";
+      var url = "${baseUrl}api/Common/GetBanner?role=$role1";
       print("API URL banner: $url");
 
       http.Response response = await http.get(Uri.parse(url));
@@ -754,18 +761,42 @@ class ApiProvider {
     }
   }
 
+  ///todo:11. banner api,.......emp...
+  /// Fetch banners based on the role
+  // static Future<dynamic> fetchBannersEmp() async {
+  //   try {
+  //     // Retrieve the saved ID from SharedPreferences
+  //     SharedPreferences prefs = await SharedPreferences.getInstance();
+  //     String? role = prefs.getString("role");
+  //
+  //     print("rolebanner${role}");
+  //
+  //     // Use the dynamic ID in the API URL
+  //     var url = "${baseUrl}api/Common/GetBanner?role=$role";
+  //     print("API URL banner: $url");
+  //
+  //     http.Response response = await http.get(Uri.parse(url));
+  //     print("Response banner: ${response.body}");
+  //
+  //     if (response.statusCode == 200) {
+  //       var BannerDriver = bannerDriverFromJson(response.body);
+  //       return BannerDriver;
+  //     } else {
+  //       print("Error: ${response.statusCode}");
+  //       return null;
+  //     }
+  //   } catch (error) {
+  //     print("Error: $error");
+  //     return null;
+  //   }
+  // }
+
   ///todo: 12. create password api,,,,for employee.......
   static Future<http.Response?> CreatePasswordEmployeeApi(
       BuildContext context, // Added context parameter
-      String CurrentPassword,
+      // String CurrentPassword,
       String NewPassword,
       String ConfirmPassword) async {
-    // var prefs = GetStorage();
-
-    // Read saved userId
-    //String employeeId = prefs.read("Id").toString();
-    //print('wwwuseridEE:$employeeId');
-
     // Retrieve the saved ID from SharedPreferences
     SharedPreferences prefs = await SharedPreferences.getInstance();
     int? userId = prefs.getInt("userId");
@@ -776,15 +807,15 @@ class ApiProvider {
 
     //employeeId
 
-    var url = "${baseUrl}api/Account/DriverChangePassword";
+    var url = "${baseUrl}api/Account/CreateEmployeePassword";
     var body = jsonEncode({
       "Id": "$userId",
-      "OldPassword": CurrentPassword,
+      //"OldPassword": CurrentPassword,
       "Password": NewPassword,
       "ConfirmPassword": ConfirmPassword,
     });
 
-    print("loginnnn");
+    print("loginnnn create");
     print(body);
 
     try {
@@ -796,9 +827,11 @@ class ApiProvider {
         },
       ).timeout(const Duration(seconds: 10));
 
-      print(r.body);
+      print("cresate pass${r.body}");
 
       if (r.statusCode == 200) {
+        print("cresate pass1${r.body}");
+
         var responseData = json.decode(r.body);
         // var userId = responseData['loginProfile']['id'];
 
@@ -831,7 +864,7 @@ class ApiProvider {
 
         // Show success toast
         Fluttertoast.showToast(
-          msg: "Password changed successfully!",
+          msg: "Password create password successfully!",
           backgroundColor: Colors.green,
           textColor: Colors.white,
           toastLength: Toast.LENGTH_LONG,
@@ -849,7 +882,7 @@ class ApiProvider {
         Get.snackbar('Error', r.body);
       } else {
         Fluttertoast.showToast(
-          msg: "Failed to change password. Status code: ${r.statusCode}",
+          msg: "Failed to create password. Status code: ${r.statusCode}",
           backgroundColor: Colors.red,
           textColor: Colors.white,
           toastLength: Toast.LENGTH_LONG,

@@ -12,7 +12,6 @@ class TripFormPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    ///todo:.......
     Size size = MediaQuery.of(context).size;
     return Scaffold(
       appBar: myAppBar(
@@ -20,7 +19,6 @@ class TripFormPage extends StatelessWidget {
         leadingIcon: Icons.arrow_back_ios_outlined,
         centerTitle: true,
         onLeadingPressed: () {
-          ///.........
           Get.back();
         },
       ),
@@ -44,17 +42,37 @@ class TripFormPage extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   // Facility Selection
-                  _buildSectionHeader(size, 'Select Facility'),
+                  // _buildSectionHeader(size, 'Select Facility'),
+                  // Container(
+                  //   width: double.infinity,
+                  //   child: _buildDropdownField(
+                  //     context,
+                  //     'Select Facility',
+                  //     tripformcontroller.selectedFacility,
+                  //     tripformcontroller.facilities,
+                  //   ),
+                  // ),
+
+                  _buildSectionHeader(size, 'Shift Type'),
                   Container(
                     width: double.infinity,
                     child: _buildDropdownField(
                       context,
-                      'Select Facility',
-                      tripformcontroller.selectedFacility,
-                      tripformcontroller.facilities,
+                      'Select Shift Type',
+                      tripformcontroller.selectedShift,
+                      tripformcontroller.shifts,
                     ),
                   ),
-
+                  _buildSectionHeader(size, 'Trip Type'),
+                  Container(
+                    width: double.infinity,
+                    child: _buildDropdownField(
+                      context,
+                      'Select Trip Type',
+                      tripformcontroller.selectedTripType,
+                      tripformcontroller.tripTypes,
+                    ),
+                  ),
                   // Start Date Selection
                   _buildSectionHeader(size, 'Select Start Date'),
                   GestureDetector(
@@ -67,30 +85,30 @@ class TripFormPage extends StatelessWidget {
                   ),
 
                   // Shift and Trip Type Selection
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      _buildSectionHeader(size, 'Select Shift Type'),
-                      _buildSectionHeader(size, 'Select Trip Type'),
-                    ],
-                  ),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      _buildDropdownField(
-                        context,
-                        'Select Shift Type',
-                        tripformcontroller.selectedShift,
-                        tripformcontroller.shifts,
-                      ),
-                      _buildDropdownField(
-                        context,
-                        'Select Trip Type',
-                        tripformcontroller.selectedTripType,
-                        tripformcontroller.tripTypes,
-                      ),
-                    ],
-                  ),
+                  // Row(
+                  //   mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  //   children: [
+                  //     _buildSectionHeader(size, 'Select Shift Type'),
+                  //     _buildSectionHeader(size, 'Select Trip Type'),
+                  //   ],
+                  // ),
+                  // Row(
+                  //   mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  //   children: [
+                  //     _buildDropdownField(
+                  //       context,
+                  //       'Select Shift Type',
+                  //       tripformcontroller.selectedShift,
+                  //       tripformcontroller.shifts,
+                  //     ),
+                  //     _buildDropdownField(
+                  //       context,
+                  //       'Select Trip Type',
+                  //       tripformcontroller.selectedTripType,
+                  //       tripformcontroller.tripTypes,
+                  //     ),
+                  //   ],
+                  // ),
 
                   // End Date Selection
                   _buildSectionHeader(size, 'Select End Date'),
@@ -104,31 +122,105 @@ class TripFormPage extends StatelessWidget {
                   ),
 
                   // Pickup and Drop Shift Selection
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      _buildSectionHeader(size, 'Select Pickup Shift'),
-                      _buildSectionHeader(size, 'Select Drop Shift'),
-                    ],
-                  ),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      _buildDropdownField(
-                        context,
-                        'Pickup Shift',
-                        tripformcontroller.selectedPickupShift,
-                        tripformcontroller.shifts,
-                      ),
-                      _buildDropdownField(
-                        context,
-                        'Drop Shift',
-                        tripformcontroller.selectedDropShift,
-                        tripformcontroller.shifts,
-                      ),
-                    ],
-                  ),
-
+                  ///
+                  // Row(
+                  //   mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  //   children: [
+                  //     _buildSectionHeader(size, 'Select Pickup Shift'),
+                  //     _buildSectionHeader(size, 'Select Drop Shift'),
+                  //   ],
+                  // ),
+                  // Row(
+                  //   mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  //   children: [
+                  //     _buildDropdownField(
+                  //       context,
+                  //       'Pickup Shift',
+                  //       tripformcontroller.selectedPickupShift,
+                  //       tripformcontroller.shifts,
+                  //     ),
+                  //     _buildDropdownField(
+                  //       context,
+                  //       'Drop Shift',
+                  //       tripformcontroller.selectedDropShift,
+                  //       tripformcontroller.shifts,
+                  //     ),
+                  //   ],
+                  // ),
+                  Obx(() {
+                    if (tripformcontroller.selectedTripType.value.isEmpty ||
+                        tripformcontroller.selectedTripType.value ==
+                            tripformcontroller.tripTypes[0]) {
+                      // Both Pickup and Drop
+                      return Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              _buildSectionHeader(size, 'Select Pickup Shift'),
+                              _buildSectionHeader(size, 'Select Drop Shift'),
+                            ],
+                          ),
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              _buildDropdownField(
+                                context,
+                                'Pickup Shift',
+                                tripformcontroller.selectedPickupShift,
+                                tripformcontroller.pickupShifts,
+                              ),
+                              _buildDropdownField(
+                                context,
+                                'Drop Shift',
+                                tripformcontroller.selectedDropShift,
+                                tripformcontroller.dropShifts,
+                              ),
+                            ],
+                          ),
+                        ],
+                      );
+                    } else if (tripformcontroller.selectedTripType.value ==
+                        tripformcontroller.tripTypes[1]) {
+                      // Pickup Only
+                      return Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          _buildSectionHeader(size, 'Select Pickup Shift'),
+                          Container(
+                            width: double.infinity,
+                            child: _buildDropdownField(
+                              context,
+                              'Pickup Shift',
+                              tripformcontroller.selectedPickupShift,
+                              tripformcontroller.pickupShifts,
+                            ),
+                          ),
+                        ],
+                      );
+                    } else if (tripformcontroller.selectedTripType.value ==
+                        tripformcontroller.tripTypes[2]) {
+                      // Drop Only
+                      return Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          _buildSectionHeader(size, 'Select Drop Shift'),
+                          Container(
+                            width: double.infinity,
+                            child: _buildDropdownField(
+                              context,
+                              'Drop Shift',
+                              tripformcontroller.selectedDropShift,
+                              tripformcontroller.dropShifts,
+                            ),
+                          ),
+                        ],
+                      );
+                    }
+                    // Default or empty state
+                    return SizedBox.shrink();
+                  }),
                   // Book Button
                   SizedBox(height: 35),
                   Align(
@@ -167,6 +259,7 @@ class TripFormPage extends StatelessWidget {
       BuildContext context, String label, DateTime? date) {
     return Container(
       height: 50,
+      padding: EdgeInsets.only(left: 12),
       decoration: BoxDecoration(
         color: MyTheme.themecolor,
         borderRadius: BorderRadius.circular(10.0),
@@ -175,13 +268,11 @@ class TripFormPage extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
           Expanded(
-            child: Center(
-              child: Text(
-                date != null
-                    ? '$label: ${tripformcontroller.formatDate(date)}'
-                    : 'Select $label',
-                style: GoogleFonts.poppins(color: Colors.white),
-              ),
+            child: Text(
+              date != null
+                  ? '$label: ${tripformcontroller.formatDate(date)}'
+                  : 'Select $label',
+              style: GoogleFonts.poppins(color: Colors.white),
             ),
           ),
           Padding(
@@ -216,6 +307,7 @@ class TripFormPage extends StatelessWidget {
                 }
               },
               dropdownColor: MyTheme.themecolor,
+              iconEnabledColor: MyTheme.whitecolor,
               style: TextStyle(color: Colors.white),
               items: items.map<DropdownMenuItem<String>>((String value) {
                 return DropdownMenuItem<String>(

@@ -4,16 +4,21 @@ import 'package:get/get.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:vardaancar/api_services/api_services_call.dart';
 
-import '../module/driver/home_page_driver.dart';
 import '../module/driver/login_with_password.dart';
-import '../module/user/create_password_employee.dart';
 import '../module/user/otp_page.dart';
+import 'driver_controller/diver_banner_get_controller.dart';
+import 'driver_controller/profile_controller_driver.dart';
+import 'employee_controllers/employee_get_profile_controller.dart';
 
 class PhoneLoginController extends GetxController {
   final ApiProvider _apiProvider = ApiProvider();
 
   RxString mobileNumber = "".obs;
   RxBool isLoading = false.obs;
+  ProfileController _driverprofileController = Get.put(ProfileController());
+  EmployeeGetProfileController _employeegetprofile =
+      Get.put(EmployeeGetProfileController());
+  final BannerController _bannerbothcontroller = Get.put(BannerController());
 
   // Future<void> loginphone(String mobile) async {
   //   isLoading.value = true;
@@ -56,11 +61,15 @@ class PhoneLoginController extends GetxController {
             Get.snackbar("Success", "OTP Sent Successfully.");
 
             ///Get.to(() => LoginWithPassword(mobileNumber: mobile));
-
+            // final BannerController _bannerbothcontroller = Get.put(BannerController());
+            _bannerbothcontroller.BannersApi();
             Get.to(() => OtpPage(mobileNumber: mobile));
           } else {
             // Navigate to Login Password Page
             Get.snackbar("Info", "Proceed to Login with Password.");
+            //final BannerController _bannerbothcontroller = Get.put(BannerController());
+            _bannerbothcontroller.BannersApi();
+
             Get.to(() => LoginWithPassword(mobileNumber: mobile));
           }
         } else {
@@ -84,13 +93,17 @@ class PhoneLoginController extends GetxController {
       final response = await _apiProvider.verifyOtpOrPassword(
           mobile, otp); // Assuming you have an API method for OTP verification
       if (response.values == 200) {
+        await _driverprofileController.driverprofileApi();
+        await _employeegetprofile.employeeprofileApi();
+
         // Handle success (e.g., navigate to the next page)
+
         Get.snackbar("Success", "OTP verified successfully");
         // Get.to(CreatePasswordEmployee());
 
         //CreatePasswordEmployee
 
-        Get.to(HomePageDriver());
+        /// Get.to(HomePageDriver());
         // Add any next steps after successful OTP verification
       } else {
         // Get.to(HomePageDriver());
@@ -106,31 +119,31 @@ class PhoneLoginController extends GetxController {
 
   ///todo: this is the main thing to verify password for employee...
 
-  Future<void> verifyOtpEmp(String mobile, String otp) async {
-    isLoading.value = true;
-    try {
-      final response = await _apiProvider.verifyOtpOrPassword(
-          mobile, otp); // Assuming you have an API method for OTP verification
-      if (response.values == 200) {
-        // Handle success (e.g., navigate to the next page)
-        Get.snackbar("Success", "OTP verified successfully");
-        Get.to(CreatePasswordEmployee());
-
-        //CreatePasswordEmployee
-
-        //Get.to(HomePageDriver());
-        // Add any next steps after successful OTP verification
-      } else {
-        // Get.to(HomePageDriver());
-
-        // Get.snackbar("Error", "Invalid OTP");
-      }
-    } catch (e) {
-      Get.snackbar("Error", "An error occurred: $e");
-    } finally {
-      isLoading.value = false;
-    }
-  }
+  // Future<void> verifyOtpEmp(String mobile, String otp) async {
+  //   isLoading.value = true;
+  //   try {
+  //     final response = await _apiProvider.verifyOtpOrPassword(
+  //         mobile, otp); // Assuming you have an API method for OTP verification
+  //     if (response.values == 200) {
+  //       // Handle success (e.g., navigate to the next page)
+  //       Get.snackbar("Success", "OTP verified successfully");
+  //       Get.to(CreatePasswordEmployee());
+  //
+  //       //CreatePasswordEmployee
+  //
+  //       //Get.to(HomePageDriver());
+  //       // Add any next steps after successful OTP verification
+  //     } else {
+  //       // Get.to(HomePageDriver());
+  //
+  //       // Get.snackbar("Error", "Invalid OTP");
+  //     }
+  //   } catch (e) {
+  //     Get.snackbar("Error", "An error occurred: $e");
+  //   } finally {
+  //     isLoading.value = false;
+  //   }
+  // }
 
   ///todo: password email ....
 
@@ -143,7 +156,7 @@ class PhoneLoginController extends GetxController {
         // Handle success (e.g., navigate to the next page)
         Get.snackbar("Success", "Password verified successfully");
 
-        Get.to(HomePageDriver());
+        // Get.to(HomePageDriver());
         // Add any next steps after successful OTP verification
       } else {
         // Get.to(HomePageDriver());
@@ -151,7 +164,7 @@ class PhoneLoginController extends GetxController {
         // Get.snackbar("Error", "Invalid OTP");
       }
     } catch (e) {
-      Get.snackbar("Error", "An error occurred: $e");
+      Get.snackbar("Error", "Please Enter Correct Password.");
     } finally {
       isLoading.value = false;
     }

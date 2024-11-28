@@ -3,6 +3,8 @@ import 'package:get/get.dart';
 
 import '../../contantss/appbar/appbar_custom.dart';
 import '../../controller/driver_controller/diver_banner_get_controller.dart';
+import '../../controller/driver_controller/profile_controller_driver.dart';
+import '../../controller/employee_controllers/employee_get_profile_controller.dart';
 import '../../controller/phone_login_controller.dart';
 import '../../theme_color/theme_color.dart';
 import '../../utils/constant_text.dart';
@@ -10,6 +12,9 @@ import 'forget_password.dart';
 
 class LoginWithPassword extends StatelessWidget {
   final TextEditingController _passwordController = TextEditingController();
+  ProfileController _driverprofileController = Get.put(ProfileController());
+  EmployeeGetProfileController _employeegetprofile =
+      Get.put(EmployeeGetProfileController());
 
   BannerController _bannerController = Get.put(BannerController());
 
@@ -32,7 +37,7 @@ class LoginWithPassword extends StatelessWidget {
     return Scaffold(
       backgroundColor: AppColors.white,
       appBar: myAppBar(
-        backgroundColor: MyTheme.drivericon,
+        backgroundColor: MyTheme.themecolor,
         title: 'Login With Password',
         leadingIcon: Icons.arrow_back_ios_outlined,
         centerTitle: true,
@@ -234,9 +239,18 @@ class LoginWithPassword extends StatelessWidget {
                                         .isLoading.value
                                     ? null
                                     : () async {
+                                        // ProfileController _driverprofileController = Get.put(ProfileController());
+                                        // EmployeeGetProfileController _employeegetprofile =
+                                        // Get.put(EmployeeGetProfileController());
+                                        await _driverprofileController
+                                            .driverprofileApi();
+                                        _driverprofileController.onInit();
+                                        await _employeegetprofile
+                                            .employeeprofileApi();
+
                                         // Fetch banners for a specific role, e.g., "Driver"
                                         await _bannerController.BannersApi();
-                                        Future.delayed(Duration(seconds: 3));
+                                        Future.delayed(Duration(seconds: 1));
                                         String password =
                                             _passwordController.text.trim();
                                         // if (password.length < 8 &&
@@ -259,6 +273,10 @@ class LoginWithPassword extends StatelessWidget {
                                             snackPosition: SnackPosition.BOTTOM,
                                           );
                                         } else {
+                                          await _bannerController.BannersApi();
+                                          await Future.delayed(
+                                              Duration(seconds: 3));
+
                                           await _loginpasswordController
                                               .verifyPasswordApi(
                                                   mobileNumber, password);
@@ -276,7 +294,7 @@ class LoginWithPassword extends StatelessWidget {
                                             fontWeight: FontWeight.bold),
                                       ),
                                 style: ElevatedButton.styleFrom(
-                                  backgroundColor: MyTheme.drivericon,
+                                  backgroundColor: MyTheme.themecolor,
                                   padding: EdgeInsets.symmetric(vertical: 15),
                                   shape: RoundedRectangleBorder(
                                     borderRadius: BorderRadius.circular(30.0),

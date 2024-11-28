@@ -13,17 +13,15 @@ String profileModelEmployeeGetToJson(ProfileModelEmployeeGet data) =>
 class ProfileModelEmployeeGet {
   bool? succeeded;
   int? statusCode;
-  dynamic status;
   String? message;
-  dynamic error;
+  String? role;
   Data? data;
 
   ProfileModelEmployeeGet({
     this.succeeded,
     this.statusCode,
-    this.status,
     this.message,
-    this.error,
+    this.role,
     this.data,
   });
 
@@ -31,18 +29,16 @@ class ProfileModelEmployeeGet {
       ProfileModelEmployeeGet(
         succeeded: json["Succeeded"],
         statusCode: json["StatusCode"],
-        status: json["Status"],
         message: json["Message"],
-        error: json["Error"],
+        role: json["Role"],
         data: json["Data"] == null ? null : Data.fromJson(json["Data"]),
       );
 
   Map<String, dynamic> toJson() => {
         "Succeeded": succeeded,
         "StatusCode": statusCode,
-        "Status": status,
         "Message": message,
-        "Error": error,
+        "Role": role,
         "Data": data?.toJson(),
       };
 }
