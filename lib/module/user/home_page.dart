@@ -11,6 +11,8 @@ import '../../contantss/buttons/horizontal_circular_button.dart';
 import '../../contantss/fixed_text_for_api.dart';
 import '../../contantss/texts/3d_texts.dart';
 import '../../controller/driver_controller/diver_banner_get_controller.dart';
+import '../../controller/employee_controllers/edit_profile_employee_controller.dart';
+import '../../controller/employee_controllers/employee_get_profile_controller.dart';
 import '../../theme_color/theme_color.dart';
 import 'book_trip.dart';
 import 'contact_support_user.dart';
@@ -120,14 +122,20 @@ class HomePage extends StatelessWidget {
   ];
   HomePage({Key? key}) : super(key: key);
 
+  EmployeeGetProfileController _employeeGetProfileController =
+      Get.put(EmployeeGetProfileController());
+
+  UpdateProfileEmployeeController _updateProfileEmployeeController =
+      Get.put(UpdateProfileEmployeeController());
+
   GlobalKey<ScaffoldState> _key = new GlobalKey();
 
   String micccallnumber = "7666008833";
 
   String customercare = "1912";
 
-  final Uri _url = Uri.parse(
-      'http://hargharbijli.bsphcl.co.in/Grievanceportal/default.aspx');
+  // final Uri _url = Uri.parse(
+  //     'http://hargharbijli.bsphcl.co.in/Grievanceportal/default.aspx');
   //
 
   //http://hargharbijli.bsphcl.co.in/Grievanceportal/default.aspx
@@ -182,11 +190,11 @@ class HomePage extends StatelessWidget {
 
   ///url launcher for web...
 
-  Future<void> _launchUrl() async {
-    if (!await launchUrl(_url)) {
-      throw 'Could not launch $_url';
-    }
-  }
+  // Future<void> _launchUrl() async {
+  //   if (!await launchUrl(_url)) {
+  //     throw 'Could not launch $_url';
+  //   }
+  // }
 
   // Function to launch URL
   Future<void> _launchURL(String url) async {
@@ -275,7 +283,6 @@ class HomePage extends StatelessWidget {
     return Scaffold(
       backgroundColor: AppColors.white,
       key: _key,
-
       //th1whtbackgrd,
       appBar: AppBar(
         elevation: 0,
@@ -539,16 +546,20 @@ class HomePage extends StatelessWidget {
                         onTap: () async {
                           //
                           ///Get.to(() => IndustryHighTension());
-
                           if (index == 0) {
-                            Get.to(ProfilePages());
+                            //isLoading.value = true; // Set loading state to true
+                            await _employeeGetProfileController
+                                .employeeprofileApi();
+                            await _updateProfileEmployeeController
+                                .fetchStates();
+                            CircularProgressIndicator();
+                            await Get.to(ProfilePages());
                             // await FlutterPhoneDirectCaller.callNumber(
                             //     micccallnumber);
                             //
                             // makePhoneCall(
                             //     "123"); // Replace with the desired phone number
                             //Get.to(SelectPahseLineRange());
-
                             ///Get.to(() => FranchisesProfilePage());
                           } else if (index == 1) {
                             // await FlutterPhoneDirectCaller.callNumber(

@@ -242,15 +242,15 @@ class LoginWithPassword extends StatelessWidget {
                                         // ProfileController _driverprofileController = Get.put(ProfileController());
                                         // EmployeeGetProfileController _employeegetprofile =
                                         // Get.put(EmployeeGetProfileController());
-                                        await _driverprofileController
+                                        _driverprofileController
                                             .driverprofileApi();
                                         _driverprofileController.onInit();
-                                        await _employeegetprofile
+                                        _employeegetprofile
                                             .employeeprofileApi();
 
                                         // Fetch banners for a specific role, e.g., "Driver"
-                                        await _bannerController.BannersApi();
-                                        Future.delayed(Duration(seconds: 1));
+                                        _bannerController.BannersApi();
+                                        // Future.delayed(Duration(seconds: 1));
                                         String password =
                                             _passwordController.text.trim();
                                         // if (password.length < 8 &&
@@ -275,7 +275,7 @@ class LoginWithPassword extends StatelessWidget {
                                         } else {
                                           await _bannerController.BannersApi();
                                           await Future.delayed(
-                                              Duration(seconds: 3));
+                                              Duration(seconds: 1));
 
                                           await _loginpasswordController
                                               .verifyPasswordApi(

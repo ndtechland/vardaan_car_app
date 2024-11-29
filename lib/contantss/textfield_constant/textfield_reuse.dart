@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 import '../../theme_color/theme_color.dart';
@@ -16,6 +17,9 @@ class CustomTextField extends StatelessWidget {
   final void Function(String)? onChanged;
   final Color? fieldColor; // Optional fieldColor parameter
   final Color? textColor; // Optional textColor parameter
+  final bool readOnly; // Optional readOnly parameter
+  final List<TextInputFormatter>?
+      inputFormatters; // Optional inputFormatters parameter
 
   const CustomTextField({
     Key? key,
@@ -31,6 +35,8 @@ class CustomTextField extends StatelessWidget {
     this.onChanged,
     this.fieldColor, // Include fieldColor in the constructor
     this.textColor, // Include textColor in the constructor
+    this.readOnly = false, // Default value for readOnly is false
+    this.inputFormatters, // Optional inputFormatters
   }) : super(key: key);
 
   @override
@@ -66,6 +72,8 @@ class CustomTextField extends StatelessWidget {
             TextInputType.text, // Default to text input type if not provided
         maxLines: maxLines, // Use maxLines or default to 1
         onChanged: onChanged,
+        readOnly: readOnly, // Set the readOnly property
+        inputFormatters: inputFormatters, // Apply inputFormatters if provided
         decoration: InputDecoration(
           border: InputBorder.none,
           prefixIcon: prefixIcon ?? const SizedBox(),

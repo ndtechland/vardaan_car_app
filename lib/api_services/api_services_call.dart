@@ -15,6 +15,8 @@ import '../contantss/fixed_text_for_api.dart';
 import '../models/driver_model/GetProfileModel.dart';
 import '../models/driver_model/driver_banner.dart';
 import '../models/employee_model/employee_grt_profile_model.dart';
+import '../models/get_city_model.dart';
+import '../models/state_get_model.dart';
 import '../module/driver/home_page_driver.dart';
 import '../module/user/create_password_employee.dart';
 import '../module/user/home_page.dart';
@@ -124,7 +126,6 @@ class ApiProvider {
   }
 
   ///todo: 3. vardaan car api  password.....
-
   Future<Map<String, dynamic>> verifyPassword(
       String mobileNumber, String password) async {
     final url = Uri.parse("${baseUrl}api/Account/VerifieyOtpOrPassword");
@@ -134,8 +135,7 @@ class ApiProvider {
       "Password": password,
     };
 
-    // Print the body before making the request
-    print("Request Body before sending the request: $body");
+    print("Request Body: $body");
 
     try {
       final response = await http.post(
@@ -144,14 +144,17 @@ class ApiProvider {
         body: json.encode(body),
       );
 
-      // Print the body again after the response
-      print("Request Body after receiving the response: $body");
+      print("Response Status Code: ${response.statusCode}");
+      print("Response Body: ${response.body}");
 
       if (response.statusCode == 200) {
-        print("Request Body after 200: $body");
+        final Map<String, dynamic> responseData = json.decode(response.body);
+
+        print("Request Body after 200pass: $body");
+        print("Request Body after 200pass: $body");
 
         print("Response after 200: ${response.body}");
-        final responseData = json.decode(response.body);
+        // final responseData = json.decode(response.body);
 
         // Extract data
         int userId = responseData["Data"]["Id"];
@@ -164,34 +167,124 @@ class ApiProvider {
         await prefs.setString("mobileNumber", mobile);
         await prefs.setString("role", role);
 
-        print("User ID: $userId");
-        print("Mobile Number: $mobile");
-        print("Role: $role");
+        print("User ID pass: $userId");
+        print("Mobile Number pass: $mobile");
+        print("Role pass: $role");
 
-        //routing..
+        ///end share preference
 
-        // Navigate to the respective home page
-        if (role.toLowerCase() == "driver") {
-          Get.to(() => HomePageDriver());
+        // Check if Data and Role keys exist
+        if (responseData.containsKey("Data") &&
+            responseData.containsKey("Role")) {
+          final data = responseData["Data"];
+
+          // Validate 'Id' field
+          if (data.containsKey("Id")) {
+            int userId = data["Id"];
+            String mobile = data["MobileNumber"];
+            String role = responseData["Role"];
+
+            // Save data in GetStorage
+            final storage = GetStorage();
+            storage.write("userId", userId);
+            storage.write("mobileNumber", mobile);
+            storage.write("role", role);
+
+            print("User data saved successfully in GetStorage.");
+
+            // Navigate based on role
+            if (role.toLowerCase() == "driver") {
+              Get.to(() => HomePageDriver());
+            } else {
+              Get.to(() => HomePage());
+            }
+
+            return responseData;
+          } else {
+            throw Exception("User ID (Id) not found in response data.");
+          }
         } else {
-          Get.to(() => HomePage());
+          throw Exception("Expected keys not found in response.");
         }
-
-        //Get.to(HomePageDriver());
-
-        // Print the response body after 200 status code
-        print("Response after 200: ${response.body}");
-
-        // Decode the response and return it
-
-        return json.decode(response.body);
       } else {
-        throw Exception('Failed to verify OTP or password');
+        print("Error: ${response.statusCode} - ${response.body}");
+        throw Exception('Failed to verify OTP or password.');
       }
     } catch (e) {
+      print("Error: $e");
       throw Exception('Error: $e');
     }
   }
+
+  ///
+
+  // Future<Map<String, dynamic>> verifyPassword(
+  //     String mobileNumber, String password) async {
+  //   final url = Uri.parse("${baseUrl}api/Account/VerifieyOtpOrPassword");
+  //
+  //   final body = {
+  //     "UserName": mobileNumber,
+  //     "Password": password,
+  //   };
+  //
+  //   // Print the body before making the request
+  //   print("Request Body before sending the request: $body");
+  //
+  //   try {
+  //     final response = await http.post(
+  //       url,
+  //       headers: {"Content-Type": "application/json"},
+  //       body: json.encode(body),
+  //     );
+  //
+  //     // Print the body again after the response
+  //     print("Request Body after receiving the response: $body");
+  //
+  //     if (response.statusCode == 200) {
+  //       print("Request Body after 200: $body");
+  //
+  //       print("Response after 200: ${response.body}");
+  //       final responseData = json.decode(response.body);
+  //
+  //       // Extract data
+  //       int userId = responseData["Data"]["Id"];
+  //       String mobile = responseData["Data"]["MobileNumber"];
+  //       String role = responseData["Role"];
+  //
+  //       // Save user data locally
+  //       SharedPreferences prefs = await SharedPreferences.getInstance();
+  //       await prefs.setInt("userId", userId);
+  //       await prefs.setString("mobileNumber", mobile);
+  //       await prefs.setString("role", role);
+  //
+  //       print("User ID: $userId");
+  //       print("Mobile Number: $mobile");
+  //       print("Role: $role");
+  //
+  //       //routing..
+  //
+  //       // Navigate to the respective home page
+  //       if (role.toLowerCase() == "driver") {
+  //         Get.to(() => HomePageDriver());
+  //       } else {
+  //         Get.to(() => HomePage());
+  //       }
+  //
+  //       //Get.to(HomePageDriver());
+  //
+  //       // Print the response body after 200 status code
+  //       print("Response after 200: ${response.body}");
+  //
+  //       // Decode the response and return it
+  //
+  //       return json.decode(response.body);
+  //     } else {
+  //       throw Exception('Failed to verify OTP or password');
+  //     }
+  //   } catch (e) {
+  //     throw Exception('Error: $e');
+  //   }
+  // }
 
   ///todo: 4. get profile driver......
   static Future<dynamic> GetDriverProfileApi() async {
@@ -590,7 +683,7 @@ class ApiProvider {
         await Future.delayed(Duration(seconds: 1));
 
         // Clear shared preferences
-        SharedPreferences.getInstance().then((prefs) => prefs.clear());
+        // SharedPreferences.getInstance().then((prefs) => prefs.clear());
 
         // Hide loading dialog
         Get.back();
@@ -665,7 +758,7 @@ class ApiProvider {
     }
   }
 
-  ///todo: 9. get profile emoployee......
+  ///todo: 9. get profile emoployee........
   static Future<dynamic> GetEmployeeProfileApi() async {
     try {
       // Retrieve the saved ID from SharedPreferences
@@ -678,7 +771,7 @@ class ApiProvider {
 
       // Use the dynamic ID in the API URL
       var url = "${baseUrl}api/Employee/GetEmployeeProfile?id=$userId";
-      print("API URL: $url");
+      print("API URL profile: $url");
 
       http.Response response = await http.get(Uri.parse(url));
       print("Response: ${response.body}");
@@ -695,6 +788,8 @@ class ApiProvider {
       print("Error: $error");
       return null;
     }
+
+    ///todo:................................
   }
 
   /// todo: 10. api for update profile....
@@ -707,7 +802,6 @@ class ApiProvider {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     int? userId = prefs.getInt("userId");
     print("okoakcoas${baseUrl}");
-
     if (userId == null) {
       throw Exception("User ID is not saved in SharedPreferences.");
     }
@@ -732,17 +826,16 @@ class ApiProvider {
   }
 
   ///todo:11. banner api,.......driver...
-  /// Fetch banners based on the role
-  static Future<dynamic> fetchBannersdriver(String role) async {
+  static Future<dynamic> fetchBannersdriver() async {
     try {
-      //Retrieve the saved ID from SharedPreferences
-      SharedPreferences prefs = await SharedPreferences.getInstance();
-      String? role1 = prefs.getString("role");
+      // Retrieve the saved role from GetStorage
+      final storage = GetStorage();
+      String? role = storage.read("role");
 
-      print("rolebanner${role1}");
+      print("Role for banner: $role");
 
-      // Use the dynamic ID in the API URL
-      var url = "${baseUrl}api/Common/GetBanner?role=$role1";
+      // Use the role in the API URL
+      var url = "${baseUrl}api/Common/GetBanner?role=$role";
       print("API URL banner: $url");
 
       http.Response response = await http.get(Uri.parse(url));
@@ -760,6 +853,35 @@ class ApiProvider {
       return null;
     }
   }
+
+  /// Fetch banners based on the role
+  // static Future<dynamic> fetchBannersdriver(String role) async {
+  //   try {
+  //     //Retrieve the saved ID from SharedPreferences
+  //     SharedPreferences prefs = await SharedPreferences.getInstance();
+  //     String? role1 = prefs.getString("role");
+  //
+  //     print("rolebanner${role1}");
+  //
+  //     // Use the dynamic ID in the API URL
+  //     var url = "${baseUrl}api/Common/GetBanner?role=$role1";
+  //     print("API URL banner: $url");
+  //
+  //     http.Response response = await http.get(Uri.parse(url));
+  //     print("Response banner: ${response.body}");
+  //
+  //     if (response.statusCode == 200) {
+  //       var BannerDriver = bannerDriverFromJson(response.body);
+  //       return BannerDriver;
+  //     } else {
+  //       print("Error: ${response.statusCode}");
+  //       return null;
+  //     }
+  //   } catch (error) {
+  //     print("Error: $error");
+  //     return null;
+  //   }
+  // }
 
   ///todo:11. banner api,.......emp...
   /// Fetch banners based on the role
@@ -854,7 +976,7 @@ class ApiProvider {
         await Future.delayed(Duration(seconds: 1));
 
         // Clear shared preferences
-        SharedPreferences.getInstance().then((prefs) => prefs.clear());
+        // SharedPreferences.getInstance().then((prefs) => prefs.clear());
 
         // Hide loading dialog
         Get.back();
@@ -929,6 +1051,146 @@ class ApiProvider {
     }
   }
 
+  ///todo 13: edit employee profile api...........
+  ///todo: 7. profile update ...driver...
+  static Future<http.Response?> updateProfileEmployeeApi(
+    BuildContext context,
+    String employeeFirstName,
+    String employeeMiddleName,
+    String employeeLastName,
+    String email,
+    String mobileNumber,
+    String employeeCurrentAddress,
+    String stateId,
+    String cityId,
+    String pincode,
+    String EmergencyContactNumber,
+  ) async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    int? userId = prefs.getInt("userId");
+    if (userId == null) {
+      throw Exception("User ID is not saved in SharedPreferences.");
+    }
+
+    var url = "${baseUrl}api/Employee/UpdateEmployeeProfile";
+    var body = jsonEncode({
+      "Id": userId,
+      "Employee_First_Name": employeeFirstName,
+      "Employee_Middle_Name": employeeMiddleName,
+      "Employee_Last_Name": employeeLastName,
+      "Email": email,
+      "MobileNumber": mobileNumber,
+      "EmployeeCurrentAddress": employeeCurrentAddress,
+      "StateId": stateId, // Hardcoded state ID for now
+      "CityId": cityId,
+      "Pincode": pincode,
+      "EmergencyContactNumber": EmergencyContactNumber,
+    });
+
+    print("Profile update request body: $body");
+
+    try {
+      http.Response response = await http.put(
+        Uri.parse(url),
+        body: body,
+        headers: {
+          "Content-Type": "application/json",
+        },
+      ).timeout(const Duration(seconds: 10));
+
+      print("Response status: ${response.statusCode}");
+      print("Response body: ${response.body}");
+
+      if (response.statusCode == 200) {
+        var responseData = json.decode(response.body);
+
+        // Show loading dialog
+        showDialog(
+          context: context,
+          barrierDismissible: false,
+          builder: (context) {
+            return const Center(
+              child: CircularProgressIndicator(),
+            );
+          },
+        );
+
+        // Simulate a delay for async operations
+        // await Future.delayed(const Duration(seconds: 1));
+
+        // Clear shared preferences (optional, ensure this behavior is intended)
+        //await prefs.clear();
+
+        // Hide loading dialog
+        //Get.back();
+
+        // Navigate to Login Page
+        // Get.offAll(() => Login());
+
+        // Show success toast
+        Fluttertoast.showToast(
+          msg: "Profile updated successfully!",
+          backgroundColor: Colors.green,
+          textColor: Colors.white,
+          toastLength: Toast.LENGTH_LONG,
+          gravity: ToastGravity.CENTER,
+        );
+      } else if (response.statusCode == 401) {
+        Fluttertoast.showToast(
+          msg: "Unauthorized access. Status code: ${response.statusCode}",
+          backgroundColor: Colors.red,
+          textColor: Colors.white,
+          toastLength: Toast.LENGTH_LONG,
+          gravity: ToastGravity.BOTTOM,
+        );
+
+        Get.snackbar('Error', response.body);
+      } else {
+        Fluttertoast.showToast(
+          msg: "Failed to update profile. Status code: ${response.statusCode}",
+          backgroundColor: Colors.red,
+          textColor: Colors.white,
+          toastLength: Toast.LENGTH_LONG,
+          gravity: ToastGravity.BOTTOM,
+        );
+
+        Get.snackbar('Error', response.body);
+      }
+
+      return response;
+    } on TimeoutException catch (_) {
+      Fluttertoast.showToast(
+        msg: "Network connection is slow or disconnected.",
+        backgroundColor: Colors.red,
+        textColor: Colors.white,
+        toastLength: Toast.LENGTH_LONG,
+        gravity: ToastGravity.BOTTOM,
+      );
+      return null;
+    } on SocketException catch (_) {
+      Fluttertoast.showToast(
+        msg:
+            "Network error: Unable to resolve host. Check your internet connection.",
+        backgroundColor: Colors.red,
+        textColor: Colors.white,
+        toastLength: Toast.LENGTH_LONG,
+        gravity: ToastGravity.BOTTOM,
+      );
+      return null;
+    } catch (error) {
+      print('Error: $error');
+
+      Fluttertoast.showToast(
+        msg: "An unexpected error occurred: $error",
+        backgroundColor: Colors.red,
+        textColor: Colors.white,
+        toastLength: Toast.LENGTH_LONG,
+        gravity: ToastGravity.BOTTOM,
+      );
+      return null;
+    }
+  }
+
   // Future<BannerResponse?> fetchBanners(String role) async {
   //   //api/Common/GetBanner?role=Driver
   //   // Retrieve the saved ID from SharedPreferences
@@ -962,7 +1224,49 @@ class ApiProvider {
   //     print('Error in fetchBanners: $e');
   //     return null;
   //   }
-  // }
+  // }............//........//...........//..........//
+
+  ///todo 13: state state api.vardaan.............
+  // Fetch States
+  /// Fetch States API
+  Future<StateModelGet> getStates() async {
+    try {
+      final url = "${baseUrl}api/Common/GetStates";
+      print("Requesting URL: $url");
+      final response = await http.get(Uri.parse(url));
+
+      if (response.statusCode == 200) {
+        final decodedData = json.decode(response.body);
+        print("API Response: $decodedData"); // Log the response
+        return StateModelGet.fromJson(decodedData);
+      } else {
+        print("API Error: ${response.statusCode} - ${response.body}");
+        throw Exception('Failed to load states');
+      }
+    } catch (e) {
+      print("Error fetching states: $e");
+      throw Exception('Error fetching states: $e');
+    }
+  }
+
+  //todo: city Fetch Cities by StateId...vardaan.....
+
+  /// Fetch Cities by StateId API
+  Future<CityModelGet> getCitiesByStateId(int stateId) async {
+    try {
+      final response = await http.get(
+          Uri.parse('${baseUrl}api/Common/GetCityByStateId?StateId=$stateId'));
+
+      if (response.statusCode == 200) {
+        // Parse the JSON into CityModelGet
+        return CityModelGet.fromJson(json.decode(response.body));
+      } else {
+        throw Exception('Failed to load cities');
+      }
+    } catch (e) {
+      throw Exception('Error fetching cities: $e');
+    }
+  }
 
   ///
 

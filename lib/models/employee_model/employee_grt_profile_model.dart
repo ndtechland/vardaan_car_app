@@ -44,7 +44,7 @@ class ProfileModelEmployeeGet {
 }
 
 class Data {
-  int? id;
+  num? id;
   String? employeeId;
   String? employeeFirstName;
   String? employeeMiddleName;
@@ -54,9 +54,9 @@ class Data {
   String? email;
   String? stateName;
   String? cityName;
-  int? stateId;
-  int? cityId;
-  int? pincode;
+  num? stateId;
+  num? cityId;
+  num? pincode;
   dynamic employeeCurrentAddress;
   String? employeeDepartment;
   dynamic employeePic;

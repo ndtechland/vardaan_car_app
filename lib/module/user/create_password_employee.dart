@@ -62,7 +62,7 @@ class CreatePasswordEmployee extends StatelessWidget {
                             child: Column(
                               children: [
                                 SizedBox(
-                                  height: 30,
+                                  height: 20,
                                 ),
                                 // Background Image
                                 // Row(
@@ -107,7 +107,7 @@ class CreatePasswordEmployee extends StatelessWidget {
                                       // Phone Number Input
                                       Container(
                                         height: isPortrait
-                                            ? screenHeight * 0.25
+                                            ? screenHeight * 0.27
                                             : screenHeight *
                                                 0.45, // Adjust for landscape
                                         decoration: BoxDecoration(

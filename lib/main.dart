@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 import 'contantss/texts/language_text_string_change.dart';
 import 'controller/language_controller.dart';
@@ -20,8 +21,11 @@ import 'module/splash_view.dart';
 
 Future<void> main() async {
   HttpOverrides.global = MyHttpOverrides();
+  WidgetsFlutterBinding.ensureInitialized();
 
   await GetStorage.init(); // Initialize GetStorage
+  // Initialize SharedPreferences
+  SharedPreferences prefs = await SharedPreferences.getInstance();
 
   SystemChrome.setPreferredOrientations([
     DeviceOrientation.portraitUp,

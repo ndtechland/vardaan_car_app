@@ -35,7 +35,9 @@ class BannerController extends GetxController {
     print('Assigned role: $role');
 
     ///
-    bannerDriver = await ApiProvider.fetchBannersdriver(role);
+    bannerDriver = await ApiProvider.fetchBannersdriver(
+        // role
+        );
 
     if (bannerDriver?.data == null) {
       Timer(
@@ -48,7 +50,9 @@ class BannerController extends GetxController {
         },
       );
       isLoading(true);
-      bannerDriver = await ApiProvider.fetchBannersdriver(role);
+      bannerDriver = await ApiProvider.fetchBannersdriver(
+          //role
+          );
     }
     if (bannerDriver?.data != null) {
       //Get.to(() => TotalPrice());
