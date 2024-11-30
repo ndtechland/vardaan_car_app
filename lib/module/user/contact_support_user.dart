@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:get/get.dart';
-import 'package:get/get_core/src/get_main.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:vardaancar/theme_color/theme_color.dart';
@@ -8,9 +8,12 @@ import 'package:vardaancar/theme_color/theme_color.dart';
 import '../../contantss/appbar/appbar_custom.dart';
 import '../../contantss/buttons/horizontal_buttom.dart';
 import '../../contantss/textfield_constant/textfield_reuse.dart';
+import '../../controller/employee_controllers/help_employee_controller.dart';
 
 class ContactUsUser extends StatelessWidget {
-  const ContactUsUser({Key? key}) : super(key: key);
+  ContactUsUser({Key? key}) : super(key: key);
+  HelpEmployeeController _helpEmployeeController =
+      Get.put(HelpEmployeeController());
 
   // Function to launch URL
   Future<void> _launchURL(String url) async {
@@ -148,294 +151,331 @@ class ContactUsUser extends StatelessWidget {
           _showEmergencyDialog(context); // Show emergency confirmation dialog
         },
       ),
-      body: Container(
-        height: size.height,
-        width: size.width,
-        child: Column(
-          children: [
-            // Add image before the first row
-            Container(
-              height: size.height * 0.25,
-              width: size.width * 0.73,
-              child: Image.asset(
-                'assets/images/supportdriver.png',
-                height: size.height * 0.33,
-                width: size.width,
-                fit: BoxFit.cover,
-              ),
-            ),
-            Padding(
-              padding: EdgeInsets.only(bottom: 8, left: 8, right: 8),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  // Call Now Button
-                  Flexible(
-                    flex: 1,
-                    child: GestureDetector(
-                      onTap: () => _launchURL('tel:9911879555'),
-                      child: Container(
-                        height: size.height * 0.12,
-                        width: size.width * 0.29,
-                        decoration: BoxDecoration(
-                          color: Colors.white,
-                          border: Border.all(color: Colors.grey.shade200),
-                          borderRadius: BorderRadius.circular(7),
-                        ),
-                        child: Column(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            Padding(
-                              padding: const EdgeInsets.all(8.0),
-                              child: Container(
-                                height: size.height * 0.06,
-                                width: size.width * 0.16,
-                                decoration: BoxDecoration(
-                                  shape: BoxShape.circle,
-                                  color: Colors.red.shade100,
-                                ),
-                                child: Icon(
-                                  Icons.call,
-                                  color: MyTheme.logored,
-                                ),
-                              ),
-                            ),
-                            Text(
-                              "Call Now",
-                              style: GoogleFonts.poppins(
-                                fontSize: size.height * 0.015,
-                                fontWeight: FontWeight.bold,
-                                color: MyTheme.logored,
-                              ),
-                            ),
-                          ],
-                        ),
-                      ),
-                    ),
-                  ),
-                  // Email Us Button
-                  Flexible(
-                    flex: 1,
-                    child: GestureDetector(
-                      onTap: () => _launchEmail(),
-                      //_launchURL('mailto:ndtechland@gmail.com'),
-                      child: Container(
-                        height: size.height * 0.12,
-                        width: size.width * 0.29,
-                        decoration: BoxDecoration(
-                          color: Colors.white,
-                          border: Border.all(color: Colors.grey.shade200),
-                          borderRadius: BorderRadius.circular(7),
-                        ),
-                        child: Column(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            Padding(
-                              padding: const EdgeInsets.all(8.0),
-                              child: Container(
-                                height: size.height * 0.06,
-                                width: size.width * 0.16,
-                                decoration: BoxDecoration(
-                                  shape: BoxShape.circle,
-                                  color: Colors.purple.shade100,
-                                ),
-                                child: Icon(
-                                  Icons.email,
-                                  color: Colors.purple.shade900,
-                                ),
-                              ),
-                            ),
-                            Text(
-                              "Email Us",
-                              style: GoogleFonts.poppins(
-                                fontSize: size.height * 0.015,
-                                fontWeight: FontWeight.bold,
-                                color: Colors.purple.shade900,
-                              ),
-                            ),
-                          ],
-                        ),
-                      ),
-                    ),
-                  ),
-                  // WhatsApp Chat Button
-                  Flexible(
-                    flex: 1,
-                    child: GestureDetector(
-                      onTap: _launchWhatsApp,
-                      child: Container(
-                        height: size.height * 0.12,
-                        width: size.width * 0.29,
-                        decoration: BoxDecoration(
-                          color: Colors.white,
-                          border: Border.all(color: Colors.grey.shade200),
-                          borderRadius: BorderRadius.circular(7),
-                        ),
-                        child: Column(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            Padding(
-                              padding: const EdgeInsets.all(8.0),
-                              child: Container(
-                                height: size.height * 0.06,
-                                width: size.width * 0.16,
-                                decoration: BoxDecoration(
-                                  shape: BoxShape.circle,
-                                  color: Colors.green.shade100,
-                                ),
-                                child: Icon(
-                                  Icons.chat,
-                                  color: Colors.green.shade900,
-                                ),
-                              ),
-                            ),
-                            Text(
-                              "Chat Now",
-                              style: GoogleFonts.poppins(
-                                fontSize: size.height * 0.015,
-                                fontWeight: FontWeight.bold,
-                                color: Colors.green.shade900,
-                              ),
-                            ),
-                          ],
-                        ),
-                      ),
-                    ),
-                  ),
-                ],
-              ),
-            ),
-            SizedBox(
-              height: size.height * 0.02,
-            ),
-            // Spacer(),
-            Expanded(
-              child: SingleChildScrollView(
+      body: Obx(
+        () => _helpEmployeeController.isLoading.value
+            ? Center(
+                child: CircularProgressIndicator(),
+              )
+            : Form(
+                key: _helpEmployeeController.helpemployeeFormKey,
+                autovalidateMode: AutovalidateMode.onUserInteraction,
                 child: Container(
-                  height: size.height * 0.49,
+                  height: size.height,
                   width: size.width,
-                  decoration: BoxDecoration(
-                    color: Colors.white,
-                    borderRadius: const BorderRadius.only(
-                      topLeft: Radius.circular(30.0),
-                      topRight: Radius.circular(30.0),
-                    ),
-                  ),
                   child: Column(
                     children: [
-                      SizedBox(height: size.height * 0.01),
-                      Align(
-                        alignment: Alignment.center,
-                        child: Padding(
-                          padding: EdgeInsets.symmetric(
-                              horizontal: size.width * 0.05),
-                          child: Text(
-                            'Quick Help?',
-                            style: GoogleFonts.poppins(
-                              fontWeight: FontWeight.w600,
-                              fontSize: size.width * 0.05,
-                            ),
-                          ),
+                      // Add image before the first row
+                      Container(
+                        height: size.height * 0.25,
+                        width: size.width * 0.73,
+                        child: Image.asset(
+                          'assets/images/supportdriver.png',
+                          height: size.height * 0.33,
+                          width: size.width,
+                          fit: BoxFit.cover,
                         ),
                       ),
-                      SizedBox(height: size.height * 0.002),
-                      Align(
-                        alignment: Alignment.centerLeft,
-                        child: Padding(
-                          padding: EdgeInsets.symmetric(
-                              horizontal: size.width * 0.05),
-                          child: Text(
-                            'Phone',
-                            style: GoogleFonts.poppins(
-                              fontWeight: FontWeight.w600,
-                              fontSize: size.width * 0.027,
-                            ),
-                          ),
-                        ),
-                      ),
-                      SizedBox(height: size.height * 0.01),
-                      Directionality(
-                        textDirection: TextDirection.ltr,
-                        child: CustomTextField(
-                          obscureText: false,
-                          textColor: MyTheme.themecolor,
-                          fieldColor: MyTheme.themecolor,
-                          hintText: 'Enter Phone',
-                          keyboardType: TextInputType.text,
-                          prefixIcon: Row(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            mainAxisSize: MainAxisSize.min,
-                            children: [
-                              Padding(
-                                padding: EdgeInsets.symmetric(horizontal: 8.0),
-                                child: Icon(
-                                  Icons.phone_android_outlined,
-                                  color: Colors.white,
+                      Padding(
+                        padding: EdgeInsets.only(bottom: 8, left: 8, right: 8),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            // Call Now Button
+                            Flexible(
+                              flex: 1,
+                              child: GestureDetector(
+                                onTap: () => _launchURL('tel:9911879555'),
+                                child: Container(
+                                  height: size.height * 0.12,
+                                  width: size.width * 0.29,
+                                  decoration: BoxDecoration(
+                                    color: Colors.white,
+                                    border:
+                                        Border.all(color: Colors.grey.shade200),
+                                    borderRadius: BorderRadius.circular(7),
+                                  ),
+                                  child: Column(
+                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    children: [
+                                      Padding(
+                                        padding: const EdgeInsets.all(8.0),
+                                        child: Container(
+                                          height: size.height * 0.06,
+                                          width: size.width * 0.16,
+                                          decoration: BoxDecoration(
+                                            shape: BoxShape.circle,
+                                            color: Colors.red.shade100,
+                                          ),
+                                          child: Icon(
+                                            Icons.call,
+                                            color: MyTheme.logored,
+                                          ),
+                                        ),
+                                      ),
+                                      Text(
+                                        "Call Now",
+                                        style: GoogleFonts.poppins(
+                                          fontSize: size.height * 0.015,
+                                          fontWeight: FontWeight.bold,
+                                          color: MyTheme.logored,
+                                        ),
+                                      ),
+                                    ],
+                                  ),
                                 ),
                               ),
-                            ],
-                          ),
+                            ),
+                            // Email Us Button
+                            Flexible(
+                              flex: 1,
+                              child: GestureDetector(
+                                onTap: () => _launchEmail(),
+                                //_launchURL('mailto:ndtechland@gmail.com'),
+                                child: Container(
+                                  height: size.height * 0.12,
+                                  width: size.width * 0.29,
+                                  decoration: BoxDecoration(
+                                    color: Colors.white,
+                                    border:
+                                        Border.all(color: Colors.grey.shade200),
+                                    borderRadius: BorderRadius.circular(7),
+                                  ),
+                                  child: Column(
+                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    children: [
+                                      Padding(
+                                        padding: const EdgeInsets.all(8.0),
+                                        child: Container(
+                                          height: size.height * 0.06,
+                                          width: size.width * 0.16,
+                                          decoration: BoxDecoration(
+                                            shape: BoxShape.circle,
+                                            color: Colors.purple.shade100,
+                                          ),
+                                          child: Icon(
+                                            Icons.email,
+                                            color: Colors.purple.shade900,
+                                          ),
+                                        ),
+                                      ),
+                                      Text(
+                                        "Email Us",
+                                        style: GoogleFonts.poppins(
+                                          fontSize: size.height * 0.015,
+                                          fontWeight: FontWeight.bold,
+                                          color: Colors.purple.shade900,
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                              ),
+                            ),
+                            // WhatsApp Chat Button
+                            Flexible(
+                              flex: 1,
+                              child: GestureDetector(
+                                onTap: _launchWhatsApp,
+                                child: Container(
+                                  height: size.height * 0.12,
+                                  width: size.width * 0.29,
+                                  decoration: BoxDecoration(
+                                    color: Colors.white,
+                                    border:
+                                        Border.all(color: Colors.grey.shade200),
+                                    borderRadius: BorderRadius.circular(7),
+                                  ),
+                                  child: Column(
+                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    children: [
+                                      Padding(
+                                        padding: const EdgeInsets.all(8.0),
+                                        child: Container(
+                                          height: size.height * 0.06,
+                                          width: size.width * 0.16,
+                                          decoration: BoxDecoration(
+                                            shape: BoxShape.circle,
+                                            color: Colors.green.shade100,
+                                          ),
+                                          child: Icon(
+                                            Icons.chat,
+                                            color: Colors.green.shade900,
+                                          ),
+                                        ),
+                                      ),
+                                      Text(
+                                        "Chat Now",
+                                        style: GoogleFonts.poppins(
+                                          fontSize: size.height * 0.015,
+                                          fontWeight: FontWeight.bold,
+                                          color: Colors.green.shade900,
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                              ),
+                            ),
+                          ],
                         ),
                       ),
-                      SizedBox(height: size.height * 0.01),
-                      Align(
-                        alignment: Alignment.centerLeft,
-                        child: Padding(
-                          padding: EdgeInsets.symmetric(
-                              horizontal: size.width * 0.05),
-                          child: Text(
-                            'Reason',
-                            style: GoogleFonts.poppins(
-                              fontWeight: FontWeight.w600,
-                              fontSize: size.width * 0.027,
+                      SizedBox(
+                        height: size.height * 0.02,
+                      ),
+                      // Spacer(),
+                      Expanded(
+                        child: SingleChildScrollView(
+                          child: Container(
+                            height: size.height * 0.49,
+                            width: size.width,
+                            decoration: BoxDecoration(
+                              color: Colors.white,
+                              borderRadius: const BorderRadius.only(
+                                topLeft: Radius.circular(30.0),
+                                topRight: Radius.circular(30.0),
+                              ),
+                            ),
+                            child: Column(
+                              children: [
+                                SizedBox(height: size.height * 0.01),
+                                Align(
+                                  alignment: Alignment.center,
+                                  child: Padding(
+                                    padding: EdgeInsets.symmetric(
+                                        horizontal: size.width * 0.05),
+                                    child: Text(
+                                      'Quick Help?',
+                                      style: GoogleFonts.poppins(
+                                        fontWeight: FontWeight.w600,
+                                        fontSize: size.width * 0.05,
+                                      ),
+                                    ),
+                                  ),
+                                ),
+                                SizedBox(height: size.height * 0.002),
+                                Align(
+                                  alignment: Alignment.centerLeft,
+                                  child: Padding(
+                                    padding: EdgeInsets.symmetric(
+                                        horizontal: size.width * 0.05),
+                                    child: Text(
+                                      'Phone',
+                                      style: GoogleFonts.poppins(
+                                        fontWeight: FontWeight.w600,
+                                        fontSize: size.width * 0.027,
+                                      ),
+                                    ),
+                                  ),
+                                ),
+                                SizedBox(height: size.height * 0.01),
+                                Directionality(
+                                  textDirection: TextDirection.ltr,
+                                  child: CustomTextField(
+                                    controller: _helpEmployeeController
+                                        .passwordController1,
+                                    obscureText: false,
+                                    textColor: MyTheme.whitecolor,
+                                    fieldColor: MyTheme.themecolor,
+                                    hintText: 'Enter Phone',
+                                    keyboardType: TextInputType.number,
+                                    inputFormatters: [
+                                      FilteringTextInputFormatter
+                                          .digitsOnly, // Restrict input to digits
+                                      LengthLimitingTextInputFormatter(
+                                          10), // Restrict to 10 digits max
+                                    ],
+                                    prefixIcon: Row(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.center,
+                                      mainAxisSize: MainAxisSize.min,
+                                      children: [
+                                        Padding(
+                                          padding: EdgeInsets.symmetric(
+                                              horizontal: 8.0),
+                                          child: Icon(
+                                            Icons.phone_android_outlined,
+                                            color: Colors.white,
+                                          ),
+                                        ),
+                                      ],
+                                    ),
+                                  ),
+                                ),
+                                SizedBox(height: size.height * 0.01),
+                                Align(
+                                  alignment: Alignment.centerLeft,
+                                  child: Padding(
+                                    padding: EdgeInsets.symmetric(
+                                        horizontal: size.width * 0.05),
+                                    child: Text(
+                                      'Reason',
+                                      style: GoogleFonts.poppins(
+                                        fontWeight: FontWeight.w600,
+                                        fontSize: size.width * 0.027,
+                                      ),
+                                    ),
+                                  ),
+                                ),
+                                SizedBox(height: size.height * 0.005),
+                                Directionality(
+                                  textDirection: TextDirection.ltr,
+                                  child: CustomTextField(
+                                    controller: _helpEmployeeController
+                                        .passwordController2,
+                                    maxLines: 3,
+                                    obscureText: false,
+                                    textColor: MyTheme.whitecolor,
+                                    fieldColor: MyTheme.themecolor,
+                                    hintText: 'Give Reason',
+                                    keyboardType: TextInputType.text,
+                                    prefixIcon: Row(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.start,
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.start,
+                                      mainAxisSize: MainAxisSize.min,
+                                      children: [
+                                        Padding(
+                                          padding: const EdgeInsets.symmetric(
+                                              horizontal: 8.0),
+                                          child: Icon(
+                                            Icons.question_mark_rounded,
+                                            color: Colors.white,
+                                          ),
+                                        ),
+                                      ],
+                                    ),
+                                  ),
+                                ),
+                                Spacer(),
+                                HorizontalButton(
+                                  text: 'Submit',
+                                  onClick: () {
+                                    if (_helpEmployeeController
+                                            .helpemployeeFormKey.currentState
+                                            ?.validate() ??
+                                        false) {
+                                      _helpEmployeeController
+                                          .checkHelp(context);
+                                    }
+                                    ;
+                                    // Validate phone number
+
+                                    //Get.back();
+                                    print('Submit clicked!');
+                                  },
+                                ),
+                                // SizedBox(height: size.height * 0.042),
+                                Spacer(),
+                              ],
                             ),
                           ),
                         ),
                       ),
-                      SizedBox(height: size.height * 0.005),
-                      Directionality(
-                        textDirection: TextDirection.ltr,
-                        child: CustomTextField(
-                          maxLines: 3,
-                          obscureText: false,
-                          textColor: MyTheme.themecolor,
-                          fieldColor: MyTheme.themecolor,
-                          hintText: 'Give Reason',
-                          keyboardType: TextInputType.text,
-                          prefixIcon: Row(
-                            mainAxisAlignment: MainAxisAlignment.start,
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            mainAxisSize: MainAxisSize.min,
-                            children: [
-                              Padding(
-                                padding:
-                                    const EdgeInsets.symmetric(horizontal: 8.0),
-                                child: Icon(
-                                  Icons.question_mark_rounded,
-                                  color: Colors.white,
-                                ),
-                              ),
-                            ],
-                          ),
-                        ),
-                      ),
-                      Spacer(),
-                      HorizontalButton(
-                        text: 'Submit',
-                        onClick: () {
-                          Get.back();
-                          print('Submit clicked!');
-                        },
-                      ),
-                      // SizedBox(height: size.height * 0.042),
-                      Spacer(),
                     ],
                   ),
                 ),
               ),
-            ),
-          ],
-        ),
       ),
     );
   }

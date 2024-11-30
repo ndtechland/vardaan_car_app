@@ -12,7 +12,7 @@ String profileModelDriverGetToJson(ProfileModelDriverGet data) =>
 
 class ProfileModelDriverGet {
   bool? succeeded;
-  int? statusCode;
+  num? statusCode;
   String? message;
   String? role;
   Data? data;
@@ -44,7 +44,7 @@ class ProfileModelDriverGet {
 }
 
 class Data {
-  int? id;
+  num? id;
   DateTime? createDate;
   String? driverName;
   String? dlNumber;

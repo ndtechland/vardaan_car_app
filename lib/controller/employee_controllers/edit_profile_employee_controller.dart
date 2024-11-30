@@ -9,6 +9,8 @@ import '../../models/state_get_model.dart';
 import '../../module/user/home_page.dart';
 import 'employee_get_profile_controller.dart';
 
+///
+
 class UpdateProfileEmployeeController extends GetxController {
   final GlobalKey<FormState> updateProfileEmployeeFormKey =
       GlobalKey<FormState>();
@@ -38,7 +40,6 @@ class UpdateProfileEmployeeController extends GetxController {
   final RxBool isLoading = false.obs;
 
   // State and City lists
-  // State and City lists (corrected types)
   RxList<StateModel> statesList = <StateModel>[].obs;
   RxList<CityModel> citiesList = <CityModel>[].obs;
 
@@ -89,9 +90,11 @@ class UpdateProfileEmployeeController extends GetxController {
 
     // Fetch states and cities on init
     fetchStates();
+    fetchCities(
+        selectedStateId.value); // Auto fetch cities for the selected state
   }
 
-// Fetch States API in your controller
+  // Fetch States API in your controller
   Future<void> fetchStates() async {
     try {
       final stateModel = await ApiProvider().getStates();
@@ -109,13 +112,19 @@ class UpdateProfileEmployeeController extends GetxController {
     }
   }
 
-// Fetch Cities by StateId API in your controller
+  // Fetch Cities by StateId API in your controller
   Future<void> fetchCities(String stateId) async {
     try {
       final cityModel =
           await ApiProvider().getCitiesByStateId(int.parse(stateId));
       if (cityModel.succeeded == true) {
         citiesList.value = cityModel.data ?? [];
+        if (selectedCityId.value.isEmpty && citiesList.isNotEmpty) {
+          // Auto-select the first city if none is selected
+          selectedCityId.value = "${citiesList.first.id}";
+          cityController.text =
+              citiesList.first.cityName ?? ''; // Update city controller text
+        }
       } else {
         Get.snackbar(
           'Error',
@@ -136,8 +145,7 @@ class UpdateProfileEmployeeController extends GetxController {
     }
   }
 
-  ///todo...
-
+  /// Update Profile API
   Future<void> updateProfileApi(BuildContext context) async {
     try {
       isLoading.value = true;
@@ -222,7 +230,7 @@ class UpdateProfileEmployeeController extends GetxController {
     super.onClose();
   }
 
-  ///custom snackbar,.....
+  /// Custom snackbar
   void showSnackbar(String title, String message, Color backgroundColor) {
     Get.snackbar(
       title,

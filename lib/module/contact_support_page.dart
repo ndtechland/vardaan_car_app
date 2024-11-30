@@ -3,6 +3,7 @@ import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:url_launcher/url_launcher.dart';
 
+import '../controller/contact_us_controller.dart';
 import '../theme_color/theme_color.dart';
 
 // URLs
@@ -65,48 +66,61 @@ Future<void> _launchEmail() async {
 }
 
 class support_page extends StatelessWidget {
-  const support_page({Key? key}) : super(key: key);
+  support_page({Key? key}) : super(key: key);
+
+  ContactUsGetController _contactUsGetController =
+      Get.put(ContactUsGetController());
 
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
-    return SafeArea(
-      child: Scaffold(
-        backgroundColor: AppColors.th1whtbackgrd,
-        body: SafeArea(
-          child: Stack(
-            clipBehavior: Clip.none,
-            children: [
-              SingleChildScrollView(
-                child: Padding(
-                  padding: EdgeInsets.symmetric(horizontal: size.width * 0.05),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      _buildHeader(size),
-                      SizedBox(height: size.height * 0.04),
-                      buildText('Address:', size, true),
-                      SizedBox(height: size.height * 0.03),
-                      buildText('Registered Office:', size, true),
-                      SizedBox(height: size.height * 0.005),
-                      buildText("Office Address needed...", size),
-                      SizedBox(height: size.height * 0.03),
-                      buildText('Corporate Office:', size, true),
-                      SizedBox(height: size.height * 0.005),
-                      buildText("Corporate Office needed", size),
-                      SizedBox(height: size.height * 0.03),
-                      buildContactSection(size),
-                      SizedBox(height: size.height * 0.03),
-                      buildEmailSection(size),
-                      SizedBox(height: size.height * 0.03),
-                      buildWebsiteSection(size),
-                    ],
-                  ),
+
+    return Scaffold(
+      backgroundColor: AppColors.th1whtbackgrd,
+      body: Obx(
+        () => (_contactUsGetController.isLoading.value)
+            ? Center(
+                child: CircularProgressIndicator(),
+              )
+            : SafeArea(
+                child: Stack(
+                  clipBehavior: Clip.none,
+                  children: [
+                    SingleChildScrollView(
+                      child: Padding(
+                        padding:
+                            EdgeInsets.symmetric(horizontal: size.width * 0.05),
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            _buildHeader(size),
+                            SizedBox(height: size.height * 0.04),
+                            buildText('Address:', size, true),
+                            SizedBox(height: size.height * 0.03),
+                            buildText('Registered Office:', size, true),
+                            SizedBox(height: size.height * 0.005),
+                            buildText(
+                                "${_contactUsGetController.getContactUsModel?.data?.headOffice.toString()}",
+                                size),
+                            SizedBox(height: size.height * 0.03),
+                            buildText('Corporate Office:', size, true),
+                            SizedBox(height: size.height * 0.005),
+                            buildText(
+                                "${_contactUsGetController.getContactUsModel?.data?.branchOne.toString()}",
+                                size),
+                            SizedBox(height: size.height * 0.03),
+                            buildContactSection(size),
+                            SizedBox(height: size.height * 0.03),
+                            buildEmailSection(size),
+                            SizedBox(height: size.height * 0.03),
+                            buildWebsiteSection(size),
+                          ],
+                        ),
+                      ),
+                    ),
+                  ],
                 ),
               ),
-            ],
-          ),
-        ),
       ),
     );
   }
@@ -162,7 +176,10 @@ class support_page extends StatelessWidget {
   Widget buildContactSection(Size size) {
     return Row(
       children: [
-        buildText('Contact : 8130874555', size, true),
+        buildText(
+            'Contact :${_contactUsGetController.getContactUsModel?.data?.employeeContactNumber}',
+            size,
+            true),
         SizedBox(width: size.width * 0.03),
         InkWell(
           onTap: () {
@@ -170,7 +187,8 @@ class support_page extends StatelessWidget {
               title: "Contact Us",
               confirm: buildButton(
                 onTap: () async {
-                  String telephoneNumber = '8130874555';
+                  String telephoneNumber =
+                      '${_contactUsGetController.getContactUsModel?.data?.employeeContactNumber}';
                   Uri telephoneUrl = Uri(scheme: 'tel', path: telephoneNumber);
                   if (await canLaunchUrl(telephoneUrl)) {
                     await launchUrl(telephoneUrl);
@@ -221,7 +239,7 @@ class support_page extends StatelessWidget {
           child: Row(
             children: [
               Text(
-                ' reservation@vardaanrentacar.com',
+                '${_contactUsGetController.getContactUsModel?.data?.emailId}',
                 style: GoogleFonts.roboto(
                   color: AppColors.a15,
                   fontSize: size.width * 0.04,
@@ -251,10 +269,10 @@ class support_page extends StatelessWidget {
           child: Row(
             children: [
               Text(
-                'www.vardaanrentacar.com',
+                '${_contactUsGetController.getContactUsModel?.data?.websiteUrl}',
                 style: GoogleFonts.poppins(
                   color: AppColors.a15,
-                  fontSize: size.width * 0.04,
+                  fontSize: size.width * 0.038,
                   fontWeight: FontWeight.w600,
                   decoration: TextDecoration.underline,
                 ),
@@ -299,7 +317,7 @@ class support_page extends StatelessWidget {
                 text,
                 style: TextStyle(
                   color: AppColors.g1,
-                  fontSize: size.width * 0.03,
+                  fontSize: size.width * 0.02,
                   fontWeight: FontWeight.bold,
                 ),
               ),

@@ -104,43 +104,6 @@ List<String> imageList = [
 
 class HomePageDriver extends StatelessWidget {
   final SwitchController switchController = Get.put(SwitchController());
-
-  final List<Testimonial> testimonials = [
-    Testimonial(
-        customerName: 'Kumar Prince',
-        description: 'Great Service! Very satisfied with the quality.',
-        rating: 5,
-        imageUrl:
-            'https://images.unsplash.com/photo-1640951613773-54706e06851d?q=80&w=2080&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D'
-        // 'https://via.placeholder.com/50'
-        ), // Sample placeholder image URL
-    Testimonial(
-        customerName: 'Kavi Singh',
-        description: 'Good service but Service was delayed.',
-        rating: 4,
-        imageUrl:
-            'https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?w=600&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1yZWxhdGVkfDZ8fHxlbnwwfHx8fHw%3D'
-        // 'https://via.placeholder.com/50'
-        ),
-    Testimonial(
-        customerName: 'Rakesh Gupta',
-        description: 'The Service did not match the description.',
-        rating: 2,
-        imageUrl:
-            'https://plus.unsplash.com/premium_photo-1689747698547-271d2d553cee?w=600&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1yZWxhdGVkfDQzfHx8ZW58MHx8fHx8'
-        //  'https://via.placeholder.com/50'
-        ),
-    Testimonial(
-        customerName: 'Michael Brown',
-        description: 'Excellent customer support!',
-        rating: 5,
-        imageUrl: 'https://via.placeholder.com/50'),
-    Testimonial(
-        customerName: 'Alice Johnson',
-        description: 'Average experience, expected better.',
-        rating: 3,
-        imageUrl: 'https://via.placeholder.com/50'),
-  ];
   HomePageDriver({Key? key}) : super(key: key);
   GlobalKey<ScaffoldState> _key = new GlobalKey();
   String micccallnumber = "7666008833";

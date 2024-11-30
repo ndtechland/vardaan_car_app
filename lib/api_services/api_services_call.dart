@@ -12,6 +12,7 @@ import 'package:http_parser/http_parser.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import '../contantss/fixed_text_for_api.dart';
+import '../models/contact_us_model.dart';
 import '../models/driver_model/GetProfileModel.dart';
 import '../models/driver_model/driver_banner.dart';
 import '../models/employee_model/employee_grt_profile_model.dart';
@@ -854,65 +855,6 @@ class ApiProvider {
     }
   }
 
-  /// Fetch banners based on the role
-  // static Future<dynamic> fetchBannersdriver(String role) async {
-  //   try {
-  //     //Retrieve the saved ID from SharedPreferences
-  //     SharedPreferences prefs = await SharedPreferences.getInstance();
-  //     String? role1 = prefs.getString("role");
-  //
-  //     print("rolebanner${role1}");
-  //
-  //     // Use the dynamic ID in the API URL
-  //     var url = "${baseUrl}api/Common/GetBanner?role=$role1";
-  //     print("API URL banner: $url");
-  //
-  //     http.Response response = await http.get(Uri.parse(url));
-  //     print("Response banner: ${response.body}");
-  //
-  //     if (response.statusCode == 200) {
-  //       var BannerDriver = bannerDriverFromJson(response.body);
-  //       return BannerDriver;
-  //     } else {
-  //       print("Error: ${response.statusCode}");
-  //       return null;
-  //     }
-  //   } catch (error) {
-  //     print("Error: $error");
-  //     return null;
-  //   }
-  // }
-
-  ///todo:11. banner api,.......emp...
-  /// Fetch banners based on the role
-  // static Future<dynamic> fetchBannersEmp() async {
-  //   try {
-  //     // Retrieve the saved ID from SharedPreferences
-  //     SharedPreferences prefs = await SharedPreferences.getInstance();
-  //     String? role = prefs.getString("role");
-  //
-  //     print("rolebanner${role}");
-  //
-  //     // Use the dynamic ID in the API URL
-  //     var url = "${baseUrl}api/Common/GetBanner?role=$role";
-  //     print("API URL banner: $url");
-  //
-  //     http.Response response = await http.get(Uri.parse(url));
-  //     print("Response banner: ${response.body}");
-  //
-  //     if (response.statusCode == 200) {
-  //       var BannerDriver = bannerDriverFromJson(response.body);
-  //       return BannerDriver;
-  //     } else {
-  //       print("Error: ${response.statusCode}");
-  //       return null;
-  //     }
-  //   } catch (error) {
-  //     print("Error: $error");
-  //     return null;
-  //   }
-  // }
-
   ///todo: 12. create password api,,,,for employee.......
   static Future<http.Response?> CreatePasswordEmployeeApi(
       BuildContext context, // Added context parameter
@@ -1226,8 +1168,7 @@ class ApiProvider {
   //   }
   // }............//........//...........//..........//
 
-  ///todo 13: state state api.vardaan.............
-  // Fetch States
+  ///todo 13: state  api.vardaan.............
   /// Fetch States API
   Future<StateModelGet> getStates() async {
     try {
@@ -1249,8 +1190,7 @@ class ApiProvider {
     }
   }
 
-  //todo: city Fetch Cities by StateId...vardaan.....
-
+  //todo:14 city Fetch Cities by StateId...vardaan.....
   /// Fetch Cities by StateId API
   Future<CityModelGet> getCitiesByStateId(int stateId) async {
     try {
@@ -1266,6 +1206,270 @@ class ApiProvider {
     } catch (e) {
       throw Exception('Error fetching cities: $e');
     }
+  }
+
+  ///todo: 15. help Api.......
+  static Future<http.Response?> HelpEmployeeApi(
+    BuildContext context, // Added context parameter
+    String PhoneNumber,
+    String Reason,
+  ) async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    int? userId = prefs.getInt("userId");
+
+    if (userId == null) {
+      throw Exception("User ID is not saved in SharedPreferences.");
+    }
+
+    //employeeId
+
+    var url = "${baseUrl}api/Employee/AddEmployeeHelp";
+    var body = jsonEncode({
+      "Employee_id": "$userId",
+      "PhoneNumber": PhoneNumber,
+      "Reason": Reason,
+    });
+
+    print("profile dvr update");
+    print(body);
+
+    try {
+      http.Response r = await http.post(
+        Uri.parse(url),
+        body: body,
+        headers: {
+          "Content-Type": "application/json",
+        },
+      ).timeout(const Duration(seconds: 10));
+
+      print(r.body);
+      print("Response help  before 200: ${r.body}");
+
+      if (r.statusCode == 200) {
+        var responseData = json.decode(r.body);
+        print("Response help after 200: ${r.body}");
+
+        // Show loading dialog
+        showDialog(
+          context: context,
+          barrierDismissible: false,
+          builder: (context) {
+            return Center(
+              child: CircularProgressIndicator(),
+            );
+          },
+        );
+        await Future.delayed(Duration(seconds: 1));
+        //Get.back();
+        Get.offAll(() => HomePage());
+
+        // Show success toast
+        Fluttertoast.showToast(
+          msg: "Submit Help successfully!",
+          backgroundColor: Colors.green,
+          textColor: Colors.white,
+          toastLength: Toast.LENGTH_LONG,
+          gravity: ToastGravity.CENTER,
+        );
+      } else if (r.statusCode == 401) {
+        Fluttertoast.showToast(
+          msg: "Unauthorized access. Status code: ${r.statusCode}",
+          backgroundColor: Colors.red,
+          textColor: Colors.white,
+          toastLength: Toast.LENGTH_LONG,
+          gravity: ToastGravity.BOTTOM,
+        );
+
+        Get.snackbar('Error', r.body);
+      } else {
+        Fluttertoast.showToast(
+          msg: "Failed to send feedback. Status code: ${r.statusCode}",
+          backgroundColor: Colors.red,
+          textColor: Colors.white,
+          toastLength: Toast.LENGTH_LONG,
+          gravity: ToastGravity.BOTTOM,
+        );
+        Get.snackbar('Error', r.body);
+      }
+      return r;
+    } on TimeoutException catch (_) {
+      Fluttertoast.showToast(
+        msg: "Network connection slow or disconnected",
+        backgroundColor: Colors.red,
+        textColor: Colors.white,
+        toastLength: Toast.LENGTH_LONG,
+        gravity: ToastGravity.BOTTOM,
+      );
+
+      return null;
+    } on SocketException catch (_) {
+      Fluttertoast.showToast(
+        msg:
+            "Network error: Unable to resolve host. Please check your internet connection.",
+        backgroundColor: Colors.red,
+        textColor: Colors.white,
+        toastLength: Toast.LENGTH_LONG,
+        gravity: ToastGravity.BOTTOM,
+      );
+
+      return null;
+    } catch (error) {
+      print('Network error: $error');
+
+      Fluttertoast.showToast(
+        msg: "Network error: $error",
+        backgroundColor: Colors.red,
+        textColor: Colors.white,
+        toastLength: Toast.LENGTH_LONG,
+        gravity: ToastGravity.BOTTOM,
+      );
+
+      return null;
+    }
+  }
+
+  ///todo: 16. feedback Api.......
+  static Future<http.Response?> FeedbackEmployeeApi(
+    BuildContext context, // Added context parameter
+    String Feedback,
+  ) async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    int? userId = prefs.getInt("userId");
+
+    if (userId == null) {
+      throw Exception("User ID is not saved in SharedPreferences.");
+    }
+
+    //employeeId
+
+    var url = "${baseUrl}api/Employee/AddEmployeeFeedback";
+    var body = jsonEncode({
+      "Employee_id": "$userId",
+      "Feedback": Feedback,
+    });
+
+    print("feedback update");
+    print(body);
+
+    try {
+      http.Response r = await http.post(
+        Uri.parse(url),
+        body: body,
+        headers: {
+          "Content-Type": "application/json",
+        },
+      ).timeout(const Duration(seconds: 10));
+
+      print(r.body);
+      print("Response help  before 200: ${r.body}");
+
+      if (r.statusCode == 200) {
+        var responseData = json.decode(r.body);
+        print("Response help after 200: ${r.body}");
+
+        // Show loading dialog
+        showDialog(
+          context: context,
+          barrierDismissible: false,
+          builder: (context) {
+            return Center(
+              child: CircularProgressIndicator(),
+            );
+          },
+        );
+        await Future.delayed(Duration(seconds: 1));
+        //Get.back();
+        Get.offAll(() => HomePage());
+
+        // Show success toast
+        Fluttertoast.showToast(
+          msg: "Submit Feedback successfully!",
+          backgroundColor: Colors.green,
+          textColor: Colors.white,
+          toastLength: Toast.LENGTH_LONG,
+          gravity: ToastGravity.CENTER,
+        );
+      } else if (r.statusCode == 401) {
+        Fluttertoast.showToast(
+          msg: "Unauthorized access. Status code: ${r.statusCode}",
+          backgroundColor: Colors.red,
+          textColor: Colors.white,
+          toastLength: Toast.LENGTH_LONG,
+          gravity: ToastGravity.BOTTOM,
+        );
+
+        Get.snackbar('Error', r.body);
+      } else {
+        Fluttertoast.showToast(
+          msg: "Failed to send Feedback. Status code: ${r.statusCode}",
+          backgroundColor: Colors.red,
+          textColor: Colors.white,
+          toastLength: Toast.LENGTH_LONG,
+          gravity: ToastGravity.BOTTOM,
+        );
+        Get.snackbar('Error', r.body);
+      }
+      return r;
+    } on TimeoutException catch (_) {
+      Fluttertoast.showToast(
+        msg: "Network connection slow or disconnected",
+        backgroundColor: Colors.red,
+        textColor: Colors.white,
+        toastLength: Toast.LENGTH_LONG,
+        gravity: ToastGravity.BOTTOM,
+      );
+
+      return null;
+    } on SocketException catch (_) {
+      Fluttertoast.showToast(
+        msg:
+            "Network error: Unable to resolve host. Please check your internet connection.",
+        backgroundColor: Colors.red,
+        textColor: Colors.white,
+        toastLength: Toast.LENGTH_LONG,
+        gravity: ToastGravity.BOTTOM,
+      );
+
+      return null;
+    } catch (error) {
+      print('Network error: $error');
+
+      Fluttertoast.showToast(
+        msg: "Network error: $error",
+        backgroundColor: Colors.red,
+        textColor: Colors.white,
+        toastLength: Toast.LENGTH_LONG,
+        gravity: ToastGravity.BOTTOM,
+      );
+
+      return null;
+    }
+  }
+
+  ///todo: 17. get contact us details ........
+  static Future<dynamic> GetContactUSApi() async {
+    try {
+      // https://api.vardaan.ndinfotech.com/api/Common/GetSupport
+      // Use the dynamic ID in the API URL
+      var url = "${baseUrl}api/Common/GetSupport";
+      print("API URL profile: $url");
+
+      http.Response response = await http.get(Uri.parse(url));
+      print("Response: ${response.body}");
+
+      if (response.statusCode == 200) {
+        var GetContactUsModel = getContactUsModelFromJson(response.body);
+        return GetContactUsModel;
+      } else {
+        print("Error: ${response.statusCode}");
+        return null;
+      }
+    } catch (error) {
+      print("Error: $error");
+      return null;
+    }
+
+    ///todo:................................
   }
 
   ///

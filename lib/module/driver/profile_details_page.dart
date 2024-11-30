@@ -56,6 +56,8 @@ class ProfilePagesDriver extends StatelessWidget {
                                         fontSize: size.height * 0.024,
                                         fontWeight: FontWeight.w500),
                                   )),
+
+                              ///
                               // Padding(
                               //   padding: const EdgeInsets.all(13.0),
                               //   child: InkWell(

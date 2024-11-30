@@ -7,6 +7,7 @@ import 'package:vardaancar/module/driver/profile_details_page.dart';
 import 'package:vardaancar/module/driver/support_driver.dart';
 import 'package:vardaancar/module/driver/update_language_driver.dart';
 
+import '../../controller/driver_controller/profile_controller_driver.dart';
 import '../../controller/phone_login_controller.dart';
 import '../../theme_color/theme_color.dart';
 import '../login_page.dart';
@@ -22,6 +23,8 @@ class CabDriverDrawer extends StatelessWidget {
     Size size = MediaQuery.of(context).size;
     final PhoneLoginController _loginController =
         Get.put(PhoneLoginController());
+
+    ProfileController _profileController = Get.put(ProfileController());
 
     final Uri _urlabout = Uri.parse('https://vardaanrentacar.com/about-us/');
     final Uri _urlprivecy =
@@ -63,14 +66,16 @@ class CabDriverDrawer extends StatelessWidget {
                     ),
                     Spacer(),
                     Text(
-                      'Kumar Prince',
+                      //
+                      "${_profileController.getdriverprofileModel!.data!.driverName.toString()}",
+                      // 'Kumar Prince',
                       style: GoogleFonts.poppins(
                           fontSize: size.height * 0.018,
                           fontWeight: FontWeight.w600,
                           color: MyTheme.themecolor),
                     ),
                     Text(
-                      'ID:34FGGE45232',
+                      "ID:${_profileController.getdriverprofileModel!.data!.id.toString()}",
                       style: GoogleFonts.poppins(
                           fontSize: size.height * 0.016,
                           fontWeight: FontWeight.w500,

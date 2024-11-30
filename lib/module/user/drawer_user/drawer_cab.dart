@@ -357,9 +357,8 @@ class CabDrawer extends StatelessWidget {
                 'Feedback'.tr,
                 style: TextStyle(fontSize: 12, fontWeight: FontWeight.w600),
               ),
-              tileColor: Get.currentRoute == '/DriverPayoutHistory'
-                  ? Colors.grey[300]
-                  : null,
+              tileColor:
+                  Get.currentRoute == '/Feedback' ? Colors.grey[300] : null,
               onTap: () async {
                 Get.back();
 

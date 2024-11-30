@@ -1,7 +1,5 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:get/get_core/src/get_main.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 import '../../contantss/appbar/appbar_custom.dart';
@@ -16,14 +14,13 @@ class notification_pagess extends StatelessWidget {
     return Scaffold(
       backgroundColor: AppColors.th1whtbackgrd,
       appBar: myAppBar(
+        onLeadingPressed: () {
+          Navigator.pop(context);
+        },
         backgroundColor: MyTheme.themecolor,
         title: 'Notifications',
         leadingIcon: Icons.arrow_back_ios_outlined,
         centerTitle: true,
-        onLeadingPressed: () {
-          Get.back();
-          // Handle leading icon press
-        },
         searchIcon: null,
         onSearchPressed: () {
           // Handle search icon press

@@ -528,7 +528,6 @@ class HomePage extends StatelessWidget {
                 height: size.height * 0.015,
               ),
               //Spacer(),
-
               GridView.builder(
                 physics: NeverScrollableScrollPhysics(),
                 shrinkWrap: true,

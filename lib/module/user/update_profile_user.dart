@@ -250,13 +250,18 @@ class EditProfilePages extends StatelessWidget {
                       ),
                       onChanged: (newValue) {
                         if (newValue != null) {
+                          // Convert newValue to int before passing it to fetchCities
+                          int stateId = int.parse(newValue);
                           _profileEmployeeController.onStateSelected(
                             newValue,
                             _profileEmployeeController.statesList
-                                .firstWhere(
-                                    (state) => state.id == int.parse(newValue))
+                                .firstWhere((state) => state.id == stateId)
                                 .stateName!,
                           );
+                          // Reset the selected city and update the city list for the selected state
+                          _profileEmployeeController.selectedCityId.value = "";
+                          _profileEmployeeController.fetchCities(
+                              "${stateId}"); // Pass the int value here
                         }
                       },
                       items: _profileEmployeeController.statesList.map((state) {
