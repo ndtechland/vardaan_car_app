@@ -1,7 +1,5 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:get/get_core/src/get_main.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 import '../../contantss/appbar/appbar_custom.dart';
@@ -50,22 +48,25 @@ class HistoryBookingTabbarUser extends StatelessWidget {
         ),
         body: SafeArea(
           child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            crossAxisAlignment: CrossAxisAlignment.center,
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Padding(
                 padding: const EdgeInsets.all(5.0),
                 child: Container(
+                  width: size.width,
                   height: size.height * 0.05,
                   color: Colors.blueGrey.shade100,
                   child: TabBar(
                     tabs: [
                       Tab(
                         child: Container(
+                          //width: size.width,
+
                           alignment: Alignment.center,
                           height: 40, // Adjust the height for unselected tabs
                           child: Text(
-                            'Canceled',
+                            'No Show',
                             style: GoogleFonts.nunitoSans(
                               fontSize: size.height * 0.019,
                               fontWeight: FontWeight.w600,
@@ -88,7 +89,7 @@ class HistoryBookingTabbarUser extends StatelessWidget {
                       ),
                     ],
                     indicator: BoxDecoration(
-                        color: MyTheme.themecolor.withOpacity(0.8),
+                        color: MyTheme.themecolor.withOpacity(0.9),
                         borderRadius: BorderRadius.circular(0),
                         border: Border.all(color: MyTheme.logored)),
                     // Empty box decoration to remove the underline

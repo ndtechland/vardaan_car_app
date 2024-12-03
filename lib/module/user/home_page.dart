@@ -10,6 +10,8 @@ import 'package:vardaancar/module/user/scheduled_booking.dart';
 import '../../contantss/buttons/horizontal_circular_button.dart';
 import '../../contantss/fixed_text_for_api.dart';
 import '../../contantss/texts/3d_texts.dart';
+import '../../controller/book_trip_controller.dart';
+import '../../controller/contact_us_controller.dart';
 import '../../controller/driver_controller/diver_banner_get_controller.dart';
 import '../../controller/employee_controllers/edit_profile_employee_controller.dart';
 import '../../controller/employee_controllers/employee_get_profile_controller.dart';
@@ -82,6 +84,12 @@ List<String> imageList = [
 ];
 
 class HomePage extends StatelessWidget {
+  ContactUsGetController _contactUsGetController =
+      Get.put(ContactUsGetController());
+  EmployeeGetProfileController _employeegetprofile =
+      Get.put(EmployeeGetProfileController());
+  final TripFormController tripformcontroller = Get.put(TripFormController());
+
   final List<Testimonial> testimonials = [
     Testimonial(
         customerName: 'Kumar Prince',
@@ -130,9 +138,9 @@ class HomePage extends StatelessWidget {
 
   GlobalKey<ScaffoldState> _key = new GlobalKey();
 
-  String micccallnumber = "7666008833";
+  //String micccallnumber = "7666008833";
 
-  String customercare = "1912";
+  // String customercare = "1912";
 
   // final Uri _url = Uri.parse(
   //     'http://hargharbijli.bsphcl.co.in/Grievanceportal/default.aspx');
@@ -233,7 +241,7 @@ class HomePage extends StatelessWidget {
             ],
           ),
           content: Text(
-            'Are you sure you want to make an emergency call to 9877889923?',
+            'Are you sure you want to make an emergency call to ${_contactUsGetController.getContactUsModel?.data?.employeeEmergencyNumber}?',
             style: TextStyle(
               fontSize: 16,
               color: Colors.black,
@@ -267,7 +275,8 @@ class HomePage extends StatelessWidget {
               ),
               onPressed: () {
                 Navigator.of(context).pop();
-                _launchURL('tel:9911879555');
+                _launchURL(
+                    'tel:${_contactUsGetController.getContactUsModel?.data?.employeeEmergencyNumber}');
               },
             ),
           ],
@@ -399,8 +408,8 @@ class HomePage extends StatelessWidget {
 
       drawer: CabDrawer(),
 
+      ///
       //todo: (sdcsc)...................
-
       body: SafeArea(
         child: SingleChildScrollView(
           child: Column(
@@ -551,6 +560,7 @@ class HomePage extends StatelessWidget {
                                 .employeeprofileApi();
                             await _updateProfileEmployeeController
                                 .fetchStates();
+                            await _employeegetprofile.employeeprofileApi();
                             CircularProgressIndicator();
                             await Get.to(ProfilePages());
                             // await FlutterPhoneDirectCaller.callNumber(
@@ -830,7 +840,39 @@ class HomePage extends StatelessWidget {
                               // await FlutterPhoneDirectCaller.callNumber(
                               // customercare);
                               //
-                              Get.to(() => TripFormPage());
+                              // Show loading dialog
+                              Get.dialog(
+                                Center(
+                                  child: CircularProgressIndicator(),
+                                ),
+                                barrierDismissible:
+                                    false, // Prevent dismissing the dialog by tapping outside
+                              );
+
+                              try {
+                                // Perform asynchronous operations
+                                await tripformcontroller.fetchTripTypes();
+                                await tripformcontroller.fetchShiftTypes();
+                                await tripformcontroller.fetchPickupShiftTime();
+                                await tripformcontroller.fetchDropShiftTime();
+                                // Navigate to the next page after operations are complete
+                                await Get.to(() => TripFormPage());
+
+                                ///todo:.......................................
+                              } finally {
+                                // Dismiss the loading dialog
+                                Get.back();
+                              }
+
+                              ///
+                              // await tripformcontroller.fetchTripTypes();
+                              // await tripformcontroller.fetchShiftTypes();
+                              // await tripformcontroller.fetchPickupShiftTime();
+                              // await tripformcontroller.fetchDropShiftTime();
+                              //
+                              // // final TripFormController tripformcontroller = Get.put(TripFormController());
+                              //
+                              // await Get.to(() => TripFormPage());
                             } else if (index == 2) {
                               ////_launchWhatsApp();
                               Get.to(() => ScheduleBookingTabbar());
@@ -1043,9 +1085,13 @@ class HomePage extends StatelessWidget {
           ),
         ),
       ),
+      //ttoo.....
+      ///.......///.......///......///........///.......///.........
     );
   }
 }
+
+///.....///.....///......///.......///.......///.......///.......///........
 
 class Mycrusial extends StatelessWidget {
   final _sliderKey = GlobalKey();

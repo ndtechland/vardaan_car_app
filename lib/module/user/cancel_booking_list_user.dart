@@ -144,7 +144,7 @@ class CanceledBookingUser extends StatelessWidget {
                                             ),
                                             child: Center(
                                               child: Text(
-                                                'CANCELED',
+                                                'NO SHOW',
                                                 style: GoogleFonts.roboto(
                                                   fontWeight: FontWeight.w600,
                                                   fontSize: 12,

@@ -18,9 +18,12 @@ class _MapTrackingState extends State<MapTracking> {
   @override
   void initState() {
     super.initState();
+
     //todo: Show the modal bottom sheet when the screen is first built
     WidgetsBinding.instance.addPostFrameCallback((_) {
       _showBottomSheet();
+
+      ///......///........///......///.......///........
     });
   }
 
@@ -35,28 +38,56 @@ class _MapTrackingState extends State<MapTracking> {
           height: 400,
           child: SingleChildScrollView(
             child: Padding(
-              padding: const EdgeInsets.all(16.0),
+              padding: EdgeInsets.symmetric(horizontal: 3, vertical: 4),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 mainAxisAlignment: MainAxisAlignment.start,
                 children: <Widget>[
-                  InkWell(
-                    onTap: () {
-                      Get.back();
-                    },
-                    onLongPress: () {
-                      Get.back();
-                    },
-                    child: Center(
-                      child: Container(
-                        height: 8,
-                        width: 50,
-                        decoration: BoxDecoration(
-                          color: Colors.black87,
-                          borderRadius: BorderRadius.circular(4),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Padding(
+                        padding: EdgeInsets.all(8.0),
+                        child: Container(
+                          width: 17,
                         ),
                       ),
-                    ),
+
+                      ///
+                      InkWell(
+                        onTap: () {
+                          Get.back();
+                        },
+                        onLongPress: () {
+                          Get.back();
+                        },
+                        child: Center(
+                          child: Container(
+                            height: 8,
+                            width: 50,
+                            decoration: BoxDecoration(
+                              color: Colors.black87,
+                              borderRadius: BorderRadius.circular(4),
+                            ),
+                          ),
+                        ),
+                      ),
+                      Container(
+                          decoration: BoxDecoration(
+                              color: Colors.grey[400], shape: BoxShape.circle
+                              // Color for Call Driver row
+                              ),
+                          child: Padding(
+                            padding: EdgeInsets.all(4.0),
+                            child: Center(
+                              child: Icon(
+                                Icons.refresh,
+                                color: Colors.black,
+                              ),
+                            ),
+                          )),
+                    ],
                   ),
 
                   Stack(
@@ -151,58 +182,149 @@ class _MapTrackingState extends State<MapTracking> {
                   _buildDetailRow('Cab Location:', '123 Main St, City'),
                   //  SizedBox(height: 16),
                   SizedBox(height: 5),
+
+                  ///
+
+                  // Row(
+                  //   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                  //   children: [
+                  //     Container(
+                  //         decoration: BoxDecoration(
+                  //             color: Colors.grey[500], shape: BoxShape.circle
+                  //             // Color for Call Driver row
+                  //             ),
+                  //         child: Padding(
+                  //           padding: const EdgeInsets.all(8.0),
+                  //           child: Center(
+                  //             child: Icon(
+                  //               Icons.refresh,
+                  //               color: Colors.white,
+                  //             ),
+                  //           ),
+                  //         )),
+                  //     SizedBox(width: 10),
+                  //     Expanded(
+                  //       child: ElevatedButton(
+                  //         onPressed: () {
+                  //           // Implement reject functionality
+                  //         },
+                  //         style: ElevatedButton.styleFrom(
+                  //             backgroundColor:
+                  //                 MyTheme.logored // Accept button color
+                  //             ), // Reject button color
+                  //         child: Text(
+                  //           'Reject',
+                  //           style: TextStyle(
+                  //             color: Colors.white,
+                  //           ),
+                  //         ),
+                  //       ),
+                  //     ),
+                  //     SizedBox(width: 6),
+                  //     Expanded(
+                  //       child: ElevatedButton(
+                  //         onPressed: () {
+                  //           // Implement accept functionality
+                  //         },
+                  //         style: ElevatedButton.styleFrom(
+                  //             backgroundColor:
+                  //                 MyTheme.themecolor), // Accept button color
+                  //         child: Text(
+                  //           'Accept',
+                  //           style: TextStyle(
+                  //             color: Colors.white,
+                  //           ),
+                  //         ),
+                  //       ),
+                  //     ),
+                  //   ],
+                  // ),
+
                   Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      Container(
-                          decoration: BoxDecoration(
-                              color: Colors.grey[500], shape: BoxShape.circle
-                              // Color for Call Driver row
+                      Image.asset(
+                        "assets/images/escort1.gif",
+                        height: MediaQuery.of(context).size.height * 0.08,
+                        width: MediaQuery.of(context).size.width * 0.14,
+                      ),
+
+                      ///....///.....///......///....///.......
+
+                      // CircleAvatar(
+                      //   radius: 25,
+                      //   backgroundImage: AssetImage(
+                      //     'assets/images/escort1.gif',
+                      //   ),
+                      //   // Driver image
+                      // ),
+
+                      SizedBox(width: 16),
+                      SizedBox(
+                        //width: MediaQuery.of(context).size.width * 0.4,
+                        height: MediaQuery.of(context).size.height * 0.05,
+                        child: Align(
+                          alignment: Alignment.centerLeft,
+                          child: Row(
+                            children: [
+                              Text(
+                                'Escort:',
+                                style: GoogleFonts.raleway(
+                                    fontSize:
+                                        MediaQuery.of(context).size.height *
+                                            0.02,
+                                    fontWeight: FontWeight.bold,
+                                    color: MyTheme.greyColor),
                               ),
-                          child: Padding(
-                            padding: const EdgeInsets.all(8.0),
-                            child: Center(
-                              child: Icon(
-                                Icons.refresh,
-                                color: Colors.white,
+                              SizedBox(
+                                width: MediaQuery.of(context).size.width * 0.2,
+                                height:
+                                    MediaQuery.of(context).size.height * 0.03,
+                                child: Text(
+                                  'Shubham',
+                                  style: GoogleFonts.raleway(
+                                      fontSize:
+                                          MediaQuery.of(context).size.height *
+                                              0.02,
+                                      fontWeight: FontWeight.bold,
+                                      color: MyTheme.logored),
+                                ),
                               ),
-                            ),
-                          )),
-                      SizedBox(width: 10),
-                      Expanded(
-                        child: ElevatedButton(
-                          onPressed: () {
-                            // Implement reject functionality
-                          },
-                          style: ElevatedButton.styleFrom(
-                              backgroundColor:
-                                  MyTheme.logored // Accept button color
-                              ), // Reject button color
-                          child: Text(
-                            'Reject',
-                            style: TextStyle(
-                              color: Colors.white,
-                            ),
+                            ],
                           ),
                         ),
                       ),
-                      SizedBox(width: 6),
-                      Expanded(
-                        child: ElevatedButton(
-                          onPressed: () {
-                            // Implement accept functionality
-                          },
-                          style: ElevatedButton.styleFrom(
-                              backgroundColor:
-                                  MyTheme.themecolor), // Accept button color
-                          child: Text(
-                            'Accept',
-                            style: TextStyle(
-                              color: Colors.white,
-                            ),
+                      Spacer(),
+                      SizedBox(
+                        //width: MediaQuery.of(context).size.width * 0.4,
+                        height: MediaQuery.of(context).size.height * 0.05,
+                        child: Align(
+                          alignment: Alignment.centerRight,
+                          child: Row(
+                            children: [
+                              Text(
+                                'ID:',
+                                style: GoogleFonts.raleway(
+                                    fontSize:
+                                        MediaQuery.of(context).size.height *
+                                            0.017,
+                                    fontWeight: FontWeight.bold,
+                                    color: MyTheme.greyColor),
+                              ),
+                              Text(
+                                '2341566',
+                                style: GoogleFonts.poppins(
+                                    fontSize:
+                                        MediaQuery.of(context).size.height *
+                                            0.017,
+                                    fontWeight: FontWeight.bold,
+                                    color: MyTheme.logored),
+                              ),
+                            ],
                           ),
                         ),
                       ),
+                      Spacer(),
                     ],
                   ),
                 ],

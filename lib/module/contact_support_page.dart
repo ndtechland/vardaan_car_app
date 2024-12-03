@@ -7,10 +7,12 @@ import '../controller/contact_us_controller.dart';
 import '../theme_color/theme_color.dart';
 
 // URLs
-final Uri websiteUrl = Uri.parse('https://vardaanrentacar.com/about-us/');
+final Uri websiteUrl =
+    Uri.parse('${_contactUsGetController.getContactUsModel?.data?.websiteUrl}');
 final Uri emailUrl = Uri.parse(
-    'mailto:reservation@vardaanrentacar.com?subject=This is a test email&body=This is a test email body');
-final Uri _urlweb = Uri.parse('https://vardaanrentacar.com/');
+    'mailto:${_contactUsGetController.getContactUsModel?.data?.emailId}?subject=This is a test email&body=This is a test email body');
+final Uri _urlweb =
+    Uri.parse('${_contactUsGetController.getContactUsModel?.data?.websiteUrl}');
 
 Future<void> _launchURL(Uri url) async {
   if (await canLaunchUrl(url)) {
@@ -20,9 +22,13 @@ Future<void> _launchURL(Uri url) async {
   }
 }
 
+ContactUsGetController _contactUsGetController =
+    Get.put(ContactUsGetController());
+
 // Launch WhatsApp
 _launchWhatsapp() async {
-  var whatsapp = "+917033355555";
+  var whatsapp =
+      "${_contactUsGetController.getContactUsModel?.data?.employeeContactNumber}";
   var whatsappAndroid =
       Uri.parse("whatsapp://send?phone=$whatsapp&text=Hi Vardaan cabs");
   if (await canLaunchUrl(whatsappAndroid)) {
@@ -268,6 +274,7 @@ class support_page extends StatelessWidget {
           ,
           child: Row(
             children: [
+              ///
               Text(
                 '${_contactUsGetController.getContactUsModel?.data?.websiteUrl}',
                 style: GoogleFonts.poppins(
@@ -277,6 +284,8 @@ class support_page extends StatelessWidget {
                   decoration: TextDecoration.underline,
                 ),
               ),
+
+              ///
               SizedBox(width: size.width * 0.02),
               InkWell(
                 onTap: () {
@@ -308,7 +317,10 @@ class support_page extends StatelessWidget {
         child: Container(
           height: size.height * 0.04,
           width: size.width * 0.26,
+
+          ///....///......///......///...............
           child: Row(
+            //...//....//.........//......//........//..........//.......
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               Icon(icon, color: iconColor, size: size.width * 0.05),

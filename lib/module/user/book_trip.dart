@@ -2,14 +2,16 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 
-import '../../../theme_color/theme_color.dart';
 import '../../contantss/appbar/appbar_custom.dart';
 import '../../contantss/buttons/horizontal_buttom.dart';
 import '../../controller/book_trip_controller.dart';
+import '../../theme_color/theme_color.dart';
 
 class TripFormPage extends StatelessWidget {
+  ///.......///........///..............///.......///........///.....
   final TripFormController tripformcontroller = Get.put(TripFormController());
 
+  ///......
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
@@ -41,37 +43,104 @@ class TripFormPage extends StatelessWidget {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  // Facility Selection
-                  // _buildSectionHeader(size, 'Select Facility'),
-                  // Container(
-                  //   width: double.infinity,
-                  //   child: _buildDropdownField(
-                  //     context,
-                  //     'Select Facility',
-                  //     tripformcontroller.selectedFacility,
-                  //     tripformcontroller.facilities,
-                  //   ),
-                  // ),
-
                   _buildSectionHeader(size, 'Shift Type'),
-                  Container(
-                    width: double.infinity,
-                    child: _buildDropdownField(
-                      context,
-                      'Select Shift Type',
-                      tripformcontroller.selectedShift,
-                      tripformcontroller.shifts,
-                    ),
+                  Obx(
+                    () => Container(
+                        width: double.infinity,
+                        // width: MediaQuery.of(context).size.width * 0.45,
+                        padding: const EdgeInsets.symmetric(horizontal: 10.0),
+                        decoration: BoxDecoration(
+                          color: MyTheme.themecolor,
+                          borderRadius: BorderRadius.circular(10.0),
+                        ),
+                        child: DropdownButtonHideUnderline(
+                          child: DropdownButton<int>(
+                            isExpanded: true,
+                            hint: const Text(
+                              "Select Shift Type",
+                              style: TextStyle(color: Colors.white),
+                            ),
+                            dropdownColor: MyTheme.themecolor,
+                            iconEnabledColor: MyTheme.whitecolor,
+                            value: tripformcontroller.selectedShiftId.value == 0
+                                ? null
+                                : tripformcontroller.selectedShiftId.value,
+                            items: tripformcontroller.shifts.map((tripType) {
+                              return DropdownMenuItem<int>(
+                                value: tripType
+                                    .id, // This should be `tripType.id`, not `String`
+                                child: Text(
+                                  tripType.tripName ?? "",
+                                  style: TextStyle(color: Colors.white),
+                                ),
+                              );
+                            }).toList(),
+                            onChanged: (int? newValue) {
+                              if (newValue != null) {
+                                tripformcontroller.selectShiftType(newValue);
+                                print("Selected Shift Type ID: $newValue");
+                              }
+                            },
+                          ),
+                        )
+                        // _buildDropdownField(
+                        //   context,
+                        //   'Select Shift Type',
+                        //   tripformcontroller.selectedShift,
+                        //   tripformcontroller.shifts,
+                        // ),
+                        ),
                   ),
                   _buildSectionHeader(size, 'Trip Type'),
-                  Container(
-                    width: double.infinity,
-                    child: _buildDropdownField(
-                      context,
-                      'Select Trip Type',
-                      tripformcontroller.selectedTripType,
-                      tripformcontroller.tripTypes,
-                    ),
+                  Obx(
+                    () => Container(
+                        width: double.infinity,
+                        // width: MediaQuery.of(context).size.width * 0.45,
+                        padding: const EdgeInsets.symmetric(horizontal: 10.0),
+                        decoration: BoxDecoration(
+                          color: MyTheme.themecolor,
+                          borderRadius: BorderRadius.circular(10.0),
+                        ),
+                        child: DropdownButtonHideUnderline(
+                          child: DropdownButton<int>(
+                            isExpanded: true,
+                            hint: const Text(
+                              "Select Trip Type",
+                              style: TextStyle(color: Colors.white),
+                            ),
+                            dropdownColor: MyTheme.themecolor,
+                            iconEnabledColor: MyTheme.whitecolor,
+                            value:
+                                tripformcontroller.selectedTripTypeId.value == 0
+                                    ? null
+                                    : tripformcontroller
+                                        .selectedTripTypeId.value,
+                            items: tripformcontroller.tripTypes.map((tripType) {
+                              return DropdownMenuItem<int>(
+                                value: tripType
+                                    .id, // This should be `tripType.id`, not `String`
+                                child: Text(
+                                  tripType.tripTypeName ?? "",
+                                  style: TextStyle(color: Colors.white),
+                                ),
+                              );
+                            }).toList(),
+                            onChanged: (int? newValue) {
+                              if (newValue != null) {
+                                tripformcontroller.selectTripType(newValue);
+                                print("Selected Trip Type ID: $newValue");
+                              }
+                            },
+                          ),
+                        )
+
+                        // _buildDropdownField(
+                        //   context,
+                        //   'Select Trip Type',
+                        //   tripformcontroller.selectedTripType,
+                        //   tripformcontroller.tripTypes,
+                        // ),
+                        ),
                   ),
                   // Start Date Selection
                   _buildSectionHeader(size, 'Select Start Date'),
@@ -84,33 +153,6 @@ class TripFormPage extends StatelessWidget {
                         )),
                   ),
 
-                  // Shift and Trip Type Selection
-                  // Row(
-                  //   mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  //   children: [
-                  //     _buildSectionHeader(size, 'Select Shift Type'),
-                  //     _buildSectionHeader(size, 'Select Trip Type'),
-                  //   ],
-                  // ),
-                  // Row(
-                  //   mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  //   children: [
-                  //     _buildDropdownField(
-                  //       context,
-                  //       'Select Shift Type',
-                  //       tripformcontroller.selectedShift,
-                  //       tripformcontroller.shifts,
-                  //     ),
-                  //     _buildDropdownField(
-                  //       context,
-                  //       'Select Trip Type',
-                  //       tripformcontroller.selectedTripType,
-                  //       tripformcontroller.tripTypes,
-                  //     ),
-                  //   ],
-                  // ),
-
-                  // End Date Selection
                   _buildSectionHeader(size, 'Select End Date'),
                   GestureDetector(
                     onTap: () => tripformcontroller.selectEndDate(context),
@@ -123,35 +165,12 @@ class TripFormPage extends StatelessWidget {
 
                   // Pickup and Drop Shift Selection
                   ///
-                  // Row(
-                  //   mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  //   children: [
-                  //     _buildSectionHeader(size, 'Select Pickup Shift'),
-                  //     _buildSectionHeader(size, 'Select Drop Shift'),
-                  //   ],
-                  // ),
-                  // Row(
-                  //   mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  //   children: [
-                  //     _buildDropdownField(
-                  //       context,
-                  //       'Pickup Shift',
-                  //       tripformcontroller.selectedPickupShift,
-                  //       tripformcontroller.shifts,
-                  //     ),
-                  //     _buildDropdownField(
-                  //       context,
-                  //       'Drop Shift',
-                  //       tripformcontroller.selectedDropShift,
-                  //       tripformcontroller.shifts,
-                  //     ),
-                  //   ],
-                  // ),
+
                   Obx(() {
-                    if (tripformcontroller.selectedTripType.value.isEmpty ||
-                        tripformcontroller.selectedTripType.value ==
-                            tripformcontroller.tripTypes[0]) {
-                      // Both Pickup and Drop
+                    // if (tripformcontroller.selectedTripType.value.isEmpty ||tripformcontroller.selectedTripType.value ==
+                    //     tripformcontroller.tripTypes[2]) {
+                    if (tripformcontroller.selectedTripTypeId == 0 ||
+                        tripformcontroller.selectedTripTypeId == 3) {
                       return Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
@@ -162,59 +181,338 @@ class TripFormPage extends StatelessWidget {
                               _buildSectionHeader(size, 'Select Drop Shift'),
                             ],
                           ),
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: [
-                              _buildDropdownField(
-                                context,
-                                'Pickup Shift',
-                                tripformcontroller.selectedPickupShift,
-                                tripformcontroller.pickupShifts,
-                              ),
-                              _buildDropdownField(
-                                context,
-                                'Drop Shift',
-                                tripformcontroller.selectedDropShift,
-                                tripformcontroller.dropShifts,
-                              ),
-                            ],
-                          ),
-                        ],
-                      );
-                    } else if (tripformcontroller.selectedTripType.value ==
-                        tripformcontroller.tripTypes[1]) {
-                      // Pickup Only
-                      return Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          _buildSectionHeader(size, 'Select Pickup Shift'),
-                          Container(
-                            width: double.infinity,
-                            child: _buildDropdownField(
-                              context,
-                              'Pickup Shift',
-                              tripformcontroller.selectedPickupShift,
-                              tripformcontroller.pickupShifts,
+                          Obx(
+                            () => Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: [
+                                Container(
+                                    // width: double.infinity,
+                                    width: MediaQuery.of(context).size.width *
+                                        0.45,
+                                    padding: const EdgeInsets.symmetric(
+                                        horizontal: 10.0),
+                                    decoration: BoxDecoration(
+                                      color: MyTheme.themecolor,
+                                      borderRadius: BorderRadius.circular(10.0),
+                                    ),
+                                    child: DropdownButtonHideUnderline(
+                                      child: DropdownButton<int>(
+                                        isExpanded: true,
+                                        hint: const Text(
+                                          "Pickup Time",
+                                          style: TextStyle(color: Colors.white),
+                                        ),
+                                        dropdownColor: MyTheme.themecolor,
+                                        iconEnabledColor: MyTheme.whitecolor,
+                                        value: tripformcontroller
+                                                    .selectedPickupShiftId
+                                                    .value ==
+                                                0
+                                            ? null
+                                            : tripformcontroller
+                                                .selectedPickupShiftId.value,
+                                        items: tripformcontroller.pickupShifts
+                                            .map((tripType) {
+                                          return DropdownMenuItem<int>(
+                                            value: tripType
+                                                .id, // This should be `tripType.id`, not `String`
+                                            child: Text(
+                                              tripType.shiftTime ?? "",
+                                              style: TextStyle(
+                                                  color: Colors.white),
+                                            ),
+                                          );
+                                        }).toList(),
+                                        onChanged: (int? newValue) {
+                                          if (newValue != null) {
+                                            tripformcontroller
+                                                .selectPickupTime(newValue);
+                                            print(
+                                                "Selected Pickup Shift Time ID: $newValue");
+                                          }
+                                        },
+                                      ),
+                                    )),
+                                Container(
+                                    // width: double.infinity,
+                                    width: MediaQuery.of(context).size.width *
+                                        0.45,
+                                    padding: const EdgeInsets.symmetric(
+                                        horizontal: 10.0),
+                                    decoration: BoxDecoration(
+                                      color: MyTheme.themecolor,
+                                      borderRadius: BorderRadius.circular(10.0),
+                                    ),
+                                    child: DropdownButtonHideUnderline(
+                                      child: DropdownButton<int>(
+                                        isExpanded: true,
+                                        hint: const Text(
+                                          "Drop Time",
+                                          style: TextStyle(color: Colors.white),
+                                        ),
+                                        dropdownColor: MyTheme.themecolor,
+                                        iconEnabledColor: MyTheme.whitecolor,
+                                        value: tripformcontroller
+                                                    .selectedDropShiftId
+                                                    .value ==
+                                                0
+                                            ? null
+                                            : tripformcontroller
+                                                .selectedDropShiftId.value,
+                                        items: tripformcontroller.dropShifts
+                                            .map((tripType) {
+                                          return DropdownMenuItem<int>(
+                                            value: tripType
+                                                .id, // This should be `tripType.id`, not `String`
+                                            child: Text(
+                                              tripType.shiftTime ?? "",
+                                              style: TextStyle(
+                                                  color: Colors.white),
+                                            ),
+                                          );
+                                        }).toList(),
+                                        onChanged: (int? newValue) {
+                                          if (newValue != null) {
+                                            tripformcontroller
+                                                .selectDropTime(newValue);
+                                            print(
+                                                "Selected drop Shift Time ID: $newValue");
+                                          }
+                                        },
+                                      ),
+                                    )),
+                                // _buildDropdownField(
+                                //   context,
+                                //   'Pickup Shift',
+                                //   tripformcontroller.selectedPickupShift,
+                                //   tripformcontroller.pickupShifts,
+                                // ),
+                                // _buildDropdownField(
+                                //   context,
+                                //   'Drop Shift',
+                                //   tripformcontroller.selectedDropShift,
+                                //   tripformcontroller.dropShifts,
+                                // ),
+                              ],
                             ),
                           ),
                         ],
                       );
-                    } else if (tripformcontroller.selectedTripType.value ==
-                        tripformcontroller.tripTypes[2]) {
+                      // }
+                      // // Both Pickup and Drop
+                      // return Column(
+                      //   crossAxisAlignment: CrossAxisAlignment.start,
+                      //   children: [
+                      //     Row(
+                      //       mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      //       children: [
+                      //         _buildSectionHeader(size, 'Select Pickup Shift'),
+                      //         _buildSectionHeader(size, 'Select Drop Shift'),
+                      //       ],
+                      //     ),
+                      //     Obx(()=>
+                      //     Row(
+                      //         mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      //         children: [
+                      //           Container(
+                      //               // width: double.infinity,
+                      //                width: MediaQuery.of(context).size.width * 0.45,
+                      //               padding: const EdgeInsets.symmetric(horizontal: 10.0),
+                      //               decoration: BoxDecoration(
+                      //                 color: MyTheme.themecolor,
+                      //                 borderRadius: BorderRadius.circular(10.0),
+                      //               ),
+                      //               child: DropdownButtonHideUnderline(
+                      //                 child: DropdownButton<int>(
+                      //                   isExpanded: true,
+                      //                   hint: const Text("Pickup Time",style: TextStyle(color: Colors.white),),
+                      //                   dropdownColor: MyTheme.themecolor,
+                      //                   iconEnabledColor: MyTheme.whitecolor,
+                      //                   value: tripformcontroller.selectedPickupShiftId.value == 0
+                      //                       ? null
+                      //                       : tripformcontroller.selectedPickupShiftId.value,
+                      //                   items: tripformcontroller.pickupShifts.map((tripType) {
+                      //                     return DropdownMenuItem<int>(
+                      //                       value: tripType.id,  // This should be `tripType.id`, not `String`
+                      //                       child: Text(tripType.shiftTime ?? "",style: TextStyle(color: Colors.white),),
+                      //                     );
+                      //                   }).toList(),
+                      //                   onChanged: (int? newValue) {
+                      //                     if (newValue != null) {
+                      //                       tripformcontroller.selectPickupTime(newValue);
+                      //                       print("Selected Pickup Shift Time ID: $newValue");
+                      //                     }
+                      //                   },
+                      //                 ),
+                      //               )
+                      //           ),
+                      //           Container(
+                      //               // width: double.infinity,
+                      //                width: MediaQuery.of(context).size.width * 0.45,
+                      //               padding: const EdgeInsets.symmetric(horizontal: 10.0),
+                      //               decoration: BoxDecoration(
+                      //                 color: MyTheme.themecolor,
+                      //                 borderRadius: BorderRadius.circular(10.0),
+                      //               ),
+                      //               child: DropdownButtonHideUnderline(
+                      //                 child: DropdownButton<int>(
+                      //                   isExpanded: true,
+                      //                   hint: const Text("Drop Time",style: TextStyle(color: Colors.white),),
+                      //                   dropdownColor: MyTheme.themecolor,
+                      //                   iconEnabledColor: MyTheme.whitecolor,
+                      //                   value: tripformcontroller.selectedDropShiftId.value == 0
+                      //                       ? null
+                      //                       : tripformcontroller.selectedDropShiftId.value,
+                      //                   items: tripformcontroller.dropShifts.map((tripType) {
+                      //                     return DropdownMenuItem<int>(
+                      //                       value: tripType.id,  // This should be `tripType.id`, not `String`
+                      //                       child: Text(tripType.shiftTime ?? "",style: TextStyle(color: Colors.white),),
+                      //                     );
+                      //                   }).toList(),
+                      //                   onChanged: (int? newValue) {
+                      //                     if (newValue != null) {
+                      //                       tripformcontroller.selectDropTime(newValue);
+                      //                       print("Selected drop Shift Time ID: $newValue");
+                      //                     }
+                      //                   },
+                      //                 ),
+                      //               )
+                      //           ),
+                      //           // _buildDropdownField(
+                      //           //   context,
+                      //           //   'Pickup Shift',
+                      //           //   tripformcontroller.selectedPickupShift,
+                      //           //   tripformcontroller.pickupShifts,
+                      //           // ),
+                      //           // _buildDropdownField(
+                      //           //   context,
+                      //           //   'Drop Shift',
+                      //           //   tripformcontroller.selectedDropShift,
+                      //           //   tripformcontroller.dropShifts,
+                      //           // ),
+                      //         ],
+                      //       ),
+                      //     ),
+                      //   ],
+                      // );
+                    } else if (tripformcontroller.selectedTripTypeId == 1) {
+                      // Pickup Only
+                      return Obx(
+                        () => Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            _buildSectionHeader(size, 'Select Pickup Shift'),
+                            // Obx(()=>
+                            Container(
+                                width: double.infinity,
+                                // width: MediaQuery.of(context).size.width * 0.45,
+                                padding: const EdgeInsets.symmetric(
+                                    horizontal: 10.0),
+                                decoration: BoxDecoration(
+                                  color: MyTheme.themecolor,
+                                  borderRadius: BorderRadius.circular(10.0),
+                                ),
+                                child: DropdownButtonHideUnderline(
+                                  child: DropdownButton<int>(
+                                    isExpanded: true,
+                                    hint: const Text(
+                                      "Pickup Time",
+                                      style: TextStyle(color: Colors.white),
+                                    ),
+                                    dropdownColor: MyTheme.themecolor,
+                                    iconEnabledColor: MyTheme.whitecolor,
+                                    value: tripformcontroller
+                                                .selectedPickupShiftId.value ==
+                                            0
+                                        ? null
+                                        : tripformcontroller
+                                            .selectedPickupShiftId.value,
+                                    items: tripformcontroller.pickupShifts
+                                        .map((tripType) {
+                                      return DropdownMenuItem<int>(
+                                        value: tripType
+                                            .id, // This should be `tripType.id`, not `String`
+                                        child: Text(
+                                          tripType.shiftTime ?? "",
+                                          style: TextStyle(color: Colors.white),
+                                        ),
+                                      );
+                                    }).toList(),
+                                    onChanged: (int? newValue) {
+                                      if (newValue != null) {
+                                        tripformcontroller
+                                            .selectPickupTime(newValue);
+                                        print(
+                                            "Selected Pickup Shift Time ID: $newValue");
+                                      }
+                                    },
+                                  ),
+                                )),
+                          ],
+                        ),
+                      );
+                    } else if (tripformcontroller.selectedTripTypeId == 2) {
                       // Drop Only
                       return Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           _buildSectionHeader(size, 'Select Drop Shift'),
-                          Container(
-                            width: double.infinity,
-                            child: _buildDropdownField(
-                              context,
-                              'Drop Shift',
-                              tripformcontroller.selectedDropShift,
-                              tripformcontroller.dropShifts,
-                            ),
+                          Obx(
+                            () => Container(
+                                width: double.infinity,
+                                // width: MediaQuery.of(context).size.width * 0.45,
+                                padding: const EdgeInsets.symmetric(
+                                    horizontal: 10.0),
+                                decoration: BoxDecoration(
+                                  color: MyTheme.themecolor,
+                                  borderRadius: BorderRadius.circular(10.0),
+                                ),
+                                child: DropdownButtonHideUnderline(
+                                  child: DropdownButton<int>(
+                                    isExpanded: true,
+                                    hint: const Text(
+                                      "Drop Time",
+                                      style: TextStyle(color: Colors.white),
+                                    ),
+                                    dropdownColor: MyTheme.themecolor,
+                                    iconEnabledColor: MyTheme.whitecolor,
+                                    value: tripformcontroller
+                                                .selectedDropShiftId.value ==
+                                            0
+                                        ? null
+                                        : tripformcontroller
+                                            .selectedDropShiftId.value,
+                                    items: tripformcontroller.dropShifts
+                                        .map((tripType) {
+                                      return DropdownMenuItem<int>(
+                                        value: tripType
+                                            .id, // This should be `tripType.id`, not `String`
+                                        child: Text(
+                                          tripType.shiftTime ?? "",
+                                          style: TextStyle(color: Colors.white),
+                                        ),
+                                      );
+                                    }).toList(),
+                                    onChanged: (int? newValue) {
+                                      if (newValue != null) {
+                                        tripformcontroller
+                                            .selectDropTime(newValue);
+                                        print(
+                                            "Selected drop Shift Time ID: $newValue");
+                                      }
+                                    },
+                                  ),
+                                )),
                           ),
+                          // Container(
+                          //   width: double.infinity,
+                          //   child: _buildDropdownField(
+                          //     context,
+                          //     'Drop Shift',
+                          //     tripformcontroller.selectedDropShift,
+                          //     tripformcontroller.dropShifts,
+                          //   ),
+                          // ),
                         ],
                       );
                     }
@@ -227,8 +525,9 @@ class TripFormPage extends StatelessWidget {
                     alignment: Alignment.center,
                     child: HorizontalButton(
                       text: 'Book',
-                      onClick: () {
-                        Get.back();
+                      onClick: () async {
+                        ///Get.back();
+                        await tripformcontroller.sendBookTripApi();
                         print('Container clicked!');
                       },
                     ),

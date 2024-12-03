@@ -8,12 +8,14 @@ import 'package:vardaancar/theme_color/theme_color.dart';
 import '../../contantss/appbar/appbar_custom.dart';
 import '../../contantss/buttons/horizontal_buttom.dart';
 import '../../contantss/textfield_constant/textfield_reuse.dart';
+import '../../controller/contact_us_controller.dart';
 import '../../controller/employee_controllers/help_employee_controller.dart';
 
 class ContactUsUser extends StatelessWidget {
   ContactUsUser({Key? key}) : super(key: key);
-  HelpEmployeeController _helpEmployeeController =
-      Get.put(HelpEmployeeController());
+
+  ContactUsGetController _contactUsGetController =
+      Get.put(ContactUsGetController());
 
   // Function to launch URL
   Future<void> _launchURL(String url) async {
@@ -24,22 +26,31 @@ class ContactUsUser extends StatelessWidget {
     }
   }
 
+  HelpEmployeeController _helpEmployeeController =
+      Get.put(HelpEmployeeController());
+
   // Function to handle WhatsApp launch
+
   Future<void> _launchWhatsApp() async {
-    const phoneNumber =
-        '+919911879555'; // WhatsApp number (must be in international format)
+    final phoneNumber = _contactUsGetController
+        .getContactUsModel?.data?.employeeContactNumber; // WhatsApp number
+    if (phoneNumber == null || phoneNumber.isEmpty) {
+      Get.snackbar('Error', 'Contact number not available.');
+      return;
+    }
+
     final whatsappUrl = 'https://wa.me/$phoneNumber';
     if (await canLaunch(whatsappUrl)) {
       await launch(whatsappUrl);
     } else {
-      throw 'Could not launch WhatsApp';
+      Get.snackbar('Error', 'Could not launch WhatsApp.');
     }
   }
 
   Future<void> _launchEmail() async {
     final Uri emailLaunchUri = Uri(
       scheme: 'mailto',
-      path: 'bhupal@vardaanrentacar.com',
+      path: '${_contactUsGetController.getContactUsModel?.data?.emailId}',
       queryParameters: {
         'subject': 'Support Request',
         'body': 'Hello, I need help with...', // Customize your email body
@@ -47,7 +58,7 @@ class ContactUsUser extends StatelessWidget {
     );
 
     try {
-      // Using launchUrl method
+      // Using launchUrl method..................
       if (await launchUrl(emailLaunchUri)) {
         // Email client launched successfully
       } else {
@@ -90,7 +101,7 @@ class ContactUsUser extends StatelessWidget {
             ],
           ),
           content: Text(
-            'Are you sure you want to make an emergency call to 9877889923?',
+            'Are you sure you want to make an emergency call to ${_contactUsGetController.getContactUsModel?.data?.employeeEmergencyNumber}?',
             style: TextStyle(
               fontSize: 16,
               color: Colors.black,
@@ -124,7 +135,8 @@ class ContactUsUser extends StatelessWidget {
               ),
               onPressed: () {
                 Navigator.of(context).pop();
-                _launchURL('tel:9911879555');
+                _launchURL(
+                    'tel:${_contactUsGetController.getContactUsModel?.data?.employeeEmergencyNumber}');
               },
             ),
           ],
@@ -184,7 +196,8 @@ class ContactUsUser extends StatelessWidget {
                             Flexible(
                               flex: 1,
                               child: GestureDetector(
-                                onTap: () => _launchURL('tel:9911879555'),
+                                onTap: () => _launchURL(
+                                    'tel:${_contactUsGetController.getContactUsModel?.data?.employeeContactNumber}'),
                                 child: Container(
                                   height: size.height * 0.12,
                                   width: size.width * 0.29,

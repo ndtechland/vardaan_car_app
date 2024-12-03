@@ -44,7 +44,7 @@ class ProfileModelEmployeeGet {
 }
 
 class Data {
-  num? id;
+  int? id;
   String? employeeId;
   String? employeeFirstName;
   String? employeeMiddleName;
@@ -54,13 +54,15 @@ class Data {
   String? email;
   String? stateName;
   String? cityName;
-  num? stateId;
-  num? cityId;
-  num? pincode;
-  dynamic employeeCurrentAddress;
+  int? stateId;
+  int? cityId;
+  int? pincode;
+  String? employeeCurrentAddress;
   String? employeeDepartment;
   dynamic employeePic;
+  String? gender;
   DateTime? createdDate;
+  int? companyId;
 
   Data({
     this.id,
@@ -79,7 +81,9 @@ class Data {
     this.employeeCurrentAddress,
     this.employeeDepartment,
     this.employeePic,
+    this.gender,
     this.createdDate,
+    this.companyId,
   });
 
   factory Data.fromJson(Map<String, dynamic> json) => Data(
@@ -99,9 +103,11 @@ class Data {
         employeeCurrentAddress: json["EmployeeCurrentAddress"],
         employeeDepartment: json["EmployeeDepartment"],
         employeePic: json["EmployeePic"],
+        gender: json["Gender"],
         createdDate: json["CreatedDate"] == null
             ? null
             : DateTime.parse(json["CreatedDate"]),
+        companyId: json["Company_Id"],
       );
 
   Map<String, dynamic> toJson() => {
@@ -121,6 +127,8 @@ class Data {
         "EmployeeCurrentAddress": employeeCurrentAddress,
         "EmployeeDepartment": employeeDepartment,
         "EmployeePic": employeePic,
+        "Gender": gender,
         "CreatedDate": createdDate?.toIso8601String(),
+        "Company_Id": companyId,
       };
 }
